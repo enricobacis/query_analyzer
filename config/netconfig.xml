@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<network>
+	<node>
+		<node-type>Storage Server</node-type>
+		<node-policy>Encrypted</node-policy>
+		<node-data>customer</node-data>
+	</node>
+	<node>
+		<node-type>Storage Server</node-type>
+		<node-policy>Encrypted</node-policy>
+		<node-data>orders</node-data>
+	</node>
+	<node>
+		<node-type>Storage Server</node-type>
+		<node-policy>Encrypted</node-policy>
+		<node-data>lineitem</node-data>
+	</node>
+	<node>
+		<node-type>Computational Server</node-type>
+		<node-policy>Mixed</node-policy>
+		<node-data>customer</node-data>
+	</node>
+	<node>
+		<node-type>Client</node-type>
+		<node-policy>Plain</node-policy>
+		<node-data>none</node-data>
+	</node>
+</network>
