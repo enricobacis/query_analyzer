@@ -16,5 +16,10 @@ public class EncSchemes {
 	{
 		return schemes.toString();
 	}
+	
+	public HashMap<String, ArrayList<String>> getSchemes()
+	{
+		return schemes;
+	}
 
 }

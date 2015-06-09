@@ -41,7 +41,7 @@ public class ParserEncSchemes {
 					
 					if (qName.equalsIgnoreCase("SCHEMA")) {
 						schema = true;
-						tmp_schema = attributes.getValue("name");
+						tmp_schema = attributes.getValue("tag");
 						tmp_operator = null;
 						tmp_operator = new ArrayList<String>(); 
 					}

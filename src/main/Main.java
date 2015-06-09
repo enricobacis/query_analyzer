@@ -2,6 +2,7 @@ package main;
 
 import java.util.ArrayList;
 
+import enviroment.Analyzer;
 import network.Network;
 import model.EncSchemes;
 import model.Operator;
@@ -45,6 +46,10 @@ public class Main {
 		/* PARSING DELLA CONFIGURAZIONE DEGLI OPERATORI */
 		EncSchemes encSchemes = new EncSchemes(parserencschemes.parseDocument("config/encschemes.xml"));
 		System.out.println(encSchemes.showEncSchemes());
+		
+		/* ANALISI DELLA QUERY */
+		Analyzer analyzer = new Analyzer();
+		analyzer.Analyze(encSchemes, queryOperators, network);
 		
 
 	}

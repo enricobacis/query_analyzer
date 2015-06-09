@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <encryption>
 	<schema name="Non-Deterministic Encryption" tag="NDET">
+		<operator>Seq Scan</operator>
 	</schema>
 	<schema name="Deterministic Encryption" tag="DET">
 		<operator>Hash Join</operator>
