@@ -4,16 +4,20 @@ import java.util.ArrayList;
 
 public class Network {
 	
-	public ArrayList<Node> nodes;
+	private ArrayList<Node> nodes;
 	
-	public Network()
+	public Network(ArrayList<Node> list)
 	{
-		//do nothing
+		nodes = list;
 	}
 	
-	public void scanNetwork(String netconfig)
+	public String showNetwork()
 	{
-		
+		String output = "Network: \n";
+		for(int i = 0;i<nodes.size();i++)
+			output += nodes.get(i).toString()+"\n";
+		return output;
+			
 	}
 
 }

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-import model.Operator;
+import network.Node;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -14,32 +14,23 @@ import org.xml.sax.helpers.DefaultHandler;
 //basato su SAX
 public class ParserNetwork {
 	
-	public static boolean plan;
-	public static boolean plans;
+	public static boolean node;
 	public static boolean node_type;
-	public static boolean parent_relationship;
-	public static boolean relation_name;
+	public static boolean node_policy;
+	public static boolean node_data;
 	
 	private String tmp_node_type;
-	private String tmp_parent_relationship;
-	private String tmp_relation_name;
+	private String tmp_node_policy;
+	private String tmp_node_data;
 	
 	public ParserNetwork()
 	{
 		//...singleton?
 	}
 	
-	
-	/*
-	 * Logica del parse: ad ogno i nodo "plan" crea una struttura, nella quale vado ad inserire diversi campi
-	 * ->tipo di operatore (node type)
-	 * ->parent relationship
-	 * ->tabella coinvolta (relation name)
-	 *  
-	 */
-	public ArrayList<Operator> parseDocument(String res)
+	public ArrayList<Node> parseDocument(String res)
 	{
-		final ArrayList<Operator> output = new ArrayList<Operator>();
+		final ArrayList<Node> output = new ArrayList<Node>();
 		
 		
     try { 
@@ -56,12 +47,12 @@ public class ParserNetwork {
 						node_type = true;
 					}
 					
-					if (qName.equalsIgnoreCase("RELATION-NAME")) {
-						relation_name = true;
+					if (qName.equalsIgnoreCase("NODE-POLICY")) {
+						node_policy = true;
 					}
 					
-					if (qName.equalsIgnoreCase("PARENT-RELATIONSHIP")) {
-						parent_relationship = true;
+					if (qName.equalsIgnoreCase("NODE-DATA")) {
+						node_data = true;
 					}
 					
 			 
@@ -70,10 +61,8 @@ public class ParserNetwork {
 				public void endElement(String uri, String localName,
 					String qName) throws SAXException {
 					
-					if (qName.equalsIgnoreCase("OUTPUT")) {						
-						output.add(new Operator(tmp_node_type,
-												tmp_parent_relationship,
-												tmp_relation_name));
+					if (qName.equalsIgnoreCase("NODE")) {						
+						output.add(new Node(tmp_node_type, tmp_node_policy, tmp_node_data));
 					}
 			 
 				}
@@ -88,18 +77,18 @@ public class ParserNetwork {
 						node_type = false;
 					}
 					
-					if (parent_relationship) {
+					if (node_policy) {
 						String value = new String(ch, start, length);
 						//System.out.println(value);
-						tmp_parent_relationship = value;
-						parent_relationship = false;
+						tmp_node_policy = value;
+						node_policy = false;
 					}
 					
-					if (relation_name) {
+					if (node_data) {
 						String value = new String(ch, start, length);
 						//System.out.println(value);
-						tmp_relation_name = value;
-						relation_name = false;
+						tmp_node_data = value;
+						node_data = false;
 					}
 					
 					

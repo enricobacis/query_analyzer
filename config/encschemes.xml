@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<encryption>
+	<schema name="Non-Deterministic Encryption" tag="NDET">
+	</schema>
+	<schema name="Deterministic Encryption" tag="DET">
+		<operator>Hash Join</operator>
+		<operator>Hash</operator>
+	</schema>
+	<schema name="Order Preserving Encryption" tag="OPE">
+		<operator>Sort</operator>
+		<operator>Aggregate</operator>
+	</schema>
+	<schema name="Paillier Cryptosystem" tag="PHE">
+		<operator>Sum</operator>
+		<operator>Aggregate</operator>
+	</schema>	
+</encryption>
