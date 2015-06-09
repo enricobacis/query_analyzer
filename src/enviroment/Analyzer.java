@@ -61,6 +61,13 @@ public class Analyzer {
 		
 		//2 scansione di ogni operatore con il costo, genero tutte le possibili alternative
 		
+		//2.0 per ogni possibilità adotto un sistema simil "contatori" per provarle tutte
+		int counterSize = operators.size();
+		int[] counters = new int[counterSize];
+		for(int i = 0;i<counters.length;i++)
+			counters[i] = 1;
+		int[] countersMax = new int[counterSize];
+		
 		//2.1 calcolo il totale delle alternative				
 		int possibility = 1;
 		for(int i = 0;i<operators.size();i++)
@@ -68,13 +75,10 @@ public class Analyzer {
 			Operator currentOperator = operators.get(i);
 			ArrayList<String> currentOperatorMethods = encTable.get(currentOperator.getNodeType());
 			possibility *= currentOperatorMethods.size();			
+			countersMax[i] = currentOperatorMethods.size();
 		}
 		
-		//2.2 per ogni possibilità adotto un sistema simil "contatori" per provarle tutte
-		int counterSize = operators.size();
-		int[] counters = new int[counterSize];
-		for(int i = 0;i<counters.length;i++)
-			counters[i] = 1;
+		
 		
 		//2.3 genero le possibilità
 		while(possibility > 0)

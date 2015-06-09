@@ -51,7 +51,7 @@ public class Main {
 		Analyzer analyzer = new Analyzer();
 		analyzer.Analyze(encSchemes, queryOperators, network);
 		
-
+		System.out.println(2%1);
 	}
 
 }
