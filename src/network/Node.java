@@ -2,22 +2,35 @@ package network;
 
 public class Node {
 
-	private String name;
+	private String type;
 	private String policy;
 	private String data;
+	private String name;
 	
-	public Node(String n,String p,String d)
+	public Node(String t,String p,String d, String n)
 	{
-		name = n;
+		type = t;
 		policy = p;
 		data = d;
+		name = n;
 	}
 	
 	public String toString()
 	{
-		return "Name: "+name+
+		return "Type: "+type+
+				" | Name: "+name+
 				" | Policy: "+policy+
 				" | Data: "+data;
+	}
+	
+	public String getData()
+	{
+		return data;
+	}
+	
+	public String getName()
+	{
+		return name;
 	}
 	
 }

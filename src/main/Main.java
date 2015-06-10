@@ -50,8 +50,9 @@ public class Main {
 		/* ANALISI DELLA QUERY */
 		Analyzer analyzer = new Analyzer();
 		analyzer.Analyze(encSchemes, queryOperators, network);
+		System.out.println("MIN COST: "+analyzer.getMinCost());
+		System.out.println("OPERATIONS: "+analyzer.getOperations());
 		
-		System.out.println(2%1);
 	}
 
 }

@@ -1,4 +1,5 @@
 <?xml version="1.0"?>
+<!-- Occorre valutare tutti gli operatori del TPCH ed inserirli qui -->
 <encryption>
 	<schema name="Non-Deterministic Encryption" tag="NDET">
 		<operator>Seq Scan</operator>

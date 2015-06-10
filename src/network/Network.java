@@ -20,4 +20,11 @@ public class Network {
 			
 	}
 
+	public String searchNodeByRelation(String dataNeeded) {
+		for(int i=0;i<nodes.size();i++)
+			if(nodes.get(i).getData().equals(dataNeeded))
+				return nodes.get(i).getName();
+		return "noFound";
+	}
+
 }

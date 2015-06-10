@@ -20,9 +20,14 @@ public class Analyzer {
 	private final int OPE_COST = 50;
 	private final int PHE_COST = 100;
 	
+	//variabili frutto dell'analisi
+	private int minCost;
+	private String defOperations;
+	
 	public Analyzer()
 	{
-		
+		minCost = -1;
+		defOperations = "";
 	}
 	
 	public void Analyze(EncSchemes encSchemes, ArrayList<Operator> operators, Network network)
@@ -83,13 +88,72 @@ public class Analyzer {
 		//2.3 genero le possibilità
 		while(possibility > 0)
 		{
+			int localCost = 0;
+			String localOperations = "";
+			for(int i = 0;i<operators.size();i++)
+			{
+				//nodo sul quale eseguire l'operazione ANDRà SICURAMENTE ESTESO CON ALTRE VARIABILI
+				String dataNeeded = operators.get(i).getRelationName();
+				if(dataNeeded != null)
+				{
+					if(dataNeeded.equals("none"))
+						dataNeeded = "NoNodeNeeded";
+					else
+						dataNeeded = network.searchNodeByRelation(dataNeeded);
+				}
+				else
+					dataNeeded = "NoNodeNeeded";
+				//////
+				
+				ArrayList<String> encPoss = encTable.get(operators.get(i).getNodeType());
+				String enc = encPoss.get(counters[i]-1); //-1 perchè le liste partono da 0, ma il contatore effettivo da 1
+				if(enc.equals("NDET"))
+					localCost += NDET_COST;
+				else if(enc.equals("DET"))
+					localCost += DET_COST;
+				else if(enc.equals("OPE"))
+					localCost += OPE_COST;
+				else 
+					localCost += PHE_COST;
+				
+				localOperations += "Operator: "+operators.get(i).getNodeType()+" <> Encryption Method: "+enc+"  <> TargetNode: "+dataNeeded+" \n ";
+			}
 			
-			/* DA FINIRE */
+			//aggiornamento contatori
+			for(int i = 0;i<counters.length;i++)
+			{
+				if((countersMax[i] - counters[i]) == 0)
+					continue;
+				else
+				{
+					counters[i]++;
+					break;
+				}
+			}
+			
+			if(localCost < minCost || minCost == -1) //seconda condizione applicata al primo giro
+			{
+				minCost = localCost;
+				defOperations = localOperations;
+			}
+			
 			possibility--;
 		}
 		
+		//il costo minimo e le operazioni da eseguire sono messe in due campi della classe accessibili con i metodi sotto
 		
-		
+	}
+	
+	
+	
+	public int getMinCost()
+	{
+		return minCost;
+	}
+	
+	public String getOperations()
+	{
+		return defOperations;
 	}
 	
 

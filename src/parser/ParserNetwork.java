@@ -22,10 +22,11 @@ public class ParserNetwork {
 	private String tmp_node_type;
 	private String tmp_node_policy;
 	private String tmp_node_data;
+	private String tmp_name;
 	
 	public ParserNetwork()
 	{
-		//...singleton?
+		
 	}
 	
 	public ArrayList<Node> parseDocument(String res)
@@ -42,6 +43,13 @@ public class ParserNetwork {
 				public void startElement(String uri, String localName,String qName, 
 			                Attributes attributes) throws SAXException {
 					
+					if (qName.equalsIgnoreCase("NODE")) {
+						node = true;
+						tmp_name = attributes.getValue("name");
+						tmp_node_policy = "";
+						tmp_node_type = "";
+						tmp_node_data = "";					
+					}
 					
 					if (qName.equalsIgnoreCase("NODE-TYPE")) {
 						node_type = true;
@@ -62,7 +70,8 @@ public class ParserNetwork {
 					String qName) throws SAXException {
 					
 					if (qName.equalsIgnoreCase("NODE")) {						
-						output.add(new Node(tmp_node_type, tmp_node_policy, tmp_node_data));
+						output.add(new Node(tmp_node_type, tmp_node_policy, tmp_node_data, tmp_name));
+						node = false;
 					}
 			 
 				}
