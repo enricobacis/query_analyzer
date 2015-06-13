@@ -33,7 +33,7 @@ public class Analyzer {
 	public void Analyze(EncSchemes encSchemes, ArrayList<Operator> operators, Network network)
 	{
 		//1 creare la lista dei possibili metodi di encryption
-		//1.1 conto il numero di tecniche
+		//1.1 tecniche e relativi operatori abbinati
 		HashMap<String, ArrayList<String>> schemes = encSchemes.getSchemes();
 		
 		//1.2 operatori "unici" nella query
@@ -79,7 +79,7 @@ public class Analyzer {
 		{
 			Operator currentOperator = operators.get(i);
 			ArrayList<String> currentOperatorMethods = encTable.get(currentOperator.getNodeType());
-			possibility *= currentOperatorMethods.size();			
+			possibility *= currentOperatorMethods.size();	//simil permutazioni semplici al momento, bisogna vedere se le cifrature non escludono possibilità tra loro		
 			countersMax[i] = currentOperatorMethods.size();
 		}
 		
@@ -99,7 +99,8 @@ public class Analyzer {
 					if(dataNeeded.equals("none"))
 						dataNeeded = "NoNodeNeeded";
 					else
-						dataNeeded = network.searchNodeByRelation(dataNeeded);
+						dataNeeded = network.searchNodeByRelation(dataNeeded); //dovrà essere fatto un discorso
+																				//di analisi con la compatibilità dell'enc
 				}
 				else
 					dataNeeded = "NoNodeNeeded";
@@ -107,6 +108,7 @@ public class Analyzer {
 				
 				ArrayList<String> encPoss = encTable.get(operators.get(i).getNodeType());
 				String enc = encPoss.get(counters[i]-1); //-1 perchè le liste partono da 0, ma il contatore effettivo da 1
+				
 				if(enc.equals("NDET"))
 					localCost += NDET_COST;
 				else if(enc.equals("DET"))
@@ -122,7 +124,7 @@ public class Analyzer {
 			//aggiornamento contatori
 			for(int i = 0;i<counters.length;i++)
 			{
-				if((countersMax[i] - counters[i]) == 0)
+				if((countersMax[i] - counters[i]) == 0) //sono già arrivato all'ultimo tentativo, passo al contatore successivo
 					continue;
 				else
 				{
