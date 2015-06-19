@@ -1,18 +1,19 @@
 package extra;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import model.Operator;
 
 public class TPCHUtils {
 	
-	private static ArrayList<String> operators;
+	private static HashMap<String,Integer> operators;
 	
 	public final static int tpch_num = 22;
 	
 	public TPCHUtils()
 	{
-		operators = new ArrayList<String>();
+		operators = new HashMap<String,Integer>();
 	}
 	
 	public void inflateOperators(ArrayList<Operator> op)
@@ -20,14 +21,21 @@ public class TPCHUtils {
 		for(int i = 0;i<op.size();i++)
 		{
 			String operator = op.get(i).getNodeType();
-			int check = operators.lastIndexOf(operator);
-			if(check < 0) //non c'è quindi posso aggiungerlo
-				operators.add(operator);			
+			if(operators.containsKey(operator))
+			{
+				int check = operators.get(operator);
+				check++;
+				operators.remove(operator);
+				operators.put(operator, check);
+			}
+			else
+				operators.put(operator,1);	
+			
 		}
 		
 	}
 	
-	public ArrayList<String> getAllOperators()
+	public HashMap<String,Integer> getAllOperators()
 	{
 		return operators;
 	}

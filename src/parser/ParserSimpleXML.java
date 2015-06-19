@@ -1,7 +1,6 @@
 package parser;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -13,31 +12,21 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 //basato su SAX
-public class ParserXML {
+public class ParserSimpleXML {
 	
-	public ArrayList<Operator> operators;
-	
-	private static boolean node_type;
-	private static boolean parent_relationship;
-	private static boolean relation_name;	
+	public static boolean plan;
+	public static boolean plans;
+	public static boolean node_type;
+	public static boolean parent_relationship;
+	public static boolean relation_name;
 	
 	private String tmp_node_type;
 	private String tmp_parent_relationship;
 	private String tmp_relation_name;
 	
-	private Operator tmp;
-	
-	private int id;
-	private int id_parent;
-	
-	private HashMap<Integer, Boolean> subPlans;
-	
-	public ParserXML()
+	public ParserSimpleXML()
 	{
-		id=-1;
-		id_parent=-1;
-		operators = new ArrayList<Operator>();
-		subPlans = new HashMap<Integer, Boolean>();
+		//...singleton?
 	}
 	
 	
@@ -48,8 +37,10 @@ public class ParserXML {
 	 * ->tabella coinvolta (relation name)
 	 *  
 	 */
-	public void parseDocument(String res)
+	public ArrayList<Operator> parseDocument(String res)
 	{
+		final ArrayList<Operator> output = new ArrayList<Operator>();
+		
 		
     try { 
     	
@@ -59,26 +50,8 @@ public class ParserXML {
 	  
 				public void startElement(String uri, String localName,String qName, 
 			                Attributes attributes) throws SAXException {
-										
-					if (qName.equalsIgnoreCase("PLAN")) {
-						tmp = new Operator();
-						id++;
-						subPlans.put(id, false);
-					}
 					
-					if (qName.equalsIgnoreCase("PLANS")) {
-						
-						//aggiorno lo stato delle subquery
-						subPlans.remove(id);
-						subPlans.put(id, true);
-						
-						tmp.setId(id);
-						tmp.setIdParent(id_parent);
-						operators.add(tmp);
-						id_parent = id;
-					}
 					
-					//per leggere i dati
 					if (qName.equalsIgnoreCase("NODE-TYPE")) {
 						node_type = true;
 					}
@@ -97,16 +70,12 @@ public class ParserXML {
 				public void endElement(String uri, String localName,
 					String qName) throws SAXException {
 					
-					if (qName.equalsIgnoreCase("PLAN")) {
-						if(subPlans.get(id) == false) //l'elemento è una foglia non ha sottopiani, lo devo aggiungere
-						{
-							subPlans.remove(id);
-							subPlans.put(id, true);
-							
-							tmp.setId(id);
-							tmp.setIdParent(id_parent);
-							operators.add(tmp);
-						}
+					if (qName.equalsIgnoreCase("OUTPUT")) {						
+						output.add(new Operator(tmp_node_type,
+												tmp_parent_relationship,
+												tmp_relation_name,
+												0,
+												0));
 					}
 			 
 				}
@@ -116,25 +85,22 @@ public class ParserXML {
 										
 					if (node_type) {
 						String value = new String(ch, start, length);
-						
+						//System.out.println(value);
 						tmp_node_type = value;
-						tmp.setNodeType(tmp_node_type);
 						node_type = false;
 					}
 					
 					if (parent_relationship) {
 						String value = new String(ch, start, length);
-						
+						//System.out.println(value);
 						tmp_parent_relationship = value;
-						tmp.setParentRelationship(tmp_parent_relationship);
 						parent_relationship = false;
 					}
 					
 					if (relation_name) {
 						String value = new String(ch, start, length);
-						
+						//System.out.println(value);
 						tmp_relation_name = value;
-						tmp.setRelationName(tmp_relation_name);
 						relation_name = false;
 					}
 					
@@ -150,7 +116,7 @@ public class ParserXML {
        e.printStackTrace();
      }
     	
-    	
+    	return output;
    }
  
 }
