@@ -14,6 +14,7 @@ public class Analyzer {
 	 * Classe effettiva per il testing delle alternative
 	 */
 	
+	/*
 	//costi fittizi andranno analizzati secondo la mole di dati
 	private final int NDET_COST = 10;
 	private final int DET_COST = 20;
@@ -157,6 +158,6 @@ public class Analyzer {
 	{
 		return defOperations;
 	}
-	
+	*/
 
 }

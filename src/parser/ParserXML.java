@@ -20,12 +20,15 @@ public class ParserXML {
 	private static boolean node_type;
 	private static boolean parent_relationship;
 	private static boolean relation_name;	
-	
-	private String tmp_node_type;
-	private String tmp_parent_relationship;
-	private String tmp_relation_name;
-	
+	private static boolean plan_rows;
+	private static boolean plan_width;
+	private static boolean actual_loops;
+	private static boolean output;
+	private static boolean item;
+	private static boolean filter;
+		
 	private Operator tmp;
+	private ArrayList<String> tmpOutput;
 	
 	private int id;
 	private int id_parent;
@@ -83,6 +86,18 @@ public class ParserXML {
 						node_type = true;
 					}
 					
+					if (qName.equalsIgnoreCase("PLAN-ROWS")) {
+						plan_rows = true;
+					}
+					
+					if (qName.equalsIgnoreCase("PLAN-WIDTH")) {
+						plan_width = true;
+					}
+					
+					if (qName.equalsIgnoreCase("ACTUAL-LOOPS")) {
+						actual_loops = true;
+					}
+					
 					if (qName.equalsIgnoreCase("RELATION-NAME")) {
 						relation_name = true;
 					}
@@ -91,6 +106,18 @@ public class ParserXML {
 						parent_relationship = true;
 					}
 					
+					if (qName.equalsIgnoreCase("OUTPUT")) {
+						output = true;
+						tmpOutput = new ArrayList<String>();
+					}	
+					
+					if (qName.equalsIgnoreCase("ITEM") && output == true) {
+						item = true;
+					}	
+					
+					if (qName.equalsIgnoreCase("FILTER")) {
+						filter = true;
+					}
 			 
 				}
 			 
@@ -108,6 +135,11 @@ public class ParserXML {
 							operators.add(tmp);
 						}
 					}
+					
+					if (qName.equalsIgnoreCase("OUTPUT")) {
+						output = false;
+						tmp.setOutput(tmpOutput);
+					}
 			 
 				}
 			 
@@ -116,29 +148,51 @@ public class ParserXML {
 										
 					if (node_type) {
 						String value = new String(ch, start, length);
-						
-						tmp_node_type = value;
-						tmp.setNodeType(tmp_node_type);
+						tmp.setNodeType(value);
 						node_type = false;
 					}
 					
 					if (parent_relationship) {
 						String value = new String(ch, start, length);
-						
-						tmp_parent_relationship = value;
-						tmp.setParentRelationship(tmp_parent_relationship);
+						tmp.setParentRelationship(value);
 						parent_relationship = false;
 					}
 					
 					if (relation_name) {
 						String value = new String(ch, start, length);
-						
-						tmp_relation_name = value;
-						tmp.setRelationName(tmp_relation_name);
+						tmp.setRelationName(value);
 						relation_name = false;
+					}					
+					
+					if (plan_rows) {
+						String value = new String(ch, start, length);
+						tmp.setPlanRows(Integer.valueOf(value));
+						plan_rows = false;
 					}
 					
+					if (plan_width) {
+						String value = new String(ch, start, length);
+						tmp.setPlanWidth(Integer.valueOf(value));
+						plan_width = false;
+					}
 					
+					if (actual_loops) {
+						String value = new String(ch, start, length);
+						tmp.setActualLoops(Integer.valueOf(value));
+						actual_loops = false;
+					}
+					
+					if (item) {
+						String value = new String(ch, start, length);
+						tmpOutput.add(value);
+						item = false;
+					}
+					
+					if (filter) {
+						String value = new String(ch, start, length);
+						tmp.setFilter(value);
+						filter = false;
+					}
 			  
 				} 
 	     };

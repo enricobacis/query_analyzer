@@ -3,6 +3,7 @@ package main;
 import java.util.ArrayList;
 
 import extra.TPCHUtils;
+import model.EncSchemes;
 import model.Operator;
 import network.Network;
 import parser.ParserNetwork;
@@ -38,15 +39,14 @@ public class Main {
 		
 		
 		/* PARSING DEL NETWORK */
-		// ok
 		Network network = new Network(parsernetwork.parseDocument("config/netconfig.xml"));
 		System.out.println(network.showNetwork());
 		
-		/* PARSING DELLA CONFIGURAZIONE DEGLI OPERATORI */
-		/* bocciata....deve essere fatta runtime analizzando le caratteristiche (target e funzioni)
-		EncSchemes encSchemes = new EncSchemes(parserencschemes.parseDocument("config/encschemes.xml"));
-		System.out.println(encSchemes.showEncSchemes());
-		*/
+		/* CONFIGURAZIONE DEGLI OPERATORI */		
+		EncSchemes encSchemes = new EncSchemes();
+		System.out.println(encSchemes.getOperatorsEncs().toString());
+		System.out.println(encSchemes.getFunctionsEncs().toString());
+		
 		
 		/* ANALISI DELLA QUERY */
 		/* da rivedere alla luve della nuova struttura ad albero

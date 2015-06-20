@@ -61,7 +61,7 @@
                 <Item>customer_1.c_mktsegment</Item>
                 <Item>customer_1.c_comment</Item>
               </Output>
-              <Filter>((customer_1.c_acctbal &gt; 0.00) AND ("substring"((customer_1.c_phone)::text, 1, 2) = ANY ('{13,31,23,29,30,18,17}'::text[])))</Filter>
+              <Filter>((customer_1.c_acctbal > 0.00) AND ("substring"((customer_1.c_phone)::text, 1, 2) = ANY ('{13,31,23,29,30,18,17}'::text[])))</Filter>
               <Rows-Removed-by-Filter>111880</Rows-Removed-by-Filter>
             </Plan>
           </Plans>
