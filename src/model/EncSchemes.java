@@ -11,6 +11,7 @@ public class EncSchemes {
 	public EncSchemes()
 	{
 		//inizializzazione delle varibili necessarie
+		//cifrature ammesse DET - NDET - OPE - NO
 		operatorsEncs = new HashMap<String, ArrayList<String>>();
 		functionsEncs = new HashMap<String, ArrayList<String>>();
 		ArrayList<String> encs = new ArrayList<String>();

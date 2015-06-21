@@ -2,6 +2,7 @@ package main;
 
 import java.util.ArrayList;
 
+import enviroment.Analyzer;
 import extra.TPCHUtils;
 import model.EncSchemes;
 import model.Operator;
@@ -49,12 +50,10 @@ public class Main {
 		
 		
 		/* ANALISI DELLA QUERY */
-		/* da rivedere alla luve della nuova struttura ad albero
 		Analyzer analyzer = new Analyzer();
-		analyzer.Analyze(encSchemes, queryOperators, network);
+		analyzer.Analyze(encSchemes, parser.operators, network);
 		System.out.println("MIN COST: "+analyzer.getMinCost());
 		System.out.println("OPERATIONS: "+analyzer.getOperations());
-		*/
 		
 	}
 
