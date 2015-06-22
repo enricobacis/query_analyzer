@@ -33,4 +33,8 @@ public class Node {
 		return name;
 	}
 	
+	public String getPolicy()
+	{
+		return policy;
+	}
 }

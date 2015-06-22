@@ -26,5 +26,17 @@ public class Network {
 				return nodes.get(i).getName();
 		return "noFound";
 	}
+	
+	public String getNodePolicy(String nodeName)
+	{
+		String output="Plain"; //di default non impongo nessuna encryption
+		for(int i = 0;i<nodes.size();i++)
+			if(nodes.get(i).getName().equals(nodeName))
+			{
+				output = nodes.get(i).getPolicy();
+				break;
+			}
+		return output;
+	}
 
 }

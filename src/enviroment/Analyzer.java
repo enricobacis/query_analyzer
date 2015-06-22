@@ -111,72 +111,87 @@ public class Analyzer {
 																					//di analisi con la compatibilità dell'enc...
 					}
 					else
-						dataNeeded = "Computational or Client";
-					localOperations += "NODE: "+dataNeeded+" (data) "+localOperator.getRelationName()+"\n";
+						dataNeeded = "Computational or Client"; //qui da decidere quale è meglio in base alle prestazioni
+					localOperations += "NODE: "+dataNeeded+" (data) "+localOperator.getRelationName()+"\n";					
 					//////
 					
+					//policy del nodo
+					String nodePolicy = network.getNodePolicy(dataNeeded);
+					String selectedEnc = "NO"; //suppongo non serva ma...
+					if(!nodePolicy.equals("Plain")) //encryption necessaria
+					{
+						ArrayList<String> localOperatorEncs = operatorsEnc.get(localOperator.getNodeType());
+						selectedEnc = localOperatorEncs.get(counters[localOperator.getId()]-1); //-1 perchè le liste partono da 0, ma il contatore effettivo da 1
+					}
 					
-					
-					ArrayList<String> localOperatorEncs = operatorsEnc.get(localOperator.getNodeType());
-					String selectedEnc = localOperatorEncs.get(counters[localOperator.getId()]-1); //-1 perchè le liste partono da 0, ma il contatore effettivo da 1
 					
 					//per ogni <output> -> <item> devo applicare la tecnica di cifratura....ma attenzione
 					//se l'item è una funzione devo applicare un metodo di cifratura specifico per quella funzione
 					for(int k=0;k<localOperator.getOutput().size();k++)
 					{
-						//questo procedimento si può scrivere molto meglio
-						boolean function = false;
-						String item = localOperator.getOutput().get(k);						
-						ArrayList<String> enc = new ArrayList<String>();
-						if(item.indexOf("count") > -1)
+						if(selectedEnc.equals("NO")) //non è richieste encryption sul singolo item
 						{
-							 enc = functionsEnc.get("count");
-							 function = true;
-						}
-						if(item.indexOf("sum") > -1)
-						{
-							 enc = functionsEnc.get("sum");
-							 function = true;
-						}
-						if(item.indexOf("avg") > -1)
-						{
-							 enc = functionsEnc.get("avg");
-							 function = true;
-						}
-						
-						//suppongo che per funzioni ci sia un solo metodo di cifratura ammesso ora come ora...
-						if(!function)
-						{
-							//conta il selectedEnc
-							if(selectedEnc.equals("NDET"))
-								localCost += NDET_COST;
-							else if(selectedEnc.equals("DET"))
-								localCost += DET_COST;
-							else if(selectedEnc.equals("OPE"))
-								localCost += OPE_COST;
-							else 
-								localCost += 0;
-							
+							localCost+=0;
 							localOperations += localOperator.getNodeType()+"-> ID: "+localOperator.getId()
 									+"-> IDParent: "+localOperator.getIdParent()			
 									+" -> Item: "+k+" -> Enc: "+selectedEnc+"\n";
 						}
-						else
+						else //encryption richiesta dalla policy del nodo
 						{
-							String functionSelectedEnc = enc.get(0);
-							if(functionSelectedEnc.equals("NDET"))
-								localCost += NDET_COST;
-							else if(functionSelectedEnc.equals("DET"))
-								localCost += DET_COST;
-							else if(functionSelectedEnc.equals("OPE"))
-								localCost += OPE_COST;
-							else 
-								localCost += 0;
+							//questo procedimento si può scrivere molto meglio
+							boolean function = false;
+							String item = localOperator.getOutput().get(k);						
+							ArrayList<String> enc = new ArrayList<String>();
+							if(item.indexOf("count") > -1)
+							{
+								 enc = functionsEnc.get("count");
+								 function = true;
+							}
+							if(item.indexOf("sum") > -1)
+							{
+								 enc = functionsEnc.get("sum");
+								 function = true;
+							}
+							if(item.indexOf("avg") > -1)
+							{
+								 enc = functionsEnc.get("avg");
+								 function = true;
+							}
 							
-							localOperations += localOperator.getNodeType()+"-> ID: "+localOperator.getId()
-									+"-> IDParent: "+localOperator.getIdParent()
-									+" -> (funct) Item: "+k+" -> Enc: "+functionSelectedEnc+"\n";
-						}
+							//suppongo che per funzioni ci sia un solo metodo di cifratura ammesso ora come ora...
+							if(!function)
+							{
+								//conta il selectedEnc
+								if(selectedEnc.equals("NDET"))
+									localCost += NDET_COST;
+								else if(selectedEnc.equals("DET"))
+									localCost += DET_COST;
+								else if(selectedEnc.equals("OPE"))
+									localCost += OPE_COST;
+								else 
+									localCost += 0;
+								
+								localOperations += localOperator.getNodeType()+"-> ID: "+localOperator.getId()
+										+"-> IDParent: "+localOperator.getIdParent()			
+										+" -> Item: "+k+" -> Enc: "+selectedEnc+"\n";
+							}
+							else
+							{
+								String functionSelectedEnc = enc.get(0);
+								if(functionSelectedEnc.equals("NDET"))
+									localCost += NDET_COST;
+								else if(functionSelectedEnc.equals("DET"))
+									localCost += DET_COST;
+								else if(functionSelectedEnc.equals("OPE"))
+									localCost += OPE_COST;
+								else 
+									localCost += 0;
+								
+								localOperations += localOperator.getNodeType()+"-> ID: "+localOperator.getId()
+										+"-> IDParent: "+localOperator.getIdParent()
+										+" -> (funct) Item: "+k+" -> Enc: "+functionSelectedEnc+"\n";
+							}
+						} //close encryption needed
 						
 					}//close output					
 				}//close operators
