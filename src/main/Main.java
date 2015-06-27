@@ -19,8 +19,6 @@ public class Main {
 		ParserXML parser = new ParserXML(); //parser che crea la struttura ad albero
 		ParserSimpleXML parserSimple = new ParserSimpleXML(); //parser che non si preoccupa della struttura ma estrae gli operatori di una query
 		ParserNetwork parsernetwork = new ParserNetwork();
-		//ParserEncSchemes parserencschemes = new ParserEncSchemes();
-		
 		
 		/* ANALISI DI TUTTE LE QUERY TPCH */
 		//voglio sapere il numero di operatori distinti e con che frquenza compaiono
@@ -30,23 +28,24 @@ public class Main {
 			ArrayList<Operator> queryOperators = parserSimple.parseDocument("res/"+t+".xml");
 			tpchUtils.inflateOperators(queryOperators);			
 		}
-		System.out.println(tpchUtils.getAllOperators().toString());
+		//System.out.println(tpchUtils.getAllOperators().toString());
 		
 		//nuovo metodo di parsing, stabilisce una gerarchia degli operatori
 		/* MI LIMITO ALLA 22 */
-		parser.parseDocument("res/22.xml");		
+		parser.parseDocument("res/22.xml");	
+		/*
 		for(int i = 0; i< parser.operators.size(); i++)
-					System.out.println(parser.operators.get(i).toString());
+					System.out.println(parser.operators.get(i).toString());*/
 		
 		
 		/* PARSING DEL NETWORK */
 		Network network = new Network(parsernetwork.parseDocument("config/netconfig.xml"));
-		System.out.println(network.showNetwork());
+		//System.out.println(network.showNetwork());
 		
 		/* CONFIGURAZIONE DEGLI OPERATORI */		
 		EncSchemes encSchemes = new EncSchemes();
-		System.out.println(encSchemes.getOperatorsEncs().toString());
-		System.out.println(encSchemes.getFunctionsEncs().toString());
+		//System.out.println(encSchemes.getOperatorsEncs().toString());
+		//System.out.println(encSchemes.getFunctionsEncs().toString());
 		
 		
 		/* ANALISI DELLA QUERY */

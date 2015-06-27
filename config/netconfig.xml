@@ -17,7 +17,7 @@
 	</node>
 	<node name="CS1">
 		<node-type>Computational Server</node-type>
-		<node-policy>Mixed</node-policy>
+		<node-policy>Plain</node-policy>
 		<node-data>none</node-data>
 	</node>
 	<node name="CL1">

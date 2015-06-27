@@ -2,6 +2,8 @@ package enviroment;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import extra.TPCHUtils;
 import network.Network;
 import model.EncSchemes;
 import model.Operator;
@@ -12,16 +14,10 @@ public class Analyzer {
 	 * Classe effettiva per il testing delle alternative
 	 */
 	
-	//version 0.2
-	
-	//costi fittizi andranno analizzati secondo la mole di dati
-	private final int NDET_COST = 10;
-	private final int DET_COST = 20;
-	private final int OPE_COST = 50;
-	//private final int PHE_COST = 100;
+	//version 0.2.5
 	
 	//variabili frutto dell'analisi
-	private int minCost;
+	private double minCost;
 	private String defOperations;
 	
 	public Analyzer()
@@ -30,7 +26,7 @@ public class Analyzer {
 		defOperations = "";
 	}
 	
-	public int getMinCost()
+	public double getMinCost()
 	{
 		return minCost;
 	}
@@ -47,6 +43,31 @@ public class Analyzer {
 			if(operators.get(i).getIdParent() == localParentStartLevel)
 				output.add(operators.get(i));
 		return output;		
+	}
+	
+	private double getEncryptionCost(String enc, int rows, int rowWidth) //ritorna il valore in secondi
+	{		
+		float time = 0;
+		//tecnica di cifratura usata -> DET : AES + ECB mode
+		//							 -> NDET : AES + CBC mode (IV) (hanno sostanzialmente le stesse performance)
+		//							 -> OPE : BCLO scheme
+		
+		if(enc.equals("DET") || enc.equals("NDET"))
+		{
+			//AES 256bit - blocco 128bit 
+			//perfromance su Intel Core iX -> 700 MB/s
+			float throughput = 734003200; //tradotto in byte, perchè il plan width è in byte
+			int rowsWidth = rows*rowWidth;
+			time = rowsWidth / throughput;			
+			
+		}else //OPE
+		{
+			//BCLO scheme applicato su uno spazio di 256 bit impiega 176ms per ogni valore
+			float singleEnc = 176/1000;
+			time = singleEnc*rows;			
+		}		
+		
+		return time;
 	}
 	
 	public void Analyze(EncSchemes encSchemes, ArrayList<Operator> operators, Network network)
@@ -91,7 +112,7 @@ public class Analyzer {
 		while(possibility > 0)
 		{
 			int localParentStartLevel = parentStartLevel;
-			int localCost = 0;
+			double localCost = 0;
 			String localOperations = "";
 			
 			while(localParentStartLevel >= -1)
@@ -101,7 +122,7 @@ public class Analyzer {
 				{
 					Operator localOperator = levelOperators.get(j);
 					
-					/*network analisi*/
+					/*network analisi*/					
 					//nodo sul quale eseguire l'operazione ANDRà SICURAMENTE ESTESO CON ALTRE VARIABILI
 					String dataNeeded = localOperator.getRelationName();
 					if(dataNeeded != null)
@@ -114,8 +135,9 @@ public class Analyzer {
 					}
 					else
 						dataNeeded = "Computational or Client"; //qui da decidere quale è meglio in base alle prestazioni
-					localOperations += "NODE: "+dataNeeded+" (data) "+localOperator.getRelationName()+"\n";					
+					localOperations += "\nNODE: "+dataNeeded+" (data) "+localOperator.getRelationName()+"\n";					
 					//////
+					/* end network analisi */
 					
 					//policy del nodo
 					String nodePolicy = network.getNodePolicy(dataNeeded);
@@ -124,8 +146,7 @@ public class Analyzer {
 					{
 						ArrayList<String> localOperatorEncs = operatorsEnc.get(localOperator.getNodeType());
 						selectedEnc = localOperatorEncs.get(counters[localOperator.getId()]-1); //-1 perchè le liste partono da 0, ma il contatore effettivo da 1
-					}
-					
+					}					
 					
 					//per ogni <output> -> <item> devo applicare la tecnica di cifratura....ma attenzione
 					//se l'item è una funzione devo applicare un metodo di cifratura specifico per quella funzione
@@ -163,32 +184,37 @@ public class Analyzer {
 							//suppongo che per funzioni ci sia un solo metodo di cifratura ammesso ora come ora...
 							if(!function)
 							{
-								//conta il selectedEnc
-								if(selectedEnc.equals("NDET"))
-									localCost += NDET_COST;
-								else if(selectedEnc.equals("DET"))
-									localCost += DET_COST;
-								else if(selectedEnc.equals("OPE"))
-									localCost += OPE_COST;
-								else 
-									localCost += 0;
-								
+								int itemWidth = localOperator.getPlanWidth();
+								if(localOperator.getRelationName() != null) //fa riferimento ad una tabella
+								{
+									String table = localOperator.getRelationName();
+									String column = TPCHUtils.getItemColumn(item);
+									if(TPCHUtils.getStructure().containsKey(table))
+									{
+										itemWidth = TPCHUtils.findWidthByColumn(table,column);
+										localCost += getEncryptionCost(selectedEnc, localOperator.getPlanRows(), itemWidth);
+									}
+									else
+									{
+										localCost += getEncryptionCost(selectedEnc, localOperator.getPlanRows(), itemWidth);
+									}										
+									
+								}
+								else
+								{
+									localCost += getEncryptionCost(selectedEnc, localOperator.getPlanRows(), itemWidth);
+								}
+																
 								localOperations += localOperator.getNodeType()+"-> ID: "+localOperator.getId()
 										+"-> IDParent: "+localOperator.getIdParent()			
-										+" -> Item: "+k+" -> Enc: "+selectedEnc+"\n";
+										+" -> Item: "+k+" -> Width: "+itemWidth+" -> Enc: "+selectedEnc+"\n";
 							}
 							else
 							{
+								//le funzioni sono trattate più semplicemente con OPE quindi hanno uno spazio di possibilità diverse
 								String functionSelectedEnc = enc.get(0);
-								if(functionSelectedEnc.equals("NDET"))
-									localCost += NDET_COST;
-								else if(functionSelectedEnc.equals("DET"))
-									localCost += DET_COST;
-								else if(functionSelectedEnc.equals("OPE"))
-									localCost += OPE_COST;
-								else 
-									localCost += 0;
-								
+								localCost += getEncryptionCost(functionSelectedEnc, localOperator.getPlanRows(), localOperator.getPlanWidth());
+																
 								localOperations += localOperator.getNodeType()+"-> ID: "+localOperator.getId()
 										+"-> IDParent: "+localOperator.getIdParent()
 										+" -> (funct) Item: "+k+" -> Enc: "+functionSelectedEnc+"\n";

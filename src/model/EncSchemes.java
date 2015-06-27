@@ -102,6 +102,16 @@ public class EncSchemes {
 		encs.add("OPE");
 		functionsEncs.put(function,encs);	
 		
+		function = "max";
+		encs = new ArrayList<String>();
+		encs.add("OPE");
+		functionsEncs.put(function,encs);
+		
+		function = "min";
+		encs = new ArrayList<String>();
+		encs.add("OPE");
+		functionsEncs.put(function,encs);
+		
 	}
 
 	public HashMap<String, ArrayList<String>> getOperatorsEncs() {
