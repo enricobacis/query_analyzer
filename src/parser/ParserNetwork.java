@@ -6,6 +6,7 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import network.Node;
+import network.Link;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -17,12 +18,23 @@ public class ParserNetwork {
 	public static boolean node;
 	public static boolean node_type;
 	public static boolean node_policy;
+	public static boolean node_datas;
 	public static boolean node_data;
+	public static boolean performance;
+	public static boolean aes;
+	public static boolean bclo;
+	public static boolean links;
+	public static boolean link;
+	public static boolean node_linked;
+	public static boolean latency;
+	public static boolean throughput;
 	
-	private String tmp_node_type;
-	private String tmp_node_policy;
-	private String tmp_node_data;
-	private String tmp_name;
+	private Node tmp_node;
+	private ArrayList<String> tmp_datas;
+	private String tmp_nodeLinked;
+	private double tmp_latency;
+	private double tmp_throughput;
+	private ArrayList<Link> tmp_links;
 	
 	public ParserNetwork()
 	{
@@ -36,6 +48,8 @@ public class ParserNetwork {
 		
     try { 
     	
+    	
+    	
 		SAXParserFactory factory = SAXParserFactory.newInstance();
 		SAXParser saxParser = factory.newSAXParser(); 
 		DefaultHandler handler = new DefaultHandler() {
@@ -45,10 +59,10 @@ public class ParserNetwork {
 					
 					if (qName.equalsIgnoreCase("NODE")) {
 						node = true;
-						tmp_name = attributes.getValue("name");
-						tmp_node_policy = "";
-						tmp_node_type = "";
-						tmp_node_data = "";					
+						tmp_node = new Node();
+						String tmp_name = attributes.getValue("name");
+						tmp_node.setName(tmp_name);
+										
 					}
 					
 					if (qName.equalsIgnoreCase("NODE-TYPE")) {
@@ -59,8 +73,46 @@ public class ParserNetwork {
 						node_policy = true;
 					}
 					
+					if (qName.equalsIgnoreCase("NODE-DATAS")) {
+						node_datas = true;
+						tmp_datas = new ArrayList<String>();
+					}
+					
 					if (qName.equalsIgnoreCase("NODE-DATA")) {
 						node_data = true;
+					}
+					
+					if (qName.equalsIgnoreCase("PERFORMANCE")) {
+						performance = true;
+					}
+					
+					if (qName.equalsIgnoreCase("AES-THROUGHPUT")) {
+						aes = true;
+					}
+					
+					if (qName.equalsIgnoreCase("BCLO-VALUE-TIME")) {
+						bclo = true;
+					}
+					
+					if (qName.equalsIgnoreCase("LINKS")) {
+						tmp_links = new ArrayList<Link>();
+						links = true;
+					}
+					
+					if (qName.equalsIgnoreCase("LINK")) {
+						link = true;
+					}
+					
+					if (qName.equalsIgnoreCase("NODE-LINKED")) {
+						node_linked = true;
+					}
+					
+					if (qName.equalsIgnoreCase("LATENCY")) {
+						latency = true;
+					}
+					
+					if (qName.equalsIgnoreCase("THROUGHPUT")) {
+						throughput = true;
 					}
 					
 			 
@@ -70,8 +122,27 @@ public class ParserNetwork {
 					String qName) throws SAXException {
 					
 					if (qName.equalsIgnoreCase("NODE")) {						
-						output.add(new Node(tmp_node_type, tmp_node_policy, tmp_node_data, tmp_name));
+						output.add(tmp_node);
 						node = false;
+					}
+					
+					if (qName.equalsIgnoreCase("NODE-DATAS")) {						
+						tmp_node.setData(tmp_datas);
+						node_datas= false;
+					}
+					
+					if (qName.equalsIgnoreCase("PERFORMANCE")) {
+						performance = false;
+					}
+					
+					if (qName.equalsIgnoreCase("LINKS")) {
+						tmp_node.setLinks(tmp_links);
+						links = false;
+					}
+					
+					if (qName.equalsIgnoreCase("LINK")) {
+						tmp_links.add(new Link(tmp_nodeLinked, tmp_latency, tmp_throughput));
+						link = false;
 					}
 			 
 				}
@@ -81,25 +152,52 @@ public class ParserNetwork {
 										
 					if (node_type) {
 						String value = new String(ch, start, length);
-						//System.out.println(value);
-						tmp_node_type = value;
+						tmp_node.setType(value);
 						node_type = false;
 					}
 					
 					if (node_policy) {
 						String value = new String(ch, start, length);
 						//System.out.println(value);
-						tmp_node_policy = value;
+						tmp_node.setPolicy(value);
 						node_policy = false;
 					}
 					
 					if (node_data) {
 						String value = new String(ch, start, length);
-						//System.out.println(value);
-						tmp_node_data = value;
+						tmp_datas.add(value);
 						node_data = false;
 					}
 					
+					if (aes) {
+						String value = new String(ch, start, length);
+						tmp_node.setAesThroughput(Double.parseDouble(value));
+						aes = false;
+					}
+					
+					if (bclo) {
+						String value = new String(ch, start, length);
+						tmp_node.setBcloValueTime(Double.parseDouble(value));
+						bclo = false;
+					}
+					
+					if (node_linked) {
+						String value = new String(ch, start, length);
+						tmp_nodeLinked = value;
+						node_linked = false;
+					}
+					
+					if (latency) {
+						String value = new String(ch, start, length);
+						tmp_latency = Double.parseDouble(value);
+						latency = false;
+					}
+					
+					if (throughput) {
+						String value = new String(ch, start, length);
+						tmp_throughput = Double.parseDouble(value);
+						throughput = false;
+					}				
 					
 			  
 				} 

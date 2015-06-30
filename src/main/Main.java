@@ -40,7 +40,7 @@ public class Main {
 		
 		/* PARSING DEL NETWORK */
 		Network network = new Network(parsernetwork.parseDocument("config/netconfig.xml"));
-		//System.out.println(network.showNetwork());
+		System.out.println(network.showNetwork());
 		
 		/* CONFIGURAZIONE DEGLI OPERATORI */		
 		EncSchemes encSchemes = new EncSchemes();
@@ -49,10 +49,12 @@ public class Main {
 		
 		
 		/* ANALISI DELLA QUERY */
+		/*
 		Analyzer analyzer = new Analyzer();
 		analyzer.Analyze(encSchemes, parser.operators, network);
 		System.out.println("MIN COST: "+analyzer.getMinCost());
 		System.out.println("OPERATIONS: "+analyzer.getOperations());
+		*/
 		
 	}
 
