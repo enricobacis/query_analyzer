@@ -49,12 +49,10 @@ public class Main {
 		
 		
 		/* ANALISI DELLA QUERY */
-		/*
 		Analyzer analyzer = new Analyzer();
 		analyzer.Analyze(encSchemes, parser.operators, network);
-		System.out.println("MIN COST: "+analyzer.getMinCost());
+		System.out.println("MIN COST: "+analyzer.getMinCost()+ " sec.");
 		System.out.println("OPERATIONS: "+analyzer.getOperations());
-		*/
 		
 	}
 

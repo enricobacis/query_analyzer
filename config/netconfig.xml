@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!-- latency : ms -->
 <!-- link-throughput : Mbps -->
-<!-- aes-throughput : MB/s -->
+<!-- aes-throughput : Mbps -->
 <!-- bclo : ms -->
 <network>
 	<node name="SS1">
@@ -11,7 +11,7 @@
 			<node-data>customer</node-data>
 		</node-datas>
 		<performance>
-			<aes-throughput>60</aes-throughput>
+			<aes-throughput>600</aes-throughput>
 			<bclo-value-time>176</bclo-value-time>
 		</performance>
 		<links>
@@ -34,7 +34,7 @@
 			<node-data>orders</node-data>
 		</node-datas>
 		<performance>
-			<aes-throughput>60</aes-throughput>
+			<aes-throughput>600</aes-throughput>
 			<bclo-value-time>176</bclo-value-time>
 		</performance>
 		<links>
@@ -52,7 +52,7 @@
 			<node-data>lineitem</node-data>
 		</node-datas>
 		<performance>
-			<aes-throughput>60</aes-throughput>
+			<aes-throughput>600</aes-throughput>
 			<bclo-value-time>176</bclo-value-time>
 		</performance>
 		<links>
@@ -67,8 +67,8 @@
 		<node-type>Computational Server</node-type>
 		<node-policy>Plain</node-policy>
 		<performance>
-			<aes-throughput>60</aes-throughput>
-			<bclo-value-time>176</bclo-value-time>
+			<aes-throughput>700</aes-throughput>
+			<bclo-value-time>126</bclo-value-time>
 		</performance>
 		<links>
 			<link>
@@ -87,8 +87,8 @@
 		<node-type>Computational Server</node-type>
 		<node-policy>Plain</node-policy>
 		<performance>
-			<aes-throughput>60</aes-throughput>
-			<bclo-value-time>176</bclo-value-time>
+			<aes-throughput>750</aes-throughput>
+			<bclo-value-time>119</bclo-value-time>
 		</performance>
 		<links>
 			<link>
@@ -107,8 +107,8 @@
 		<node-type>Client</node-type>
 		<node-policy>Plain</node-policy>
 		<performance>
-			<aes-throughput>60</aes-throughput>
-			<bclo-value-time>176</bclo-value-time>
+			<aes-throughput>400</aes-throughput>
+			<bclo-value-time>216</bclo-value-time>
 		</performance>
 		<links>
 			<link>
