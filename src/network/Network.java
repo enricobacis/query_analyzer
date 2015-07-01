@@ -66,6 +66,9 @@ public class Network {
 	
 	public Node getNodeByName(String name)
 	{
+		if(name.equals("NoNodeNeeded") || name == null)
+			return getBestNode();
+		
 		for(int i = 0;i<nodes.size();i++)
 			if(nodes.get(i).getName().equals(name))
 				return nodes.get(i);

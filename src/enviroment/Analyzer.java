@@ -133,8 +133,8 @@ public class Analyzer {
 							dataNeeded = "NoNodeNeeded";
 						else
 							dataNeeded = network.searchNodeByRelation(dataNeeded); //dovrà essere fatto un discorso
-						
-						localNode = network.getNodeByName(dataNeeded);															//di analisi con la compatibilità dell'enc...
+																					//di analisi con la compatibilità dell'enc...
+						localNode = network.getNodeByName(dataNeeded);	//se fosse "NoNodeNeeded" torna il best node
 						
 					}
 					else

@@ -9,10 +9,12 @@
 		<node-policy>Encrypted</node-policy>
 		<node-datas>
 			<node-data>customer</node-data>
+			<node-data>partsupp</node-data>
+			<node-data>region</node-data>
 		</node-datas>
 		<performance>
-			<aes-throughput>600</aes-throughput>
-			<bclo-value-time>176</bclo-value-time>
+			<aes-throughput>650</aes-throughput>
+			<bclo-value-time>156</bclo-value-time>
 		</performance>
 		<links>
 			<link>
@@ -32,10 +34,12 @@
 		<node-policy>Encrypted</node-policy>
 		<node-datas>
 			<node-data>orders</node-data>
+			<node-data>customer</node-data>
+			<node-data>supplier</node-data>
 		</node-datas>
 		<performance>
-			<aes-throughput>600</aes-throughput>
-			<bclo-value-time>176</bclo-value-time>
+			<aes-throughput>620</aes-throughput>
+			<bclo-value-time>170</bclo-value-time>
 		</performance>
 		<links>
 			<link>
@@ -50,6 +54,9 @@
 		<node-policy>Encrypted</node-policy>
 		<node-datas>
 			<node-data>lineitem</node-data>
+			<node-data>nation</node-data>
+			<node-data>part</node-data>
+			<node-data>supplier</node-data>
 		</node-datas>
 		<performance>
 			<aes-throughput>600</aes-throughput>
