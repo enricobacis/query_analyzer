@@ -3,6 +3,7 @@ package main;
 import java.util.ArrayList;
 
 import enviroment.Analyzer;
+import enviroment.Attempt;
 import extra.TPCHUtils;
 import model.EncSchemes;
 import model.Operator;
@@ -49,10 +50,13 @@ public class Main {
 		
 		
 		/* ANALISI DELLA QUERY */
+		ArrayList<Attempt> results = new ArrayList<Attempt>();
 		Analyzer analyzer = new Analyzer();
-		analyzer.Analyze(encSchemes, parser.operators, network);
-		System.out.println("MIN COST: "+analyzer.getMinCost()+ " sec.");
+		results = analyzer.Analyze(encSchemes, parser.operators, network);
+		System.out.println("MIN TIME: "+analyzer.getMinTime()+ " sec.");
+		System.out.println("MIN COST: "+analyzer.getMinCost()+ " €");
 		System.out.println("OPERATIONS: "+analyzer.getOperations());
+		System.out.println("RESULTS: "+results.toString());
 		
 	}
 

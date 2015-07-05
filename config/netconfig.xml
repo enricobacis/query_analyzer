@@ -1,8 +1,9 @@
 <?xml version="1.0"?>
 <!-- latency : ms -->
 <!-- link-throughput : Mbps -->
-<!-- aes-throughput : Mbps -->
+<!-- aes-throughput : MB/s -->
 <!-- bclo : ms -->
+<!-- cost-per-second : costo che tiene in conto tutte le risorse impiegate in quel secondo -->
 <network>
 	<node name="SS1">
 		<node-type>Storage Server</node-type>
@@ -13,9 +14,10 @@
 			<node-data>region</node-data>
 		</node-datas>
 		<performance>
-			<aes-throughput>650</aes-throughput>
-			<bclo-value-time>156</bclo-value-time>
+			<aes-throughput>50</aes-throughput>
+			<bclo-value-time>0.156</bclo-value-time>
 		</performance>
+		<cost-per-second>0.002</cost-per-second>
 		<links>
 			<link>
 				<node-linked>SS2</node-linked>
@@ -38,9 +40,10 @@
 			<node-data>supplier</node-data>
 		</node-datas>
 		<performance>
-			<aes-throughput>620</aes-throughput>
-			<bclo-value-time>170</bclo-value-time>
+			<aes-throughput>50</aes-throughput>
+			<bclo-value-time>0.170</bclo-value-time>
 		</performance>
+		<cost-per-second>0.00198</cost-per-second>
 		<links>
 			<link>
 				<node-linked>SS1</node-linked>
@@ -58,9 +61,10 @@
 			<node-data>part</node-data>
 			<node-data>supplier</node-data>
 		</node-datas>
+		<cost-per-second>0.00095</cost-per-second>
 		<performance>
-			<aes-throughput>600</aes-throughput>
-			<bclo-value-time>176</bclo-value-time>
+			<aes-throughput>50</aes-throughput>
+			<bclo-value-time>0.176</bclo-value-time>
 		</performance>
 		<links>
 			<link>
@@ -74,9 +78,10 @@
 		<node-type>Computational Server</node-type>
 		<node-policy>Plain</node-policy>
 		<performance>
-			<aes-throughput>700</aes-throughput>
-			<bclo-value-time>126</bclo-value-time>
+			<aes-throughput>50</aes-throughput>
+			<bclo-value-time>0.126</bclo-value-time>
 		</performance>
+		<cost-per-second>0.00070</cost-per-second>
 		<links>
 			<link>
 				<node-linked>SS1</node-linked>
@@ -94,9 +99,10 @@
 		<node-type>Computational Server</node-type>
 		<node-policy>Plain</node-policy>
 		<performance>
-			<aes-throughput>750</aes-throughput>
-			<bclo-value-time>119</bclo-value-time>
+			<aes-throughput>50</aes-throughput>
+			<bclo-value-time>0.119</bclo-value-time>
 		</performance>
+		<cost-per-second>0.00085</cost-per-second>
 		<links>
 			<link>
 				<node-linked>SS2</node-linked>
@@ -114,9 +120,10 @@
 		<node-type>Client</node-type>
 		<node-policy>Plain</node-policy>
 		<performance>
-			<aes-throughput>400</aes-throughput>
-			<bclo-value-time>216</bclo-value-time>
+			<aes-throughput>50</aes-throughput>
+			<bclo-value-time>0.216</bclo-value-time>
 		</performance>
+		<cost-per-second>0.0008</cost-per-second>
 		<links>
 			<link>
 				<node-linked>CS1</node-linked>

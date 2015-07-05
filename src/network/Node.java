@@ -13,6 +13,9 @@ public class Node {
 	private double aesThroughput;
 	private double bcloValueTime;
 	
+	//cost
+	private double costPerSecond;
+	
 	//links
 	private ArrayList<Link> links;
 		
@@ -32,6 +35,7 @@ public class Node {
 				" | Policy: "+policy+
 				" | Data: "+stringData+
 				" | Performance:  AES -> "+aesThroughput+" BCLO -> "+bcloValueTime+
+				" | Cost Per Second:  "+costPerSecond+
 				" | Links : "+links.toString();
 	}
 	
@@ -100,4 +104,15 @@ public class Node {
 	{
 		return links;
 	}
+	
+	public double getCostPerSecond()
+	{
+		return costPerSecond;
+	}
+	
+	public void setCostPerSecond(double i)
+	{
+		costPerSecond = i;
+	}
+	
 }

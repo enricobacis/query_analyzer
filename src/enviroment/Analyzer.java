@@ -15,26 +15,33 @@ public class Analyzer {
 	 * Classe effettiva per il testing delle alternative
 	 */
 	
-	//version 0.2.6
+	//version 0.3.0
 	
 	//variabili frutto dell'analisi
 	private double minCost;
+	private double minTime;
 	private String defOperations;
 	
 	public Analyzer()
 	{
+		minTime = -1;
 		minCost = -1;
 		defOperations = "";
 	}
 	
-	public double getMinCost()
+	public double getMinTime()
 	{
-		return minCost;
+		return minTime;
 	}
 	
 	public String getOperations()
 	{
 		return defOperations;
+	}
+	
+	public double getMinCost()
+	{
+		return minCost;
 	}
 	
 	private ArrayList<Operator> findOperatorsByParentLevel(int localParentStartLevel, ArrayList<Operator> operators)
@@ -49,16 +56,16 @@ public class Analyzer {
 	private double getEncryptionCost(String enc, int rows, int rowWidth, Node localNode) //ritorna il valore in secondi
 	{		
 		double time = 0;
-		//tecnica di cifratura usata -> DET : AES + ECB mode
+		//tecnica di cifratura usata -> DET : AES + ECB mode -> test openssl
 		//							 -> NDET : AES + CBC mode (IV) (hanno sostanzialmente le stesse performance)
 		//							 -> OPE : BCLO scheme
 		
 		if(enc.equals("DET") || enc.equals("NDET"))
 		{
-			//AES 256bit - blocco 128bit 
+			//AES 256bit - blocco 256bit 
 			//perfromance su Intel Core iX teoricamente -> 700 MB/s
 			
-			double throughput = (localNode.getAesThroughput()/8)*(Math.pow(10, 6)); //tradotto in byte, perchè il plan width è in byte
+			double throughput = (localNode.getAesThroughput())*(Math.pow(10, 6)); //è già in byte
 			int rowsWidth = rows*rowWidth;
 			time = rowsWidth / throughput;			
 			
@@ -72,8 +79,16 @@ public class Analyzer {
 		return time;
 	}
 	
-	public void Analyze(EncSchemes encSchemes, ArrayList<Operator> operators, Network network)
+	private double getEncryptionNodeCost(Node localNode, double nodeTime)
 	{
+		return localNode.getCostPerSecond() * nodeTime;
+	}
+	
+	public ArrayList<Attempt> Analyze(EncSchemes encSchemes, ArrayList<Operator> operators, Network network)
+	{
+		//output
+		ArrayList<Attempt> output = new ArrayList<Attempt>();
+		
 		//1 creare la lista dei possibili metodi di encryption
 		//1.1 tecniche e relativi operatori abbinati
 		HashMap<String, ArrayList<String>> operatorsEnc = encSchemes.getOperatorsEncs();
@@ -114,7 +129,10 @@ public class Analyzer {
 		while(possibility > 0)
 		{
 			int localParentStartLevel = parentStartLevel;
-			double localCost = 0;
+			double localCost = 0; //in time
+			double localMoney = 0;
+			double nodeTime = 0;
+			double nodeMoney = 0;
 			String localOperations = "";
 			
 			while(localParentStartLevel >= -1)
@@ -160,14 +178,14 @@ public class Analyzer {
 					{
 						if(selectedEnc.equals("NO")) //non è richieste encryption sul singolo item
 						{
-							localCost+=0;
+							localCost += 0;
+							localMoney += 0;
 							localOperations += localOperator.getNodeType()+"-> ID: "+localOperator.getId()
 									+"-> IDParent: "+localOperator.getIdParent()			
-									+" -> Item: "+k+" -> Enc: "+selectedEnc+"\n";
+									+" -> Item: "+k+" -> Enc: "+selectedEnc+" -> Time: 0 -> Cost : 0\n";
 						}
 						else //encryption richiesta dalla policy del nodo
 						{
-							//questo procedimento si può scrivere molto meglio
 							boolean function = false;
 							String item = localOperator.getOutput().get(k);						
 							ArrayList<String> enc = new ArrayList<String>();
@@ -186,6 +204,16 @@ public class Analyzer {
 								 enc = functionsEnc.get("avg");
 								 function = true;
 							}
+							if(item.indexOf("max") > -1)
+							{
+								 enc = functionsEnc.get("max");
+								 function = true;
+							}
+							if(item.indexOf("min") > -1)
+							{
+								 enc = functionsEnc.get("min");
+								 function = true;
+							}
 							
 							//suppongo che per funzioni ci sia un solo metodo di cifratura ammesso ora come ora...
 							if(!function)
@@ -198,32 +226,44 @@ public class Analyzer {
 									if(TPCHUtils.getStructure().containsKey(table))
 									{
 										itemWidth = TPCHUtils.findWidthByColumn(table,column);
-										localCost += getEncryptionCost(selectedEnc, localOperator.getPlanRows(), itemWidth, localNode);
+										nodeTime = getEncryptionCost(selectedEnc, localOperator.getPlanRows(), itemWidth, localNode);
+										localCost += nodeTime;
+										nodeMoney = getEncryptionNodeCost(localNode, nodeTime);
+										localMoney += nodeMoney;
 									}
 									else
 									{
-										localCost += getEncryptionCost(selectedEnc, localOperator.getPlanRows(), itemWidth, localNode);
+										nodeTime = getEncryptionCost(selectedEnc, localOperator.getPlanRows(), itemWidth, localNode);
+										localCost += nodeTime;
+										nodeMoney = getEncryptionNodeCost(localNode, nodeTime);
+										localMoney += nodeMoney;
 									}										
 									
 								}
 								else
 								{
-									localCost += getEncryptionCost(selectedEnc, localOperator.getPlanRows(), itemWidth, localNode);
+									nodeTime = getEncryptionCost(selectedEnc, localOperator.getPlanRows(), itemWidth, localNode);
+									localCost += nodeTime;
+									nodeMoney = getEncryptionNodeCost(localNode, nodeTime);
+									localMoney += nodeMoney;
 								}
 																
 								localOperations += localOperator.getNodeType()+"-> ID: "+localOperator.getId()
 										+"-> IDParent: "+localOperator.getIdParent()			
-										+" -> Item: "+k+" -> Width: "+itemWidth+" -> Enc: "+selectedEnc+"\n";
+										+" -> Item: "+k+" -> Width: "+itemWidth+" -> Enc: "+selectedEnc+" -> Time: "+nodeTime+" -> Cost: "+nodeMoney+"\n";
 							}
 							else
 							{
 								//le funzioni sono trattate più semplicemente con OPE quindi hanno uno spazio di possibilità diverse
 								String functionSelectedEnc = enc.get(0);
-								localCost += getEncryptionCost(functionSelectedEnc, localOperator.getPlanRows(), localOperator.getPlanWidth(), localNode);
-																
+								nodeTime = getEncryptionCost(functionSelectedEnc, localOperator.getPlanRows(), localOperator.getPlanWidth(), localNode);
+								localCost += nodeTime;
+								nodeMoney = getEncryptionNodeCost(localNode, nodeTime);
+								localMoney += nodeMoney;									
+								
 								localOperations += localOperator.getNodeType()+"-> ID: "+localOperator.getId()
 										+"-> IDParent: "+localOperator.getIdParent()
-										+" -> (funct) Item: "+k+" -> Enc: "+functionSelectedEnc+"\n";
+										+" -> (funct) Item: "+k+" -> Enc: "+functionSelectedEnc+" -> Time: "+nodeTime+" -> Cost: "+nodeMoney+"\n";
 							}
 						} //close encryption needed
 						
@@ -248,17 +288,26 @@ public class Analyzer {
 				}
 			}
 			
-			if(localCost < minCost || minCost == -1) //seconda condizione applicata al primo giro
+			//--> soluzione greeedy, vecchia implementazione, la tengo per avere subito sotto mano la miglior soluzione trovata
+			if(localCost < minTime || minTime == -1) //seconda condizione applicata al primo giro
 			{
-				minCost = localCost;
+				minCost = localMoney;
+				minTime = localCost;
 				defOperations = localOperations;
 			}
+			
+			
+			//voglio esplorare tutte le possibilità
+			output.add(new Attempt(localOperations, localCost, localMoney));
+			
 			
 			possibility--;
 		}
 		
-		
+		return output;
 		
 	}
+
+	
 	
 }

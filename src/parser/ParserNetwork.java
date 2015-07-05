@@ -28,6 +28,7 @@ public class ParserNetwork {
 	public static boolean node_linked;
 	public static boolean latency;
 	public static boolean throughput;
+	public static boolean cost_per_second;
 	
 	private Node tmp_node;
 	private ArrayList<String> tmp_datas;
@@ -115,6 +116,10 @@ public class ParserNetwork {
 						throughput = true;
 					}
 					
+					if (qName.equalsIgnoreCase("COST-PER-SECOND")) {
+						cost_per_second = true;
+					}
+					
 			 
 				}
 			 
@@ -199,6 +204,11 @@ public class ParserNetwork {
 						throughput = false;
 					}				
 					
+					if (cost_per_second) {
+						String value = new String(ch, start, length);
+						tmp_node.setCostPerSecond(Double.parseDouble(value));
+						cost_per_second = false;
+					}		
 			  
 				} 
 	     };

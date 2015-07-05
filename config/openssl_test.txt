@@ -1,0 +1,6 @@
+test
+(256bit block)
+AES 256 ECB -> Intel Core i7 4790K (4 Ghz): 
+			   Intel Celeron B830 (1.8 Ghz): 52.37 MB/s	
+AES 256 CBC -> Intel Core i7 4790K (4 Ghz):
+			   Intel Celeron B830 (1.8 Ghz): 49.70 MB/s	

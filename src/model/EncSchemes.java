@@ -19,6 +19,7 @@ public class EncSchemes {
 		
 		operator = "Seq Scan";
 		encs.add("NDET");
+		encs.add("OPE");
 		operatorsEncs.put(operator, encs);
 		
 		operator = "Index Scan";
