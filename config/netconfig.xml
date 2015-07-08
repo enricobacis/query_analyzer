@@ -14,8 +14,8 @@
 			<node-data>region</node-data>
 		</node-datas>
 		<performance>
-			<aes-throughput>50</aes-throughput>
-			<bclo-value-time>0.156</bclo-value-time>
+			<aes-throughput>180</aes-throughput>
+			<bclo-value-time>0.096</bclo-value-time>
 		</performance>
 		<cost-per-second>0.002</cost-per-second>
 		<links>
@@ -40,8 +40,8 @@
 			<node-data>supplier</node-data>
 		</node-datas>
 		<performance>
-			<aes-throughput>50</aes-throughput>
-			<bclo-value-time>0.170</bclo-value-time>
+			<aes-throughput>150</aes-throughput>
+			<bclo-value-time>0.105</bclo-value-time>
 		</performance>
 		<cost-per-second>0.00198</cost-per-second>
 		<links>
@@ -63,8 +63,8 @@
 		</node-datas>
 		<cost-per-second>0.00095</cost-per-second>
 		<performance>
-			<aes-throughput>50</aes-throughput>
-			<bclo-value-time>0.176</bclo-value-time>
+			<aes-throughput>150</aes-throughput>
+			<bclo-value-time>0.105</bclo-value-time>
 		</performance>
 		<links>
 			<link>
@@ -78,8 +78,8 @@
 		<node-type>Computational Server</node-type>
 		<node-policy>Plain</node-policy>
 		<performance>
-			<aes-throughput>50</aes-throughput>
-			<bclo-value-time>0.126</bclo-value-time>
+			<aes-throughput>200</aes-throughput>
+			<bclo-value-time>0.075</bclo-value-time>
 		</performance>
 		<cost-per-second>0.00070</cost-per-second>
 		<links>
@@ -99,8 +99,8 @@
 		<node-type>Computational Server</node-type>
 		<node-policy>Plain</node-policy>
 		<performance>
-			<aes-throughput>50</aes-throughput>
-			<bclo-value-time>0.119</bclo-value-time>
+			<aes-throughput>150</aes-throughput>
+			<bclo-value-time>0.105</bclo-value-time>
 		</performance>
 		<cost-per-second>0.00085</cost-per-second>
 		<links>
