@@ -41,7 +41,7 @@ public class Main {
 		
 		/* PARSING DEL NETWORK */
 		Network network = new Network(parsernetwork.parseDocument("config/netconfig.xml"));
-		System.out.println(network.showNetwork());
+		//System.out.println(network.showNetwork());
 		
 		/* CONFIGURAZIONE DEGLI OPERATORI */		
 		EncSchemes encSchemes = new EncSchemes();

@@ -71,7 +71,7 @@ public class Analyzer {
 			
 		}else //OPE
 		{
-			//BCLO scheme applicato su uno spazio di 256 bit impiega 176ms per ogni valore
+			//BCLO scheme applicato su uno spazio di 256 bit
 			double singleEnc = localNode.getBcloValueTime() /1000;
 			time = singleEnc*rows;			
 		}		
