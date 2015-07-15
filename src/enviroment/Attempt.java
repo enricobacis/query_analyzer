@@ -5,12 +5,15 @@ public class Attempt {
 	private String operations;
 	private double time;
 	private double cost;
+	private String counters;
 	
-	public Attempt(String o, double t, double c)
+	
+	public Attempt(String o, double t, double c, String cs)
 	{
 		operations = o;
 		time = t;
 		cost = c;
+		counters = cs;
 	}
 	
 	public String getOperations() {
@@ -39,7 +42,10 @@ public class Attempt {
 	
 	public String toString()
 	{
-		return "Attempt: -> Time: "+time+" Cost: "+cost+"\n";
+		return "\n Attempt: -> Time: "+time+" | Cost: "+cost+" | "+
+				 "Counter Status :"+counters;
 	}
+
+	
 
 }

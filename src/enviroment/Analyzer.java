@@ -17,16 +17,18 @@ public class Analyzer {
 	
 	//version 0.3.0
 	
-	//variabili frutto dell'analisi
+	//variabili frutto dell'analisi temporale/costo
 	private double minCost;
 	private double minTime;
-	private String defOperations;
+	private String defOperations;		 //operazioni per il costo minimo in termini di tempo
+	private String minCostDefOperations; //operazioni per il costo minimo in termini economici
 	
 	public Analyzer()
 	{
 		minTime = -1;
 		minCost = -1;
 		defOperations = "";
+		minCostDefOperations = "";
 	}
 	
 	public double getMinTime()
@@ -34,14 +36,49 @@ public class Analyzer {
 		return minTime;
 	}
 	
-	public String getOperations()
+	public String getMinTimeOperations()
 	{
 		return defOperations;
+	}
+	
+	public String getMinCostOperations()
+	{
+		return minCostDefOperations;
 	}
 	
 	public double getMinCost()
 	{
 		return minCost;
+	}
+	
+	private String printCounters(int[] counters) 
+	{
+		String out = "[";
+		for(int i = 0;i<counters.length-1;i++)
+			out += counters[i]+",";
+		out += counters[counters.length-1]+"]";
+		return out;
+		
+	}
+	
+	private double getTransferTime(Node prevNode, Node localNode, double dataToTransfer) 
+	{
+		double output = 0;
+		if(!prevNode.getName().equals(localNode.getName())) //se non è lo stesso nodo
+		{
+			for(int i=0;i<prevNode.getLinks().size();i++)
+			{
+				if(prevNode.getLinks().get(i).getNodeLinked().equals(localNode.getName()))
+				{
+					double throughput = prevNode.getLinks().get(i).getThroughput() / 8; //converto il throughput da Mbit/s a MB/s
+					//i dati da trasferire sono espressi in byte
+					output = dataToTransfer / (throughput * (Math.pow(10, 6))); 
+					return output + prevNode.getLinks().get(i).getLatency() ; //aggiungo la latenza della trasmissione			
+				}
+			}
+		}
+		return output;
+		
 	}
 	
 	private ArrayList<Operator> findOperatorsByParentLevel(int localParentStartLevel, ArrayList<Operator> operators)
@@ -133,7 +170,8 @@ public class Analyzer {
 			double localMoney = 0;
 			double nodeTime = 0;
 			double nodeMoney = 0;
-			String localOperations = "";
+			Node prevNode = network.getNodeByName("CL1"); //suppongo che le richieste partano dal client
+			String localOperations = new String();
 			
 			while(localParentStartLevel >= -1)
 			{
@@ -143,17 +181,16 @@ public class Analyzer {
 					Operator localOperator = levelOperators.get(j);
 					Node localNode = null;
 					/*network analisi*/					
-					//nodo sul quale eseguire l'operazione ANDRà SICURAMENTE ESTESO CON ALTRE VARIABILI
+					//nodo sul quale eseguire l'operazione
 					String dataNeeded = localOperator.getRelationName();
 					if(dataNeeded != null)
 					{
 						if(dataNeeded.equals("none"))
 							dataNeeded = "NoNodeNeeded";
 						else
-							dataNeeded = network.searchNodeByRelation(dataNeeded); //dovrà essere fatto un discorso
-																					//di analisi con la compatibilità dell'enc...
-						localNode = network.getNodeByName(dataNeeded);	//se fosse "NoNodeNeeded" torna il best node
+							dataNeeded = network.searchNodeByRelation(dataNeeded); 
 						
+						localNode = network.getNodeByName(dataNeeded);	//se fosse "NoNodeNeeded" torna il best node	
 					}
 					else
 					{
@@ -266,8 +303,21 @@ public class Analyzer {
 										+" -> (funct) Item: "+k+" -> Enc: "+functionSelectedEnc+" -> Time: "+nodeTime+" -> Cost: "+nodeMoney+"\n";
 							}
 						} //close encryption needed
-						
-					}//close output					
+												
+					}//close output
+					
+					//devo calcorare i tempi di trasferimento da un nodo all'altro
+					if(prevNode != null)
+					{
+						double dataToTransfer = localOperator.getPlanWidth()*localOperator.getPlanRows(); //non mi interessa la singola width di ogni output, questa è la loro somma
+						double transferTime = getTransferTime(prevNode,localNode, dataToTransfer);
+						localCost += transferTime;
+						localOperations += "TRASFERIMENTO DAL NODO "+prevNode.getName()+" AL NODO "+localNode.getName()+" Tempo -> "+transferTime+"\n";
+						//si potrebbe introdurre un modello di costo per la comunicazione tra nodi, ma le policy nelle situazioni reali
+						//prevedono dei costi sui dati in uscita più che sull'ingresso...
+					}
+					prevNode = localNode;
+					
 				}//close operators
 				
 				//passo al livello gerarchicamente sopra
@@ -275,12 +325,17 @@ public class Analyzer {
 				
 			}//close while possibility
 			
+			//situazione attuale dei contatori per il tentativo in corso
+			String counterStatus = printCounters(counters);
 			
 			//aggiornamento contatori, per diversificare le possibilità
 			for(int i = 0;i<counters.length;i++)
 			{
 				if((countersMax[i] - counters[i]) == 0) //sono già arrivato all'ultimo tentativo, passo al contatore successivo
+				{	
+					counters[i] = 1;
 					continue;
+				}
 				else
 				{
 					counters[i]++;
@@ -291,15 +346,18 @@ public class Analyzer {
 			//--> soluzione greeedy, vecchia implementazione, la tengo per avere subito sotto mano la miglior soluzione trovata
 			if(localCost < minTime || minTime == -1) //seconda condizione applicata al primo giro
 			{
-				minCost = localMoney;
 				minTime = localCost;
 				defOperations = localOperations;
 			}
+			if(localMoney < minCost || minCost == -1) //seconda condizione applicata al primo giro
+			{
+				minCost = localMoney;
+				minCostDefOperations = localOperations;
+			}
 			
 			
-			//voglio esplorare tutte le possibilità
-			output.add(new Attempt(localOperations, localCost, localMoney));
-			
+			//voglio esplorare tutte le possibilità			
+			output.add(new Attempt(localOperations, localCost, localMoney, counterStatus));			
 			
 			possibility--;
 		}

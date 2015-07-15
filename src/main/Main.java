@@ -1,5 +1,8 @@
 package main;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 import enviroment.Analyzer;
@@ -28,35 +31,53 @@ public class Main {
 		{
 			ArrayList<Operator> queryOperators = parserSimple.parseDocument("res/"+t+".xml");
 			tpchUtils.inflateOperators(queryOperators);			
-		}
-		//System.out.println(tpchUtils.getAllOperators().toString());
-		
-		//nuovo metodo di parsing, stabilisce una gerarchia degli operatori
-		/* MI LIMITO ALLA 22 */
-		parser.parseDocument("res/22.xml");	
-		/*
-		for(int i = 0; i< parser.operators.size(); i++)
-					System.out.println(parser.operators.get(i).toString());*/
-		
+		}		
 		
 		/* PARSING DEL NETWORK */
 		Network network = new Network(parsernetwork.parseDocument("config/netconfig.xml"));
-		//System.out.println(network.showNetwork());
 		
 		/* CONFIGURAZIONE DEGLI OPERATORI */		
 		EncSchemes encSchemes = new EncSchemes();
-		//System.out.println(encSchemes.getOperatorsEncs().toString());
-		//System.out.println(encSchemes.getFunctionsEncs().toString());
 		
 		
-		/* ANALISI DELLA QUERY */
+		/* ANALISI DELLE QUERY */
+		PrintWriter writer = null;
+		try {
+			writer = new PrintWriter("output/results.txt", "UTF-8");
+		} catch (FileNotFoundException | UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		
+		/*
+		for(int t = 1;t<=TPCHUtils.tpch_num;t++)
+		{
+			writer.println("QUERY "+t);
+			parser.parseDocument("res/"+t+".xml");	
+			ArrayList<Attempt> results = new ArrayList<Attempt>();
+			Analyzer analyzer = new Analyzer();
+			results = analyzer.Analyze(encSchemes, parser.operators, network);
+			writer.println("MIN TIME: "+analyzer.getMinTime()+ " sec.");
+			writer.println("MIN COST: "+analyzer.getMinCost()+ " €");
+			writer.println("OPERATIONS: "+analyzer.getOperations());
+			writer.println("RESULTS: "+results.toString());
+		}
+		*/
+		
+		
+		/* SINGOLA QUERY */
+		writer.println("QUERY ");
+		parser.parseDocument("res/22.xml");	
 		ArrayList<Attempt> results = new ArrayList<Attempt>();
 		Analyzer analyzer = new Analyzer();
 		results = analyzer.Analyze(encSchemes, parser.operators, network);
-		System.out.println("MIN TIME: "+analyzer.getMinTime()+ " sec.");
-		System.out.println("MIN COST: "+analyzer.getMinCost()+ " €");
-		System.out.println("OPERATIONS: "+analyzer.getOperations());
-		System.out.println("RESULTS: "+results.toString());
+		writer.println("MIN TIME: "+analyzer.getMinTime()+ " sec.");
+		writer.println("MIN COST: "+analyzer.getMinCost()+ " €");
+		writer.println("MIN TIME OPERATIONS: "+analyzer.getMinTimeOperations());
+		writer.println("MIN COST OPERATIONS: "+analyzer.getMinCostOperations());
+		writer.println("RESULTS: "+results.toString());
+		
+		writer.close();
 		
 	}
 

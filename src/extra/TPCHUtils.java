@@ -168,7 +168,10 @@ public class TPCHUtils {
 
 	public static String getItemColumn(String relationName) {
 		String[] output = relationName.split("\\."); //nome_tabella.nome_colonna
-		return output[1];
+		if(output.length > 1)
+			return output[1];
+		else
+			return output[0]; //query su singola tabella
 	}
 
 	public static int findWidthByColumn(String table, String column) {
