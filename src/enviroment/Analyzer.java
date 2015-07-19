@@ -211,62 +211,73 @@ public class Analyzer {
 					
 					//per ogni <output> -> <item> devo applicare la tecnica di cifratura....ma attenzione
 					//se l'item è una funzione devo applicare un metodo di cifratura specifico per quella funzione
-					for(int k=0;k<localOperator.getOutput().size();k++)
+					if(localOperator.getOutput() != null)
 					{
-						if(selectedEnc.equals("NO")) //non è richieste encryption sul singolo item
+						for(int k=0;k<localOperator.getOutput().size();k++)
 						{
-							localCost += 0;
-							localMoney += 0;
-							localOperations += localOperator.getNodeType()+"-> ID: "+localOperator.getId()
-									+"-> IDParent: "+localOperator.getIdParent()			
-									+" -> Item: "+k+" -> Enc: "+selectedEnc+" -> Time: 0 -> Cost : 0\n";
-						}
-						else //encryption richiesta dalla policy del nodo
-						{
-							boolean function = false;
-							String item = localOperator.getOutput().get(k);						
-							ArrayList<String> enc = new ArrayList<String>();
-							if(item.indexOf("count") > -1)
+							if(selectedEnc.equals("NO")) //non è richieste encryption sul singolo item
 							{
-								 enc = functionsEnc.get("count");
-								 function = true;
+								localCost += 0;
+								localMoney += 0;
+								localOperations += localOperator.getNodeType()+"-> ID: "+localOperator.getId()
+										+"-> IDParent: "+localOperator.getIdParent()			
+										+" -> Item: "+k+" -> Enc: "+selectedEnc+" -> Time: 0 -> Cost : 0\n";
 							}
-							if(item.indexOf("sum") > -1)
+							else //encryption richiesta dalla policy del nodo
 							{
-								 enc = functionsEnc.get("sum");
-								 function = true;
-							}
-							if(item.indexOf("avg") > -1)
-							{
-								 enc = functionsEnc.get("avg");
-								 function = true;
-							}
-							if(item.indexOf("max") > -1)
-							{
-								 enc = functionsEnc.get("max");
-								 function = true;
-							}
-							if(item.indexOf("min") > -1)
-							{
-								 enc = functionsEnc.get("min");
-								 function = true;
-							}
-							
-							//suppongo che per funzioni ci sia un solo metodo di cifratura ammesso ora come ora...
-							if(!function)
-							{
-								int itemWidth = localOperator.getPlanWidth();
-								if(localOperator.getRelationName() != null) //fa riferimento ad una tabella
+								boolean function = false;
+								String item = localOperator.getOutput().get(k);						
+								ArrayList<String> enc = new ArrayList<String>();
+								if(item.indexOf("count") > -1)
 								{
-									String table = localOperator.getRelationName();
-									String column = TPCHUtils.getItemColumn(item);
-									if(TPCHUtils.getStructure().containsKey(table))
+									 enc = functionsEnc.get("count");
+									 function = true;
+								}
+								if(item.indexOf("sum") > -1)
+								{
+									 enc = functionsEnc.get("sum");
+									 function = true;
+								}
+								if(item.indexOf("avg") > -1)
+								{
+									 enc = functionsEnc.get("avg");
+									 function = true;
+								}
+								if(item.indexOf("max") > -1)
+								{
+									 enc = functionsEnc.get("max");
+									 function = true;
+								}
+								if(item.indexOf("min") > -1)
+								{
+									 enc = functionsEnc.get("min");
+									 function = true;
+								}
+								
+								//suppongo che per funzioni ci sia un solo metodo di cifratura ammesso ora come ora...
+								if(!function)
+								{
+									int itemWidth = localOperator.getPlanWidth();
+									if(localOperator.getRelationName() != null) //fa riferimento ad una tabella
 									{
-										itemWidth = TPCHUtils.findWidthByColumn(table,column);
-										nodeTime = getEncryptionCost(selectedEnc, localOperator.getPlanRows(), itemWidth, localNode);
-										localCost += nodeTime;
-										nodeMoney = getEncryptionNodeCost(localNode, nodeTime);
-										localMoney += nodeMoney;
+										String table = localOperator.getRelationName();
+										String column = TPCHUtils.getItemColumn(item);
+										if(TPCHUtils.getStructure().containsKey(table))
+										{
+											itemWidth = TPCHUtils.findWidthByColumn(table,column);
+											nodeTime = getEncryptionCost(selectedEnc, localOperator.getPlanRows(), itemWidth, localNode);
+											localCost += nodeTime;
+											nodeMoney = getEncryptionNodeCost(localNode, nodeTime);
+											localMoney += nodeMoney;
+										}
+										else
+										{
+											nodeTime = getEncryptionCost(selectedEnc, localOperator.getPlanRows(), itemWidth, localNode);
+											localCost += nodeTime;
+											nodeMoney = getEncryptionNodeCost(localNode, nodeTime);
+											localMoney += nodeMoney;
+										}										
+										
 									}
 									else
 									{
@@ -274,38 +285,30 @@ public class Analyzer {
 										localCost += nodeTime;
 										nodeMoney = getEncryptionNodeCost(localNode, nodeTime);
 										localMoney += nodeMoney;
-									}										
-									
+									}
+																	
+									localOperations += localOperator.getNodeType()+"-> ID: "+localOperator.getId()
+											+"-> IDParent: "+localOperator.getIdParent()			
+											+" -> Item: "+k+" -> Width: "+itemWidth+" -> Enc: "+selectedEnc+" -> Time: "+nodeTime+" -> Cost: "+nodeMoney+"\n";
 								}
 								else
 								{
-									nodeTime = getEncryptionCost(selectedEnc, localOperator.getPlanRows(), itemWidth, localNode);
+									//le funzioni sono trattate più semplicemente con OPE quindi hanno uno spazio di possibilità diverse
+									String functionSelectedEnc = enc.get(0);
+									nodeTime = getEncryptionCost(functionSelectedEnc, localOperator.getPlanRows(), localOperator.getPlanWidth(), localNode);
 									localCost += nodeTime;
 									nodeMoney = getEncryptionNodeCost(localNode, nodeTime);
-									localMoney += nodeMoney;
+									localMoney += nodeMoney;									
+									
+									localOperations += localOperator.getNodeType()+"-> ID: "+localOperator.getId()
+											+"-> IDParent: "+localOperator.getIdParent()
+											+" -> (funct) Item: "+k+" -> Enc: "+functionSelectedEnc+" -> Time: "+nodeTime+" -> Cost: "+nodeMoney+"\n";
 								}
-																
-								localOperations += localOperator.getNodeType()+"-> ID: "+localOperator.getId()
-										+"-> IDParent: "+localOperator.getIdParent()			
-										+" -> Item: "+k+" -> Width: "+itemWidth+" -> Enc: "+selectedEnc+" -> Time: "+nodeTime+" -> Cost: "+nodeMoney+"\n";
-							}
-							else
-							{
-								//le funzioni sono trattate più semplicemente con OPE quindi hanno uno spazio di possibilità diverse
-								String functionSelectedEnc = enc.get(0);
-								nodeTime = getEncryptionCost(functionSelectedEnc, localOperator.getPlanRows(), localOperator.getPlanWidth(), localNode);
-								localCost += nodeTime;
-								nodeMoney = getEncryptionNodeCost(localNode, nodeTime);
-								localMoney += nodeMoney;									
-								
-								localOperations += localOperator.getNodeType()+"-> ID: "+localOperator.getId()
-										+"-> IDParent: "+localOperator.getIdParent()
-										+" -> (funct) Item: "+k+" -> Enc: "+functionSelectedEnc+" -> Time: "+nodeTime+" -> Cost: "+nodeMoney+"\n";
-							}
-						} //close encryption needed
-												
+							} //close encryption needed
+													
+						}//close single output
+						
 					}//close output
-					
 					//devo calcorare i tempi di trasferimento da un nodo all'altro
 					if(prevNode != null)
 					{
