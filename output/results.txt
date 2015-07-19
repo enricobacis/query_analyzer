@@ -1,98 +1,204 @@
 QUERY 
-MIN TIME: 0.011121409333333334 sec.
-MIN COST: 5.22960666666666E-7 €
+MIN TIME: 0.1587524346666667 sec.
+MIN COST: 1.2493344533333328E-4 €
 MIN TIME OPERATIONS: 
-NODE: CS1 (data) null (policy) Encrypted
-TRASFERIMENTO DAL NODO CL1 AL NODO CS1 Tempo -> 0.004
+NODE: SS2 (data) orders (policy) Encrypted
+Seq Scan-> ID: 7-> IDParent: 6 -> Item: 0 -> Width: 4 -> Enc: DET -> Time: 0.04 -> Cost: 7.92E-5
+TRASFERIMENTO DAL NODO CL1 AL NODO SS2 Tempo -> 0.0265
 
-NODE: SS3 (data) part (policy) Encrypted
-Seq Scan-> ID: 2-> IDParent: 1 -> Item: 0 -> Width: 4 -> Enc: DET -> Time: 1.3253333333333334E-5 -> Cost: 1.2590666666666667E-8
-Seq Scan-> ID: 2-> IDParent: 1 -> Item: 1 -> Width: 55 -> Enc: DET -> Time: 1.8223333333333334E-4 -> Cost: 1.7312166666666666E-7
-Seq Scan-> ID: 2-> IDParent: 1 -> Item: 2 -> Width: 15 -> Enc: DET -> Time: 4.97E-5 -> Cost: 4.7215E-8
-Seq Scan-> ID: 2-> IDParent: 1 -> Item: 3 -> Width: 10 -> Enc: DET -> Time: 3.313333333333333E-5 -> Cost: 3.147666666666666E-8
-Seq Scan-> ID: 2-> IDParent: 1 -> Item: 4 -> Width: 25 -> Enc: DET -> Time: 8.283333333333333E-5 -> Cost: 7.869166666666667E-8
-Seq Scan-> ID: 2-> IDParent: 1 -> Item: 5 -> Width: 4 -> Enc: DET -> Time: 1.3253333333333334E-5 -> Cost: 1.2590666666666667E-8
-Seq Scan-> ID: 2-> IDParent: 1 -> Item: 6 -> Width: 10 -> Enc: DET -> Time: 3.313333333333333E-5 -> Cost: 3.147666666666666E-8
-Seq Scan-> ID: 2-> IDParent: 1 -> Item: 7 -> Width: 15 -> Enc: DET -> Time: 4.97E-5 -> Cost: 4.7215E-8
-Seq Scan-> ID: 2-> IDParent: 1 -> Item: 8 -> Width: 23 -> Enc: DET -> Time: 7.620666666666666E-5 -> Cost: 7.239633333333332E-8
-TRASFERIMENTO DAL NODO CS1 AL NODO SS3 Tempo -> 0.00255964
-
-NODE: SS3 (data) lineitem (policy) Encrypted
-Bitmap Heap Scan-> ID: 3-> IDParent: 1 -> Item: 0 -> Width: 4 -> Enc: DET -> Time: 2.6666666666666667E-8 -> Cost: 2.5333333333333333E-11
-Bitmap Heap Scan-> ID: 3-> IDParent: 1 -> Item: 1 -> Width: 4 -> Enc: DET -> Time: 2.6666666666666667E-8 -> Cost: 2.5333333333333333E-11
-Bitmap Heap Scan-> ID: 3-> IDParent: 1 -> Item: 2 -> Width: 4 -> Enc: DET -> Time: 2.6666666666666667E-8 -> Cost: 2.5333333333333333E-11
-Bitmap Heap Scan-> ID: 3-> IDParent: 1 -> Item: 3 -> Width: 4 -> Enc: DET -> Time: 2.6666666666666667E-8 -> Cost: 2.5333333333333333E-11
-Bitmap Heap Scan-> ID: 3-> IDParent: 1 -> Item: 4 -> Width: 15 -> Enc: DET -> Time: 1.0E-7 -> Cost: 9.5E-11
-Bitmap Heap Scan-> ID: 3-> IDParent: 1 -> Item: 5 -> Width: 15 -> Enc: DET -> Time: 1.0E-7 -> Cost: 9.5E-11
-Bitmap Heap Scan-> ID: 3-> IDParent: 1 -> (funct) Item: 6 -> Enc: DET -> Time: 1.4E-7 -> Cost: 1.33E-10
-Bitmap Heap Scan-> ID: 3-> IDParent: 1 -> Item: 7 -> Width: 15 -> Enc: DET -> Time: 1.0E-7 -> Cost: 9.5E-11
-Bitmap Heap Scan-> ID: 3-> IDParent: 1 -> Item: 8 -> Width: 1 -> Enc: DET -> Time: 6.666666666666667E-9 -> Cost: 6.333333333333333E-12
-Bitmap Heap Scan-> ID: 3-> IDParent: 1 -> Item: 9 -> Width: 1 -> Enc: DET -> Time: 6.666666666666667E-9 -> Cost: 6.333333333333333E-12
-Bitmap Heap Scan-> ID: 3-> IDParent: 1 -> Item: 10 -> Width: 4 -> Enc: DET -> Time: 2.6666666666666667E-8 -> Cost: 2.5333333333333333E-11
-Bitmap Heap Scan-> ID: 3-> IDParent: 1 -> Item: 11 -> Width: 4 -> Enc: DET -> Time: 2.6666666666666667E-8 -> Cost: 2.5333333333333333E-11
-Bitmap Heap Scan-> ID: 3-> IDParent: 1 -> Item: 12 -> Width: 4 -> Enc: DET -> Time: 2.6666666666666667E-8 -> Cost: 2.5333333333333333E-11
-Bitmap Heap Scan-> ID: 3-> IDParent: 1 -> Item: 13 -> Width: 25 -> Enc: DET -> Time: 1.6666666666666668E-7 -> Cost: 1.5833333333333336E-10
-Bitmap Heap Scan-> ID: 3-> IDParent: 1 -> Item: 14 -> Width: 10 -> Enc: DET -> Time: 6.666666666666667E-8 -> Cost: 6.333333333333333E-11
-Bitmap Heap Scan-> ID: 3-> IDParent: 1 -> Item: 15 -> Width: 44 -> Enc: DET -> Time: 2.933333333333333E-7 -> Cost: 2.7866666666666663E-10
-TRASFERIMENTO DAL NODO SS3 AL NODO SS3 Tempo -> 0.0
+NODE: SS1 (data) customer (policy) Encrypted
+Seq Scan-> ID: 5-> IDParent: 4 -> Item: 0 -> Width: 15 -> Enc: DET -> Time: 1.4583333333333335E-4 -> Cost: 2.916666666666667E-7
+Seq Scan-> ID: 5-> IDParent: 4 -> Item: 1 -> Width: 15 -> Enc: DET -> Time: 1.4583333333333335E-4 -> Cost: 2.916666666666667E-7
+Seq Scan-> ID: 5-> IDParent: 4 -> Item: 2 -> Width: 4 -> Enc: DET -> Time: 3.888888888888889E-5 -> Cost: 7.777777777777778E-8
+TRASFERIMENTO DAL NODO SS2 AL NODO SS1 Tempo -> 0.002682
 
 NODE: CS1 (data) null (policy) Encrypted
-Nested Loop-> ID: 1-> IDParent: 0 -> Item: 0 -> Width: 12 -> Enc: DET -> Time: 7.02E-6 -> Cost: 4.913999999999999E-9
-Nested Loop-> ID: 1-> IDParent: 0 -> (funct) Item: 1 -> Enc: DET -> Time: 7.02E-6 -> Cost: 4.913999999999999E-9
-TRASFERIMENTO DAL NODO SS3 AL NODO CS1 Tempo -> 0.004005616
+Hash-> ID: 6-> IDParent: 4 -> Item: 0 -> Width: 4 -> Enc: DET -> Time: 0.03 -> Cost: 2.1E-5
+TRASFERIMENTO DAL NODO SS1 AL NODO CS1 Tempo -> 0.028
 
 NODE: CS1 (data) null (policy) Encrypted
-Aggregate-> ID: 0-> IDParent: -1 -> (funct) Item: 0 -> Enc: OPE -> Time: 7.499999999999999E-6 -> Cost: 5.25E-9
+Hash Join-> ID: 4-> IDParent: 3 -> Item: 0 -> Width: 22 -> Enc: DET -> Time: 8.129E-5 -> Cost: 5.6903000000000003E-8
+Hash Join-> ID: 4-> IDParent: 3 -> Item: 1 -> Width: 22 -> Enc: DET -> Time: 8.129E-5 -> Cost: 5.6903000000000003E-8
+TRASFERIMENTO DAL NODO CS1 AL NODO CS1 Tempo -> 0.0
+
+NODE: SS1 (data) customer (policy) Encrypted
+Seq Scan-> ID: 2-> IDParent: 1 -> Item: 0 -> Width: 4 -> Enc: DET -> Time: 1.0608888888888889E-4 -> Cost: 2.1217777777777778E-7
+Seq Scan-> ID: 2-> IDParent: 1 -> Item: 1 -> Width: 25 -> Enc: DET -> Time: 6.630555555555555E-4 -> Cost: 1.326111111111111E-6
+Seq Scan-> ID: 2-> IDParent: 1 -> Item: 2 -> Width: 40 -> Enc: DET -> Time: 0.001060888888888889 -> Cost: 2.121777777777778E-6
+Seq Scan-> ID: 2-> IDParent: 1 -> Item: 3 -> Width: 4 -> Enc: DET -> Time: 1.0608888888888889E-4 -> Cost: 2.1217777777777778E-7
+Seq Scan-> ID: 2-> IDParent: 1 -> Item: 4 -> Width: 15 -> Enc: DET -> Time: 3.978333333333333E-4 -> Cost: 7.956666666666667E-7
+Seq Scan-> ID: 2-> IDParent: 1 -> Item: 5 -> Width: 15 -> Enc: DET -> Time: 3.978333333333333E-4 -> Cost: 7.956666666666667E-7
+Seq Scan-> ID: 2-> IDParent: 1 -> Item: 6 -> Width: 10 -> Enc: DET -> Time: 2.6522222222222225E-4 -> Cost: 5.304444444444445E-7
+Seq Scan-> ID: 2-> IDParent: 1 -> Item: 7 -> Width: 117 -> Enc: DET -> Time: 0.0031031 -> Cost: 6.2062E-6
+TRASFERIMENTO DAL NODO CS1 AL NODO SS1 Tempo -> 0.004114576
+
+NODE: CS1 (data) null (policy) Encrypted
+Sort-> ID: 3-> IDParent: 1 -> Item: 0 -> Width: 22 -> Enc: OPE -> Time: 0.0055425 -> Cost: 3.8797499999999996E-6
+Sort-> ID: 3-> IDParent: 1 -> Item: 1 -> Width: 22 -> Enc: OPE -> Time: 0.0055425 -> Cost: 3.8797499999999996E-6
+TRASFERIMENTO DAL NODO SS1 AL NODO CS1 Tempo -> 0.004065032
+
+NODE: CS1 (data) null (policy) Encrypted
+Aggregate-> ID: 1-> IDParent: 0 -> (funct) Item: 0 -> Enc: OPE -> Time: 7.499999999999999E-6 -> Cost: 5.25E-9
+TRASFERIMENTO DAL NODO CS1 AL NODO CS1 Tempo -> 0.0
+
+NODE: CS1 (data) null (policy) Encrypted
+Aggregate-> ID: 0-> IDParent: -1 -> Item: 0 -> Width: 22 -> Enc: DET -> Time: 8.129E-5 -> Cost: 5.6903000000000003E-8
+Aggregate-> ID: 0-> IDParent: -1 -> (funct) Item: 1 -> Enc: DET -> Time: 8.129E-5 -> Cost: 5.6903000000000003E-8
+Aggregate-> ID: 0-> IDParent: -1 -> (funct) Item: 2 -> Enc: OPE -> Time: 0.0055425 -> Cost: 3.8797499999999996E-6
 TRASFERIMENTO DAL NODO CS1 AL NODO CS1 Tempo -> 0.0
 
 MIN COST OPERATIONS: 
-NODE: CS1 (data) null (policy) Encrypted
-TRASFERIMENTO DAL NODO CL1 AL NODO CS1 Tempo -> 0.004
+NODE: SS2 (data) orders (policy) Encrypted
+Seq Scan-> ID: 7-> IDParent: 6 -> Item: 0 -> Width: 4 -> Enc: DET -> Time: 0.04 -> Cost: 7.92E-5
+TRASFERIMENTO DAL NODO CL1 AL NODO SS2 Tempo -> 0.0265
 
-NODE: SS3 (data) part (policy) Encrypted
-Seq Scan-> ID: 2-> IDParent: 1 -> Item: 0 -> Width: 4 -> Enc: DET -> Time: 1.3253333333333334E-5 -> Cost: 1.2590666666666667E-8
-Seq Scan-> ID: 2-> IDParent: 1 -> Item: 1 -> Width: 55 -> Enc: DET -> Time: 1.8223333333333334E-4 -> Cost: 1.7312166666666666E-7
-Seq Scan-> ID: 2-> IDParent: 1 -> Item: 2 -> Width: 15 -> Enc: DET -> Time: 4.97E-5 -> Cost: 4.7215E-8
-Seq Scan-> ID: 2-> IDParent: 1 -> Item: 3 -> Width: 10 -> Enc: DET -> Time: 3.313333333333333E-5 -> Cost: 3.147666666666666E-8
-Seq Scan-> ID: 2-> IDParent: 1 -> Item: 4 -> Width: 25 -> Enc: DET -> Time: 8.283333333333333E-5 -> Cost: 7.869166666666667E-8
-Seq Scan-> ID: 2-> IDParent: 1 -> Item: 5 -> Width: 4 -> Enc: DET -> Time: 1.3253333333333334E-5 -> Cost: 1.2590666666666667E-8
-Seq Scan-> ID: 2-> IDParent: 1 -> Item: 6 -> Width: 10 -> Enc: DET -> Time: 3.313333333333333E-5 -> Cost: 3.147666666666666E-8
-Seq Scan-> ID: 2-> IDParent: 1 -> Item: 7 -> Width: 15 -> Enc: DET -> Time: 4.97E-5 -> Cost: 4.7215E-8
-Seq Scan-> ID: 2-> IDParent: 1 -> Item: 8 -> Width: 23 -> Enc: DET -> Time: 7.620666666666666E-5 -> Cost: 7.239633333333332E-8
-TRASFERIMENTO DAL NODO CS1 AL NODO SS3 Tempo -> 0.00255964
-
-NODE: SS3 (data) lineitem (policy) Encrypted
-Bitmap Heap Scan-> ID: 3-> IDParent: 1 -> Item: 0 -> Width: 4 -> Enc: DET -> Time: 2.6666666666666667E-8 -> Cost: 2.5333333333333333E-11
-Bitmap Heap Scan-> ID: 3-> IDParent: 1 -> Item: 1 -> Width: 4 -> Enc: DET -> Time: 2.6666666666666667E-8 -> Cost: 2.5333333333333333E-11
-Bitmap Heap Scan-> ID: 3-> IDParent: 1 -> Item: 2 -> Width: 4 -> Enc: DET -> Time: 2.6666666666666667E-8 -> Cost: 2.5333333333333333E-11
-Bitmap Heap Scan-> ID: 3-> IDParent: 1 -> Item: 3 -> Width: 4 -> Enc: DET -> Time: 2.6666666666666667E-8 -> Cost: 2.5333333333333333E-11
-Bitmap Heap Scan-> ID: 3-> IDParent: 1 -> Item: 4 -> Width: 15 -> Enc: DET -> Time: 1.0E-7 -> Cost: 9.5E-11
-Bitmap Heap Scan-> ID: 3-> IDParent: 1 -> Item: 5 -> Width: 15 -> Enc: DET -> Time: 1.0E-7 -> Cost: 9.5E-11
-Bitmap Heap Scan-> ID: 3-> IDParent: 1 -> (funct) Item: 6 -> Enc: DET -> Time: 1.4E-7 -> Cost: 1.33E-10
-Bitmap Heap Scan-> ID: 3-> IDParent: 1 -> Item: 7 -> Width: 15 -> Enc: DET -> Time: 1.0E-7 -> Cost: 9.5E-11
-Bitmap Heap Scan-> ID: 3-> IDParent: 1 -> Item: 8 -> Width: 1 -> Enc: DET -> Time: 6.666666666666667E-9 -> Cost: 6.333333333333333E-12
-Bitmap Heap Scan-> ID: 3-> IDParent: 1 -> Item: 9 -> Width: 1 -> Enc: DET -> Time: 6.666666666666667E-9 -> Cost: 6.333333333333333E-12
-Bitmap Heap Scan-> ID: 3-> IDParent: 1 -> Item: 10 -> Width: 4 -> Enc: DET -> Time: 2.6666666666666667E-8 -> Cost: 2.5333333333333333E-11
-Bitmap Heap Scan-> ID: 3-> IDParent: 1 -> Item: 11 -> Width: 4 -> Enc: DET -> Time: 2.6666666666666667E-8 -> Cost: 2.5333333333333333E-11
-Bitmap Heap Scan-> ID: 3-> IDParent: 1 -> Item: 12 -> Width: 4 -> Enc: DET -> Time: 2.6666666666666667E-8 -> Cost: 2.5333333333333333E-11
-Bitmap Heap Scan-> ID: 3-> IDParent: 1 -> Item: 13 -> Width: 25 -> Enc: DET -> Time: 1.6666666666666668E-7 -> Cost: 1.5833333333333336E-10
-Bitmap Heap Scan-> ID: 3-> IDParent: 1 -> Item: 14 -> Width: 10 -> Enc: DET -> Time: 6.666666666666667E-8 -> Cost: 6.333333333333333E-11
-Bitmap Heap Scan-> ID: 3-> IDParent: 1 -> Item: 15 -> Width: 44 -> Enc: DET -> Time: 2.933333333333333E-7 -> Cost: 2.7866666666666663E-10
-TRASFERIMENTO DAL NODO SS3 AL NODO SS3 Tempo -> 0.0
+NODE: SS1 (data) customer (policy) Encrypted
+Seq Scan-> ID: 5-> IDParent: 4 -> Item: 0 -> Width: 15 -> Enc: DET -> Time: 1.4583333333333335E-4 -> Cost: 2.916666666666667E-7
+Seq Scan-> ID: 5-> IDParent: 4 -> Item: 1 -> Width: 15 -> Enc: DET -> Time: 1.4583333333333335E-4 -> Cost: 2.916666666666667E-7
+Seq Scan-> ID: 5-> IDParent: 4 -> Item: 2 -> Width: 4 -> Enc: DET -> Time: 3.888888888888889E-5 -> Cost: 7.777777777777778E-8
+TRASFERIMENTO DAL NODO SS2 AL NODO SS1 Tempo -> 0.002682
 
 NODE: CS1 (data) null (policy) Encrypted
-Nested Loop-> ID: 1-> IDParent: 0 -> Item: 0 -> Width: 12 -> Enc: DET -> Time: 7.02E-6 -> Cost: 4.913999999999999E-9
-Nested Loop-> ID: 1-> IDParent: 0 -> (funct) Item: 1 -> Enc: DET -> Time: 7.02E-6 -> Cost: 4.913999999999999E-9
-TRASFERIMENTO DAL NODO SS3 AL NODO CS1 Tempo -> 0.004005616
+Hash-> ID: 6-> IDParent: 4 -> Item: 0 -> Width: 4 -> Enc: DET -> Time: 0.03 -> Cost: 2.1E-5
+TRASFERIMENTO DAL NODO SS1 AL NODO CS1 Tempo -> 0.028
 
 NODE: CS1 (data) null (policy) Encrypted
-Aggregate-> ID: 0-> IDParent: -1 -> (funct) Item: 0 -> Enc: OPE -> Time: 7.499999999999999E-6 -> Cost: 5.25E-9
+Hash Join-> ID: 4-> IDParent: 3 -> Item: 0 -> Width: 22 -> Enc: DET -> Time: 8.129E-5 -> Cost: 5.6903000000000003E-8
+Hash Join-> ID: 4-> IDParent: 3 -> Item: 1 -> Width: 22 -> Enc: DET -> Time: 8.129E-5 -> Cost: 5.6903000000000003E-8
+TRASFERIMENTO DAL NODO CS1 AL NODO CS1 Tempo -> 0.0
+
+NODE: SS1 (data) customer (policy) Encrypted
+Seq Scan-> ID: 2-> IDParent: 1 -> Item: 0 -> Width: 4 -> Enc: DET -> Time: 1.0608888888888889E-4 -> Cost: 2.1217777777777778E-7
+Seq Scan-> ID: 2-> IDParent: 1 -> Item: 1 -> Width: 25 -> Enc: DET -> Time: 6.630555555555555E-4 -> Cost: 1.326111111111111E-6
+Seq Scan-> ID: 2-> IDParent: 1 -> Item: 2 -> Width: 40 -> Enc: DET -> Time: 0.001060888888888889 -> Cost: 2.121777777777778E-6
+Seq Scan-> ID: 2-> IDParent: 1 -> Item: 3 -> Width: 4 -> Enc: DET -> Time: 1.0608888888888889E-4 -> Cost: 2.1217777777777778E-7
+Seq Scan-> ID: 2-> IDParent: 1 -> Item: 4 -> Width: 15 -> Enc: DET -> Time: 3.978333333333333E-4 -> Cost: 7.956666666666667E-7
+Seq Scan-> ID: 2-> IDParent: 1 -> Item: 5 -> Width: 15 -> Enc: DET -> Time: 3.978333333333333E-4 -> Cost: 7.956666666666667E-7
+Seq Scan-> ID: 2-> IDParent: 1 -> Item: 6 -> Width: 10 -> Enc: DET -> Time: 2.6522222222222225E-4 -> Cost: 5.304444444444445E-7
+Seq Scan-> ID: 2-> IDParent: 1 -> Item: 7 -> Width: 117 -> Enc: DET -> Time: 0.0031031 -> Cost: 6.2062E-6
+TRASFERIMENTO DAL NODO CS1 AL NODO SS1 Tempo -> 0.004114576
+
+NODE: CS1 (data) null (policy) Encrypted
+Sort-> ID: 3-> IDParent: 1 -> Item: 0 -> Width: 22 -> Enc: OPE -> Time: 0.0055425 -> Cost: 3.8797499999999996E-6
+Sort-> ID: 3-> IDParent: 1 -> Item: 1 -> Width: 22 -> Enc: OPE -> Time: 0.0055425 -> Cost: 3.8797499999999996E-6
+TRASFERIMENTO DAL NODO SS1 AL NODO CS1 Tempo -> 0.004065032
+
+NODE: CS1 (data) null (policy) Encrypted
+Aggregate-> ID: 1-> IDParent: 0 -> (funct) Item: 0 -> Enc: OPE -> Time: 7.499999999999999E-6 -> Cost: 5.25E-9
+TRASFERIMENTO DAL NODO CS1 AL NODO CS1 Tempo -> 0.0
+
+NODE: CS1 (data) null (policy) Encrypted
+Aggregate-> ID: 0-> IDParent: -1 -> Item: 0 -> Width: 22 -> Enc: DET -> Time: 8.129E-5 -> Cost: 5.6903000000000003E-8
+Aggregate-> ID: 0-> IDParent: -1 -> (funct) Item: 1 -> Enc: DET -> Time: 8.129E-5 -> Cost: 5.6903000000000003E-8
+Aggregate-> ID: 0-> IDParent: -1 -> (funct) Item: 2 -> Enc: OPE -> Time: 0.0055425 -> Cost: 3.8797499999999996E-6
 TRASFERIMENTO DAL NODO CS1 AL NODO CS1 Tempo -> 0.0
 
 RESULTS: [
- Attempt: -> Time: 0.011121409333333334 | Cost: 5.22960666666666E-7 | Counter Status :[1,1,1,1,1], 
- Attempt: -> Time: 0.011121409333333334 | Cost: 5.22960666666666E-7 | Counter Status :[2,1,1,1,1], 
- Attempt: -> Time: 0.0575544626666667 | Cost: 4.463436133333333E-5 | Counter Status :[1,1,2,1,1], 
- Attempt: -> Time: 0.0575544626666667 | Cost: 4.463436133333333E-5 | Counter Status :[2,1,2,1,1], 
- Attempt: -> Time: 0.011121409333333334 | Cost: 5.22960666666666E-7 | Counter Status :[1,1,3,1,1], 
- Attempt: -> Time: 0.011121409333333334 | Cost: 5.22960666666666E-7 | Counter Status :[2,1,3,1,1]]
+ Attempt: -> Time: 0.16421364466666669 | Cost: 1.287562923333333E-4 | Counter Status :[1,1,1,1,1,1,1,1], 
+ Attempt: -> Time: 0.1587524346666667 | Cost: 1.2493344533333328E-4 | Counter Status :[2,1,1,1,1,1,1,1], 
+ Attempt: -> Time: 0.16421364466666669 | Cost: 1.287562923333333E-4 | Counter Status :[1,2,1,1,1,1,1,1], 
+ Attempt: -> Time: 0.1587524346666667 | Cost: 1.2493344533333328E-4 | Counter Status :[2,2,1,1,1,1,1,1], 
+ Attempt: -> Time: 0.5247567335555555 | Cost: 8.498424701111108E-4 | Counter Status :[1,1,2,1,1,1,1,1], 
+ Attempt: -> Time: 0.5192955235555555 | Cost: 8.460196231111108E-4 | Counter Status :[2,1,2,1,1,1,1,1], 
+ Attempt: -> Time: 0.5247567335555555 | Cost: 8.498424701111108E-4 | Counter Status :[1,2,2,1,1,1,1,1], 
+ Attempt: -> Time: 0.5192955235555555 | Cost: 8.460196231111108E-4 | Counter Status :[2,2,2,1,1,1,1,1], 
+ Attempt: -> Time: 0.16421364466666669 | Cost: 1.287562923333333E-4 | Counter Status :[1,1,3,1,1,1,1,1], 
+ Attempt: -> Time: 0.1587524346666667 | Cost: 1.2493344533333328E-4 | Counter Status :[2,1,3,1,1,1,1,1], 
+ Attempt: -> Time: 0.16421364466666669 | Cost: 1.287562923333333E-4 | Counter Status :[1,2,3,1,1,1,1,1], 
+ Attempt: -> Time: 0.1587524346666667 | Cost: 1.2493344533333328E-4 | Counter Status :[2,2,3,1,1,1,1,1], 
+ Attempt: -> Time: 0.2142830891111111 | Cost: 2.2889518122222222E-4 | Counter Status :[1,1,1,1,1,2,1,1], 
+ Attempt: -> Time: 0.2088218791111111 | Cost: 2.2507233422222223E-4 | Counter Status :[2,1,1,1,1,2,1,1], 
+ Attempt: -> Time: 0.2142830891111111 | Cost: 2.2889518122222222E-4 | Counter Status :[1,2,1,1,1,2,1,1], 
+ Attempt: -> Time: 0.2088218791111111 | Cost: 2.2507233422222223E-4 | Counter Status :[2,2,1,1,1,2,1,1], 
+ Attempt: -> Time: 0.574826178 | Cost: 9.499813589999997E-4 | Counter Status :[1,1,2,1,1,2,1,1], 
+ Attempt: -> Time: 0.569364968 | Cost: 9.461585119999997E-4 | Counter Status :[2,1,2,1,1,2,1,1], 
+ Attempt: -> Time: 0.574826178 | Cost: 9.499813589999997E-4 | Counter Status :[1,2,2,1,1,2,1,1], 
+ Attempt: -> Time: 0.569364968 | Cost: 9.461585119999997E-4 | Counter Status :[2,2,2,1,1,2,1,1], 
+ Attempt: -> Time: 0.2142830891111111 | Cost: 2.2889518122222222E-4 | Counter Status :[1,1,3,1,1,2,1,1], 
+ Attempt: -> Time: 0.2088218791111111 | Cost: 2.2507233422222223E-4 | Counter Status :[2,1,3,1,1,2,1,1], 
+ Attempt: -> Time: 0.2142830891111111 | Cost: 2.2889518122222222E-4 | Counter Status :[1,2,3,1,1,2,1,1], 
+ Attempt: -> Time: 0.2088218791111111 | Cost: 2.2507233422222223E-4 | Counter Status :[2,2,3,1,1,2,1,1], 
+ Attempt: -> Time: 0.16421364466666669 | Cost: 1.287562923333333E-4 | Counter Status :[1,1,1,1,1,3,1,1], 
+ Attempt: -> Time: 0.1587524346666667 | Cost: 1.2493344533333328E-4 | Counter Status :[2,1,1,1,1,3,1,1], 
+ Attempt: -> Time: 0.16421364466666669 | Cost: 1.287562923333333E-4 | Counter Status :[1,2,1,1,1,3,1,1], 
+ Attempt: -> Time: 0.1587524346666667 | Cost: 1.2493344533333328E-4 | Counter Status :[2,2,1,1,1,3,1,1], 
+ Attempt: -> Time: 0.5247567335555555 | Cost: 8.498424701111108E-4 | Counter Status :[1,1,2,1,1,3,1,1], 
+ Attempt: -> Time: 0.5192955235555555 | Cost: 8.460196231111108E-4 | Counter Status :[2,1,2,1,1,3,1,1], 
+ Attempt: -> Time: 0.5247567335555555 | Cost: 8.498424701111108E-4 | Counter Status :[1,2,2,1,1,3,1,1], 
+ Attempt: -> Time: 0.5192955235555555 | Cost: 8.460196231111108E-4 | Counter Status :[2,2,2,1,1,3,1,1], 
+ Attempt: -> Time: 0.16421364466666669 | Cost: 1.287562923333333E-4 | Counter Status :[1,1,3,1,1,3,1,1], 
+ Attempt: -> Time: 0.1587524346666667 | Cost: 1.2493344533333328E-4 | Counter Status :[2,1,3,1,1,3,1,1], 
+ Attempt: -> Time: 0.16421364466666669 | Cost: 1.287562923333333E-4 | Counter Status :[1,2,3,1,1,3,1,1], 
+ Attempt: -> Time: 0.1587524346666667 | Cost: 1.2493344533333328E-4 | Counter Status :[2,2,3,1,1,3,1,1], 
+ Attempt: -> Time: 15.874213644666673 | Cost: 0.031234556292333345 | Counter Status :[1,1,1,1,1,1,1,2], 
+ Attempt: -> Time: 15.868752434666673 | Cost: 0.031230733445333343 | Counter Status :[2,1,1,1,1,1,1,2], 
+ Attempt: -> Time: 15.874213644666673 | Cost: 0.031234556292333345 | Counter Status :[1,2,1,1,1,1,1,2], 
+ Attempt: -> Time: 15.868752434666673 | Cost: 0.031230733445333343 | Counter Status :[2,2,1,1,1,1,1,2], 
+ Attempt: -> Time: 16.23475673355556 | Cost: 0.03195564247011108 | Counter Status :[1,1,2,1,1,1,1,2], 
+ Attempt: -> Time: 16.22929552355556 | Cost: 0.03195181962311108 | Counter Status :[2,1,2,1,1,1,1,2], 
+ Attempt: -> Time: 16.23475673355556 | Cost: 0.03195564247011108 | Counter Status :[1,2,2,1,1,1,1,2], 
+ Attempt: -> Time: 16.22929552355556 | Cost: 0.03195181962311108 | Counter Status :[2,2,2,1,1,1,1,2], 
+ Attempt: -> Time: 15.874213644666673 | Cost: 0.031234556292333345 | Counter Status :[1,1,3,1,1,1,1,2], 
+ Attempt: -> Time: 15.868752434666673 | Cost: 0.031230733445333343 | Counter Status :[2,1,3,1,1,1,1,2], 
+ Attempt: -> Time: 15.874213644666673 | Cost: 0.031234556292333345 | Counter Status :[1,2,3,1,1,1,1,2], 
+ Attempt: -> Time: 15.868752434666673 | Cost: 0.031230733445333343 | Counter Status :[2,2,3,1,1,1,1,2], 
+ Attempt: -> Time: 15.924283089111118 | Cost: 0.031334695181222214 | Counter Status :[1,1,1,1,1,2,1,2], 
+ Attempt: -> Time: 15.918821879111118 | Cost: 0.031330872334222215 | Counter Status :[2,1,1,1,1,2,1,2], 
+ Attempt: -> Time: 15.924283089111118 | Cost: 0.031334695181222214 | Counter Status :[1,2,1,1,1,2,1,2], 
+ Attempt: -> Time: 15.918821879111118 | Cost: 0.031330872334222215 | Counter Status :[2,2,1,1,1,2,1,2], 
+ Attempt: -> Time: 16.284826178000003 | Cost: 0.032055781358999974 | Counter Status :[1,1,2,1,1,2,1,2], 
+ Attempt: -> Time: 16.279364968000003 | Cost: 0.032051958511999976 | Counter Status :[2,1,2,1,1,2,1,2], 
+ Attempt: -> Time: 16.284826178000003 | Cost: 0.032055781358999974 | Counter Status :[1,2,2,1,1,2,1,2], 
+ Attempt: -> Time: 16.279364968000003 | Cost: 0.032051958511999976 | Counter Status :[2,2,2,1,1,2,1,2], 
+ Attempt: -> Time: 15.924283089111118 | Cost: 0.031334695181222214 | Counter Status :[1,1,3,1,1,2,1,2], 
+ Attempt: -> Time: 15.918821879111118 | Cost: 0.031330872334222215 | Counter Status :[2,1,3,1,1,2,1,2], 
+ Attempt: -> Time: 15.924283089111118 | Cost: 0.031334695181222214 | Counter Status :[1,2,3,1,1,2,1,2], 
+ Attempt: -> Time: 15.918821879111118 | Cost: 0.031330872334222215 | Counter Status :[2,2,3,1,1,2,1,2], 
+ Attempt: -> Time: 15.874213644666673 | Cost: 0.031234556292333345 | Counter Status :[1,1,1,1,1,3,1,2], 
+ Attempt: -> Time: 15.868752434666673 | Cost: 0.031230733445333343 | Counter Status :[2,1,1,1,1,3,1,2], 
+ Attempt: -> Time: 15.874213644666673 | Cost: 0.031234556292333345 | Counter Status :[1,2,1,1,1,3,1,2], 
+ Attempt: -> Time: 15.868752434666673 | Cost: 0.031230733445333343 | Counter Status :[2,2,1,1,1,3,1,2], 
+ Attempt: -> Time: 16.23475673355556 | Cost: 0.03195564247011108 | Counter Status :[1,1,2,1,1,3,1,2], 
+ Attempt: -> Time: 16.22929552355556 | Cost: 0.03195181962311108 | Counter Status :[2,1,2,1,1,3,1,2], 
+ Attempt: -> Time: 16.23475673355556 | Cost: 0.03195564247011108 | Counter Status :[1,2,2,1,1,3,1,2], 
+ Attempt: -> Time: 16.22929552355556 | Cost: 0.03195181962311108 | Counter Status :[2,2,2,1,1,3,1,2], 
+ Attempt: -> Time: 15.874213644666673 | Cost: 0.031234556292333345 | Counter Status :[1,1,3,1,1,3,1,2], 
+ Attempt: -> Time: 15.868752434666673 | Cost: 0.031230733445333343 | Counter Status :[2,1,3,1,1,3,1,2], 
+ Attempt: -> Time: 15.874213644666673 | Cost: 0.031234556292333345 | Counter Status :[1,2,3,1,1,3,1,2], 
+ Attempt: -> Time: 15.868752434666673 | Cost: 0.031230733445333343 | Counter Status :[2,2,3,1,1,3,1,2], 
+ Attempt: -> Time: 0.16421364466666669 | Cost: 1.287562923333333E-4 | Counter Status :[1,1,1,1,1,1,1,3], 
+ Attempt: -> Time: 0.1587524346666667 | Cost: 1.2493344533333328E-4 | Counter Status :[2,1,1,1,1,1,1,3], 
+ Attempt: -> Time: 0.16421364466666669 | Cost: 1.287562923333333E-4 | Counter Status :[1,2,1,1,1,1,1,3], 
+ Attempt: -> Time: 0.1587524346666667 | Cost: 1.2493344533333328E-4 | Counter Status :[2,2,1,1,1,1,1,3], 
+ Attempt: -> Time: 0.5247567335555555 | Cost: 8.498424701111108E-4 | Counter Status :[1,1,2,1,1,1,1,3], 
+ Attempt: -> Time: 0.5192955235555555 | Cost: 8.460196231111108E-4 | Counter Status :[2,1,2,1,1,1,1,3], 
+ Attempt: -> Time: 0.5247567335555555 | Cost: 8.498424701111108E-4 | Counter Status :[1,2,2,1,1,1,1,3], 
+ Attempt: -> Time: 0.5192955235555555 | Cost: 8.460196231111108E-4 | Counter Status :[2,2,2,1,1,1,1,3], 
+ Attempt: -> Time: 0.16421364466666669 | Cost: 1.287562923333333E-4 | Counter Status :[1,1,3,1,1,1,1,3], 
+ Attempt: -> Time: 0.1587524346666667 | Cost: 1.2493344533333328E-4 | Counter Status :[2,1,3,1,1,1,1,3], 
+ Attempt: -> Time: 0.16421364466666669 | Cost: 1.287562923333333E-4 | Counter Status :[1,2,3,1,1,1,1,3], 
+ Attempt: -> Time: 0.1587524346666667 | Cost: 1.2493344533333328E-4 | Counter Status :[2,2,3,1,1,1,1,3], 
+ Attempt: -> Time: 0.2142830891111111 | Cost: 2.2889518122222222E-4 | Counter Status :[1,1,1,1,1,2,1,3], 
+ Attempt: -> Time: 0.2088218791111111 | Cost: 2.2507233422222223E-4 | Counter Status :[2,1,1,1,1,2,1,3], 
+ Attempt: -> Time: 0.2142830891111111 | Cost: 2.2889518122222222E-4 | Counter Status :[1,2,1,1,1,2,1,3], 
+ Attempt: -> Time: 0.2088218791111111 | Cost: 2.2507233422222223E-4 | Counter Status :[2,2,1,1,1,2,1,3], 
+ Attempt: -> Time: 0.574826178 | Cost: 9.499813589999997E-4 | Counter Status :[1,1,2,1,1,2,1,3], 
+ Attempt: -> Time: 0.569364968 | Cost: 9.461585119999997E-4 | Counter Status :[2,1,2,1,1,2,1,3], 
+ Attempt: -> Time: 0.574826178 | Cost: 9.499813589999997E-4 | Counter Status :[1,2,2,1,1,2,1,3], 
+ Attempt: -> Time: 0.569364968 | Cost: 9.461585119999997E-4 | Counter Status :[2,2,2,1,1,2,1,3], 
+ Attempt: -> Time: 0.2142830891111111 | Cost: 2.2889518122222222E-4 | Counter Status :[1,1,3,1,1,2,1,3], 
+ Attempt: -> Time: 0.2088218791111111 | Cost: 2.2507233422222223E-4 | Counter Status :[2,1,3,1,1,2,1,3], 
+ Attempt: -> Time: 0.2142830891111111 | Cost: 2.2889518122222222E-4 | Counter Status :[1,2,3,1,1,2,1,3], 
+ Attempt: -> Time: 0.2088218791111111 | Cost: 2.2507233422222223E-4 | Counter Status :[2,2,3,1,1,2,1,3], 
+ Attempt: -> Time: 0.16421364466666669 | Cost: 1.287562923333333E-4 | Counter Status :[1,1,1,1,1,3,1,3], 
+ Attempt: -> Time: 0.1587524346666667 | Cost: 1.2493344533333328E-4 | Counter Status :[2,1,1,1,1,3,1,3], 
+ Attempt: -> Time: 0.16421364466666669 | Cost: 1.287562923333333E-4 | Counter Status :[1,2,1,1,1,3,1,3], 
+ Attempt: -> Time: 0.1587524346666667 | Cost: 1.2493344533333328E-4 | Counter Status :[2,2,1,1,1,3,1,3], 
+ Attempt: -> Time: 0.5247567335555555 | Cost: 8.498424701111108E-4 | Counter Status :[1,1,2,1,1,3,1,3], 
+ Attempt: -> Time: 0.5192955235555555 | Cost: 8.460196231111108E-4 | Counter Status :[2,1,2,1,1,3,1,3], 
+ Attempt: -> Time: 0.5247567335555555 | Cost: 8.498424701111108E-4 | Counter Status :[1,2,2,1,1,3,1,3], 
+ Attempt: -> Time: 0.5192955235555555 | Cost: 8.460196231111108E-4 | Counter Status :[2,2,2,1,1,3,1,3], 
+ Attempt: -> Time: 0.16421364466666669 | Cost: 1.287562923333333E-4 | Counter Status :[1,1,3,1,1,3,1,3], 
+ Attempt: -> Time: 0.1587524346666667 | Cost: 1.2493344533333328E-4 | Counter Status :[2,1,3,1,1,3,1,3], 
+ Attempt: -> Time: 0.16421364466666669 | Cost: 1.287562923333333E-4 | Counter Status :[1,2,3,1,1,3,1,3], 
+ Attempt: -> Time: 0.1587524346666667 | Cost: 1.2493344533333328E-4 | Counter Status :[2,2,3,1,1,3,1,3]]
