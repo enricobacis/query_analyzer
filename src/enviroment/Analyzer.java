@@ -106,12 +106,22 @@ public class Analyzer {
 			int rowsWidth = rows*rowWidth;
 			time = rowsWidth / throughput;			
 			
-		}else //OPE
+		}
+		else 
 		{
-			//BCLO scheme applicato su uno spazio di 256 bit
-			double singleEnc = localNode.getBcloValueTime() /1000;
-			time = singleEnc*rows;			
-		}		
+			if(enc.equals("OPE")) //OPE
+			{
+				//BCLO scheme applicato su uno spazio di 256 bit
+				double singleEnc = localNode.getBcloValueTime() /1000;
+				time = singleEnc*rows;			
+			}		
+			else //PAI 
+			{
+				double throughput = (localNode.getPaillerThroughput())*(Math.pow(10, 6)); //è già in byte
+				int rowsWidth = rows*rowWidth;
+				time = rowsWidth / throughput;
+			}
+		}
 		
 		return time;
 	}

@@ -32,6 +32,7 @@ public class Main {
 			ArrayList<Operator> queryOperators = parserSimple.parseDocument("res/"+t+".xml");
 			tpchUtils.inflateOperators(queryOperators);			
 		}		
+		//System.out.println(tpchUtils.getAllOperators().toString());
 		
 		/* PARSING DEL NETWORK */
 		Network network = new Network(parsernetwork.parseDocument("config/netconfig.xml"));

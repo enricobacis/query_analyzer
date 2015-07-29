@@ -12,6 +12,7 @@ public class Node {
 	//performance
 	private double aesThroughput;
 	private double bcloValueTime;
+	private double paillerThroughput;
 	
 	//cost
 	private double costPerSecond;
@@ -113,6 +114,16 @@ public class Node {
 	public void setCostPerSecond(double i)
 	{
 		costPerSecond = i;
+	}
+
+	public double getPaillerThroughput() 
+	{
+		return paillerThroughput;
+	}
+
+	public void setPaillerThroughput(double paillerThroughput) 
+	{
+		this.paillerThroughput = paillerThroughput;
 	}
 	
 }

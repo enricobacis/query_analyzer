@@ -2,6 +2,7 @@
 <!-- latency : s -->
 <!-- link-throughput : Mbps -->
 <!-- aes-throughput : MB/s -->
+<!-- pailler-throughput: MB/s -->
 <!-- bclo : ms -->
 <!-- cost-per-second : costo che tiene in conto tutte le risorse impiegate in quel secondo -->
 <network>
@@ -15,6 +16,7 @@
 		</node-datas>
 		<performance>
 			<aes-throughput>180</aes-throughput>
+			<pailler-throughput>0.67</pailler-throughput>
 			<bclo-value-time>0.0096</bclo-value-time>
 		</performance>
 		<cost-per-second>0.002</cost-per-second>
@@ -61,6 +63,7 @@
 		</node-datas>
 		<performance>
 			<aes-throughput>150</aes-throughput>
+			<pailler-throughput>0.51</pailler-throughput>
 			<bclo-value-time>0.0105</bclo-value-time>
 		</performance>
 		<cost-per-second>0.00198</cost-per-second>
@@ -109,6 +112,7 @@
 		<cost-per-second>0.00095</cost-per-second>
 		<performance>
 			<aes-throughput>150</aes-throughput>
+			<pailler-throughput>0.51</pailler-throughput>
 			<bclo-value-time>0.0105</bclo-value-time>
 		</performance>
 		<links>
@@ -149,6 +153,7 @@
 		<node-policy>Encrypted</node-policy>
 		<performance>
 			<aes-throughput>200</aes-throughput>
+			<pailler-throughput>0.78</pailler-throughput>
 			<bclo-value-time>0.0075</bclo-value-time>
 		</performance>
 		<cost-per-second>0.00070</cost-per-second>
@@ -190,6 +195,7 @@
 		<node-policy>Encrypted</node-policy>
 		<performance>
 			<aes-throughput>150</aes-throughput>
+			<pailler-throughput>0.51</pailler-throughput>
 			<bclo-value-time>0.0105</bclo-value-time>
 		</performance>
 		<cost-per-second>0.00085</cost-per-second>
@@ -231,7 +237,8 @@
 		<node-policy>Encrypted</node-policy>
 		<performance>
 			<aes-throughput>150</aes-throughput>
-			<bclo-value-time>0.0105</bclo-value-time>
+			<pailler-throughput>0.51</pailler-throughput>
+			<bclo-value-time>0.0105</bclo-value-time>			
 		</performance>
 		<cost-per-second>0.00085</cost-per-second>
 		<links>
@@ -272,7 +279,8 @@
 		<node-policy>Plain</node-policy>
 		<performance>
 			<aes-throughput>50</aes-throughput>
-			<bclo-value-time>0.0216</bclo-value-time>
+			<pailler-throughput>0.40</pailler-throughput>
+			<bclo-value-time>0.0216</bclo-value-time>			
 		</performance>
 		<cost-per-second>0.0008</cost-per-second>
 		<links>

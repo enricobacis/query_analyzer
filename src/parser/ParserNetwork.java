@@ -29,6 +29,7 @@ public class ParserNetwork {
 	public static boolean latency;
 	public static boolean throughput;
 	public static boolean cost_per_second;
+	public static boolean pailler;
 	
 	private Node tmp_node;
 	private ArrayList<String> tmp_datas;
@@ -89,6 +90,10 @@ public class ParserNetwork {
 					
 					if (qName.equalsIgnoreCase("AES-THROUGHPUT")) {
 						aes = true;
+					}
+					
+					if (qName.equalsIgnoreCase("PAILLER-THROUGHPUT")) {
+						pailler = true;
 					}
 					
 					if (qName.equalsIgnoreCase("BCLO-VALUE-TIME")) {
@@ -202,7 +207,13 @@ public class ParserNetwork {
 						String value = new String(ch, start, length);
 						tmp_throughput = Double.parseDouble(value);
 						throughput = false;
-					}				
+					}
+					
+					if (pailler) {
+						String value = new String(ch, start, length);
+						tmp_node.setPaillerThroughput(Double.parseDouble(value));
+						pailler = false;
+					}	
 					
 					if (cost_per_second) {
 						String value = new String(ch, start, length);

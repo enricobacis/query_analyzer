@@ -11,7 +11,7 @@ public class EncSchemes {
 	public EncSchemes()
 	{
 		//inizializzazione delle varibili necessarie
-		//cifrature ammesse DET - NDET - OPE - NO
+		//cifrature ammesse DET - NDET - OPE - NO - PAI
 		operatorsEncs = new HashMap<String, ArrayList<String>>();
 		functionsEncs = new HashMap<String, ArrayList<String>>();
 		ArrayList<String> encs = new ArrayList<String>();
@@ -97,12 +97,12 @@ public class EncSchemes {
 		
 		function = "sum";
 		encs = new ArrayList<String>();
-		encs.add("OPE");
+		encs.add("PAI");
 		functionsEncs.put(function,encs);
 		
 		function = "avg";
 		encs = new ArrayList<String>();
-		encs.add("OPE");
+		encs.add("PAI");
 		functionsEncs.put(function,encs);	
 		
 		function = "max";
