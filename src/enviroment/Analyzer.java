@@ -206,12 +206,13 @@ public class Analyzer {
 					{
 						localNode = network.getBestNode();					
 					}
-					localOperations += "\nNODE: "+localNode.getName()+" (data) "+localOperator.getRelationName()+" (policy) "+localNode.getPolicy()+"\n";					
+					localOperations += "\nNODE: "+localNode.getName()+" (data) "+localOperator.getRelationName()+" (policy) \n";					
 					//////
 					/* end network analisi */
 					
 					//policy del nodo
-					String nodePolicy = localNode.getPolicy();
+					//String nodePolicy = localNode.getPolicy();
+					String nodePolicy = "Plain";
 					String selectedEnc = "NO"; //suppongo non serva ma...					
 					if(!nodePolicy.equals("Plain")) //encryption necessaria
 					{

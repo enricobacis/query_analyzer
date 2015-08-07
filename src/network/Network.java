@@ -21,7 +21,8 @@ public class Network {
 	}
 
 	public String searchNodeByRelation(String dataNeeded) { //se ci sono più nodi candidati
-															//devo scegliere il migliore per throughput
+		
+		/*//devo scegliere il migliore per throughput
 		ArrayList<Node> candidates = new ArrayList<Node>();
 		Node output = null;
 		
@@ -47,13 +48,14 @@ public class Network {
 					output = candidates.get(i);	
 			return output.getName();
 		}
-		
+		*/
 		return null;
 		
 	}
 	
 	public String getNodePolicy(String nodeName)
 	{
+		/*
 		String output="Plain"; //di default non impongo nessuna encryption
 		for(int i = 0;i<nodes.size();i++)
 			if(nodes.get(i).getName().equals(nodeName))
@@ -62,6 +64,8 @@ public class Network {
 				break;
 			}
 		return output;
+		*/
+		return null;
 	}
 	
 	public Node getNodeByName(String name)

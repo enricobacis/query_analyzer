@@ -6,8 +6,9 @@ public class Node {
 
 	private String name;
 	private String type;
-	private String policy;
-	private ArrayList<String> data;
+	
+	private ArrayList<String> plainVisibility;
+	private ArrayList<String> encryptedVisibility;
 	
 	//performance
 	private double aesThroughput;
@@ -27,28 +28,24 @@ public class Node {
 		
 	public String toString()
 	{
-		String stringData = "";
-		if(data != null && data.size() > 0)
-			stringData = data.toString();
+		String stringDataPlain = "";
+		if(plainVisibility != null && plainVisibility.size() > 0)
+			stringDataPlain = plainVisibility.toString();
+		
+		String stringDataEnc = "";
+		if(encryptedVisibility != null && encryptedVisibility.size() > 0)
+			stringDataEnc = encryptedVisibility.toString();
 		
 		return "Type: "+type+
 				" | Name: "+name+
-				" | Policy: "+policy+
-				" | Data: "+stringData+
+				" | PlainVisibility: "+stringDataPlain+
+				" | EncryptedVisibility: "+stringDataEnc+
 				" | Performance:  AES -> "+aesThroughput+" BCLO -> "+bcloValueTime+
 				" | Cost Per Second:  "+costPerSecond+
 				" | Links : "+links.toString();
 	}
 	
-	public ArrayList<String> getData()
-	{
-		return data;
-	}
 	
-	public void setData(ArrayList<String> i)
-	{
-		data = i;
-	}
 	
 	public String getName()
 	{
@@ -60,16 +57,23 @@ public class Node {
 		name = s;
 	}
 	
-	public String getPolicy()
-	{
-		return policy;
-	}
 	
-	public void setPolicy(String s)
-	{
-		policy = s;
+	public ArrayList<String> getPlainVisibility() {
+		return plainVisibility;
 	}
-	
+
+	public void setPlainVisibility(ArrayList<String> plainVisibility) {
+		this.plainVisibility = plainVisibility;
+	}
+
+	public ArrayList<String> getEncryptedVisibility() {
+		return encryptedVisibility;
+	}
+
+	public void setEncryptedVisibility(ArrayList<String> encryptedVisibility) {
+		this.encryptedVisibility = encryptedVisibility;
+	}
+
 	public String getType()
 	{
 		return type;

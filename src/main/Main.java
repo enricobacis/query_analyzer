@@ -36,12 +36,14 @@ public class Main {
 		
 		/* PARSING DEL NETWORK */
 		Network network = new Network(parsernetwork.parseDocument("config/netconfig.xml"));
+		System.out.println(network.showNetwork());
 		
 		/* CONFIGURAZIONE DEGLI OPERATORI */		
-		EncSchemes encSchemes = new EncSchemes();
+		//EncSchemes encSchemes = new EncSchemes();
 		
 		
 		/* ANALISI DELLE QUERY */
+		/*
 		PrintWriter writer = null;
 		try {
 			writer = new PrintWriter("output/results.txt", "UTF-8");
@@ -49,6 +51,7 @@ public class Main {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
+		*/
 		
 		/*
 		for(int t = 1;t<=TPCHUtils.tpch_num;t++)
@@ -67,6 +70,7 @@ public class Main {
 		
 		
 		/* SINGOLA QUERY */
+		/*
 		writer.println("QUERY ");
 		parser.parseDocument("res/22.xml");	
 		ArrayList<Attempt> results = new ArrayList<Attempt>();
@@ -79,7 +83,7 @@ public class Main {
 		writer.println("RESULTS: "+results.toString());
 		
 		writer.close();
-		
+		*/
 	}
 
 }

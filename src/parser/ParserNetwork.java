@@ -17,7 +17,6 @@ public class ParserNetwork {
 	
 	public static boolean node;
 	public static boolean node_type;
-	public static boolean node_policy;
 	public static boolean node_datas;
 	public static boolean node_data;
 	public static boolean performance;
@@ -32,11 +31,13 @@ public class ParserNetwork {
 	public static boolean pailler;
 	
 	private Node tmp_node;
-	private ArrayList<String> tmp_datas;
+	private ArrayList<String> tmp_datas_enc;
+	private ArrayList<String> tmp_datas_plain;
 	private String tmp_nodeLinked;
 	private double tmp_latency;
 	private double tmp_throughput;
 	private ArrayList<Link> tmp_links;
+	private String supportAttribute;
 	
 	public ParserNetwork()
 	{
@@ -71,16 +72,15 @@ public class ParserNetwork {
 						node_type = true;
 					}
 					
-					if (qName.equalsIgnoreCase("NODE-POLICY")) {
-						node_policy = true;
-					}
-					
+										
 					if (qName.equalsIgnoreCase("NODE-DATAS")) {
 						node_datas = true;
-						tmp_datas = new ArrayList<String>();
+						tmp_datas_enc = new ArrayList<String>();
+						tmp_datas_plain = new ArrayList<String>();
 					}
 					
 					if (qName.equalsIgnoreCase("NODE-DATA")) {
+						supportAttribute = attributes.getValue("attribute");
 						node_data = true;
 					}
 					
@@ -136,8 +136,9 @@ public class ParserNetwork {
 						node = false;
 					}
 					
-					if (qName.equalsIgnoreCase("NODE-DATAS")) {						
-						tmp_node.setData(tmp_datas);
+					if (qName.equalsIgnoreCase("NODE-DATAS")) {	
+						tmp_node.setEncryptedVisibility(tmp_datas_enc);
+						tmp_node.setPlainVisibility(tmp_datas_plain);
 						node_datas= false;
 					}
 					
@@ -166,16 +167,16 @@ public class ParserNetwork {
 						node_type = false;
 					}
 					
-					if (node_policy) {
-						String value = new String(ch, start, length);
-						//System.out.println(value);
-						tmp_node.setPolicy(value);
-						node_policy = false;
-					}
-					
+										
 					if (node_data) {
 						String value = new String(ch, start, length);
-						tmp_datas.add(value);
+						if(value.equals("Encrypted"))
+							tmp_datas_enc.add(supportAttribute);
+						if(value.equals("Plain"))
+							tmp_datas_plain.add(supportAttribute);
+						
+						// i "No" li conto come se non esistessero...
+						
 						node_data = false;
 					}
 					

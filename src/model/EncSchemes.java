@@ -18,8 +18,6 @@ public class EncSchemes {
 		String operator = "";
 		
 		operator = "Seq Scan";
-		encs.add("DET"); // di prova
-		encs.add("OPE"); // di prova
 		encs.add("NDET");
 		operatorsEncs.put(operator, encs);
 		
@@ -75,7 +73,6 @@ public class EncSchemes {
 		
 		operator = "Aggregate";
 		encs = new ArrayList<String>();
-		encs.add("OPE"); // di prova
 		encs.add("DET");
 		operatorsEncs.put(operator, encs);
 		
