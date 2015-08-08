@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+<!-- latency : s -->
+<!-- link-throughput : Mbps -->
+<!-- aes-throughput : MB/s -->
+<!-- pailler-throughput: MB/s -->
+<!-- bclo : ms -->
+<!-- cost-per-second : costo che tiene in conto tutte le risorse impiegate in quel secondo -->
+<network>
+	<node name="CL1">
+		<node-type>Client</node-type>
+		<node-datas>
+			<node-data attribute="c_custkey">Plain</node-data>
+			<node-data attribute="c_name">Plain</node-data>
+			<node-data attribute="c_address">Plain</node-data>
+			<node-data attribute="c_nationkey">Plain</node-data>
+			<node-data attribute="c_phone">Plain</node-data>
+			<node-data attribute="c_acctbal">Plain</node-data>
+			<node-data attribute="c_mktsegment">Plain</node-data>
+			<node-data attribute="c_comment">Plain</node-data>	
+			<node-data attribute="l_orderkey">Plain</node-data>
+			<node-data attribute="l_partkey">Plain</node-data>
+			<node-data attribute="l_suppkey">Plain</node-data>
+			<node-data attribute="l_linenumber">Plain</node-data>
+			<node-data attribute="l_quantity">Plain</node-data>
+			<node-data attribute="l_extendedprice">Plain</node-data>
+			<node-data attribute="l_discount">Plain</node-data>
+			<node-data attribute="l_tax">Plain</node-data>
+			<node-data attribute="l_returnflag">Plain</node-data>
+			<node-data attribute="l_linestatus">Plain</node-data>
+			<node-data attribute="l_shipdate">Plain</node-data>
+			<node-data attribute="l_commitdate">Plain</node-data>
+			<node-data attribute="l_receiptdate">Plain</node-data>
+			<node-data attribute="l_shipinstruct">Plain</node-data>
+			<node-data attribute="l_shipmode">Plain</node-data>
+			<node-data attribute="l_comment">Plain</node-data>
+			<node-data attribute="n_nationkey">Plain</node-data>
+			<node-data attribute="n_name">Plain</node-data>
+			<node-data attribute="n_regionkey">Plain</node-data>
+			<node-data attribute="n_comment">Plain</node-data>
+			<node-data attribute="o_orderkey">Plain</node-data>
+			<node-data attribute="o_custkey">Plain</node-data>
+			<node-data attribute="o_orderstatus">Plain</node-data>
+			<node-data attribute="o_totalprice">Plain</node-data>
+			<node-data attribute="o_orderdate">Plain</node-data>
+			<node-data attribute="o_orderpriority">Plain</node-data>
+			<node-data attribute="o_clerk">Plain</node-data>
+			<node-data attribute="o_shippriority">Plain</node-data>
+			<node-data attribute="o_comment">Plain</node-data>
+			<node-data attribute="p_partkey">Plain</node-data>
+			<node-data attribute="p_name">Plain</node-data>
+			<node-data attribute="p_mfgr">Plain</node-data>
+			<node-data attribute="p_brand">Plain</node-data>
+			<node-data attribute="p_type">Plain</node-data>
+			<node-data attribute="p_size">Plain</node-data>
+			<node-data attribute="p_container">Plain</node-data>
+			<node-data attribute="p_retailprice">Plain</node-data>
+			<node-data attribute="p_comment">Plain</node-data>
+			<node-data attribute="ps_partkey">Plain</node-data>
+			<node-data attribute="ps_suppkey">Plain</node-data>
+			<node-data attribute="ps_availqty">Plain</node-data>
+			<node-data attribute="ps_supplycost">Plain</node-data>
+			<node-data attribute="ps_comment">Plain</node-data>
+			<node-data attribute="r_regionkey">Plain</node-data>
+			<node-data attribute="r_name">Plain</node-data>
+			<node-data attribute="r_comment">Plain</node-data>
+			<node-data attribute="s_suppkey">Plain</node-data>
+			<node-data attribute="s_name">Plain</node-data>
+			<node-data attribute="s_address">Plain</node-data>
+			<node-data attribute="s_nationkey">Plain</node-data>
+			<node-data attribute="s_phone">Plain</node-data>
+			<node-data attribute="s_acctbal">Plain</node-data>
+			<node-data attribute="s_comment">Plain</node-data>
+		</node-datas>
+		<performance>
+			<aes-throughput>50</aes-throughput>
+			<pailler-throughput>0.40</pailler-throughput>
+			<bclo-value-time>0.0216</bclo-value-time>			
+		</performance>
+		<cost-per-second>0.0008</cost-per-second>
+		<links>
+			<link>
+				<node-linked>SS2</node-linked>
+				<latency>0.0025</latency>
+				<throughput>2000</throughput>
+			</link>
+			<link>
+				<node-linked>SS3</node-linked>
+				<latency>0.0025</latency>
+				<throughput>2000</throughput>
+			</link>	
+			<link>
+				<node-linked>CS1</node-linked>
+				<latency>0.0040</latency>
+				<throughput>2000</throughput>
+			</link>	
+			<link>
+				<node-linked>CS2</node-linked>
+				<latency>0.0020</latency>
+				<throughput>1500</throughput>
+			</link>
+			<link>
+				<node-linked>CS3</node-linked>
+				<latency>0.0015</latency>
+				<throughput>1000</throughput>
+			</link>
+			<link>
+				<node-linked>SS1</node-linked>
+				<latency>0.0050</latency>
+				<throughput>1000</throughput>
+			</link>	
+		</links>
+	</node>
+</network>

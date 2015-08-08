@@ -112,6 +112,11 @@ public class EncSchemes {
 		encs.add("OPE");
 		functionsEncs.put(function,encs);
 		
+		function = "substring";
+		encs = new ArrayList<String>();
+		encs.add("DET");
+		functionsEncs.put(function,encs);
+		
 	}
 
 	public HashMap<String, ArrayList<String>> getOperatorsEncs() {

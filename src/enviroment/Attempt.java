@@ -6,14 +6,16 @@ public class Attempt {
 	private double time;
 	private double cost;
 	private String counters;
+	private String networkCounters;
 	
 	
-	public Attempt(String o, double t, double c, String cs)
+	public Attempt(String o, double t, double c, String cs, String ncs)
 	{
 		operations = o;
 		time = t;
 		cost = c;
 		counters = cs;
+		networkCounters = ncs;
 	}
 	
 	public String getOperations() {
@@ -43,7 +45,9 @@ public class Attempt {
 	public String toString()
 	{
 		return "\n Attempt: -> Time: "+time+" | Cost: "+cost+" | "+
-				 "Counter Status :"+counters;
+				 "Counter Encryption Status :"+counters+
+				 "Counter Network Status :"+networkCounters
+				 ;
 	}
 
 	

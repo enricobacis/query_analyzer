@@ -20,53 +20,6 @@ public class Network {
 			
 	}
 
-	public String searchNodeByRelation(String dataNeeded) { //se ci sono più nodi candidati
-		
-		/*//devo scegliere il migliore per throughput
-		ArrayList<Node> candidates = new ArrayList<Node>();
-		Node output = null;
-		
-		for(int i=0;i<nodes.size();i++)
-		{
-			ArrayList<String> datas = nodes.get(i).getData();
-			if(datas != null)
-			{
-				for(int j=0;j<datas.size();j++)
-					if(datas.get(j).equals(dataNeeded))
-					{
-						candidates.add(nodes.get(i));
-						break;
-					}
-			}
-		}
-		
-		if(candidates.size() > 0)
-		{
-			output = candidates.get(0);
-			for(int i = 1; i<candidates.size(); i++)
-				if(candidates.get(i).getAesThroughput() > output.getAesThroughput())
-					output = candidates.get(i);	
-			return output.getName();
-		}
-		*/
-		return null;
-		
-	}
-	
-	public String getNodePolicy(String nodeName)
-	{
-		/*
-		String output="Plain"; //di default non impongo nessuna encryption
-		for(int i = 0;i<nodes.size();i++)
-			if(nodes.get(i).getName().equals(nodeName))
-			{
-				output = nodes.get(i).getPolicy();
-				break;
-			}
-		return output;
-		*/
-		return null;
-	}
 	
 	public Node getNodeByName(String name)
 	{
@@ -89,6 +42,20 @@ public class Network {
 				output = nodes.get(i);			
 		
 		return output;
+	}
+	
+	public int getNodesNumber() //non coinvolgo i client nell'elaborazione
+	{
+		int output = 0;
+		for(int i = 0; i<nodes.size(); i++)
+			if(!nodes.get(i).getType().equals("Client"))
+				output++;
+		return output;
+	}
+	
+	public Node getNodeByIndex(int i)
+	{
+		return nodes.get(i);
 	}
 
 }

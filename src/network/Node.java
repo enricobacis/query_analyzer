@@ -130,4 +130,13 @@ public class Node {
 		this.paillerThroughput = paillerThroughput;
 	}
 	
+	public String verifyPolicy(String attribute)
+	{
+		if(encryptedVisibility.contains(attribute))
+			return "Encrypted";
+		if(plainVisibility.contains(attribute))
+			return "Plain";
+		return "No";
+	}
+	
 }
