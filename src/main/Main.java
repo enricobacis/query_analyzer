@@ -76,7 +76,7 @@ public class Main {
 		ArrayList<Attempt> results = new ArrayList<Attempt>();
 		Analyzer analyzer = new Analyzer();
 		
-		DateFormat dateFormat = new SimpleDateFormat("dd-mm-yyy HH:mm:ss");
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyy HH:mm:ss");
 		Date date = new Date();
 		writer.println("START ELABORATION: "+dateFormat.format(date));
 		

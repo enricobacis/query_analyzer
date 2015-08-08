@@ -193,12 +193,13 @@ public class Analyzer {
 			networkCountersMax[i] = networkNodesNumber;
 		}
 		//numero di tentativi "esaustivi"
-		int networkAttemps = (int) Math.pow(networkNodesNumber, networkOperatorCountersNumber);
+		double networkAttemps = Math.pow(networkNodesNumber, networkOperatorCountersNumber);
 		//possibili nodi su cui operare ^numero di operatori da considerare  
 		
 		//2.2.3 ricerca esaustiva della soluzione 
 		while(networkAttemps > 0) 
 		{
+			System.out.println("Attempt: "+networkAttemps);
 			//2.3 parto da quella foglia per risalire la gerarchia, ogni step sarà -1 al valore attuale
 			//facilitato dalle caratteristiche
 			
