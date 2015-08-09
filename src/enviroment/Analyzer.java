@@ -236,7 +236,7 @@ public class Analyzer {
 						/* end network analisi */
 						
 						//2.3.2
-						//attributi espliciti della query
+						//attributi della query
 						if(localOperator.getOutput() != null)
 						{
 							for(int k=0;k<localOperator.getOutput().size();k++)
@@ -367,13 +367,13 @@ public class Analyzer {
 										}//chiusura funzione
 									}//chiusura encryption
 								}//chiusura ammissibilità del tentativo
-							}//end scorrimento attributi espliciti
+							}//end scorrimento attributi
 							if(admissible == false)
 							{
 								break;
 							}
 							
-						}//end attributi espliciti
+						}//end attributi
 						
 						//2.4
 						//devo calcorare i tempi di trasferimento da un nodo all'altro
