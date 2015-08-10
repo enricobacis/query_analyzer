@@ -73,6 +73,7 @@ public class Main {
 		/* SINGOLA QUERY */
 		writer.println("QUERY ");
 		parser.parseDocument("res/22.xml");	
+		
 		ArrayList<Attempt> results = new ArrayList<Attempt>();
 		Analyzer analyzer = new Analyzer();
 		

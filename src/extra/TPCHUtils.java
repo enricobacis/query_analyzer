@@ -3,6 +3,7 @@ package extra;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+
 import model.Operator;
 
 public class TPCHUtils {
@@ -30,6 +31,7 @@ public class TPCHUtils {
 	
 	private static HashMap<String,Integer> operators;
 	private static HashMap<String, ArrayList<Column>> structure;
+	private static ArrayList<String> tableNames;
 	
 	public final static int tpch_num = 22;
 	
@@ -37,6 +39,7 @@ public class TPCHUtils {
 	{
 		operators = new HashMap<String,Integer>();
 		structure = new HashMap<String, ArrayList<Column>>();
+		tableNames = new ArrayList<String>();
 		createTPCHStructure();
 	}
 	
@@ -53,6 +56,7 @@ public class TPCHUtils {
 		cols.add(new Column("c_mktsegment", 10));
 		cols.add(new Column("c_comment", 117));	
 		structure.put(tableName, cols);
+		tableNames.add(tableName);
 		
 		tableName = "lineitem";
 		cols = new ArrayList<Column>();
@@ -73,6 +77,7 @@ public class TPCHUtils {
 		cols.add(new Column("l_shipmode", 10));
 		cols.add(new Column("l_comment", 44));
 		structure.put(tableName, cols);
+		tableNames.add(tableName);
 		
 		tableName = "nation";
 		cols = new ArrayList<Column>();
@@ -81,6 +86,7 @@ public class TPCHUtils {
 		cols.add(new Column("n_regionkey", 4));
 		cols.add(new Column("n_comment", 152));
 		structure.put(tableName, cols);
+		tableNames.add(tableName);
 		
 		tableName = "orders";
 		cols = new ArrayList<Column>();
@@ -94,6 +100,7 @@ public class TPCHUtils {
 		cols.add(new Column("o_shippriority", 4));
 		cols.add(new Column("o_comment", 79));
 		structure.put(tableName, cols);
+		tableNames.add(tableName);
 		
 		tableName = "part";
 		cols = new ArrayList<Column>();
@@ -107,6 +114,7 @@ public class TPCHUtils {
 		cols.add(new Column("p_retailprice", 15));
 		cols.add(new Column("p_comment", 23));
 		structure.put(tableName, cols);
+		tableNames.add(tableName);
 		
 		tableName = "partsupp";
 		cols = new ArrayList<Column>();
@@ -116,6 +124,7 @@ public class TPCHUtils {
 		cols.add(new Column("ps_supplycost", 15));
 		cols.add(new Column("ps_comment", 199));
 		structure.put(tableName, cols);
+		tableNames.add(tableName);
 		
 		tableName = "region";
 		cols = new ArrayList<Column>();
@@ -123,6 +132,7 @@ public class TPCHUtils {
 		cols.add(new Column("r_name", 25));
 		cols.add(new Column("r_comment", 152));
 		structure.put(tableName, cols);
+		tableNames.add(tableName);
 		
 		tableName = "supplier";
 		cols = new ArrayList<Column>();
@@ -134,6 +144,22 @@ public class TPCHUtils {
 		cols.add(new Column("s_acctbal", 15));
 		cols.add(new Column("s_comment", 101));
 		structure.put(tableName, cols);		
+		tableNames.add(tableName);
+	}
+	
+	public static ArrayList<String> findColumnsInString(String s)
+	{
+		ArrayList<String> output = new ArrayList<String>();
+		for(int i = 0; i<tableNames.size();i++)
+		{
+			ArrayList<Column> cols = structure.get(tableNames.get(i));
+			for(int j=0;j<cols.size();j++)
+			{
+				if(s.indexOf(cols.get(j).columnName) > -1)
+					output.add(cols.get(j).columnName);
+			}
+		}
+		return output;
 	}
 	
 	

@@ -25,10 +25,13 @@ public class ParserXML {
 	private static boolean actual_loops;
 	private static boolean output;
 	private static boolean item;
+
 	private static boolean filter;
+	private static boolean filter_single;
 		
 	private Operator tmp;
 	private ArrayList<String> tmpOutput;
+	private ArrayList<String> tmpImplicit;
 	
 	private int id;
 	private int id_parent;
@@ -65,6 +68,7 @@ public class ParserXML {
 										
 					if (qName.equalsIgnoreCase("PLAN")) {
 						tmp = new Operator();
+						tmpImplicit = new ArrayList<String>();
 						id++;
 						subPlans.put(id, false);
 					}
@@ -72,6 +76,8 @@ public class ParserXML {
 					if (qName.equalsIgnoreCase("PLANS")) {
 						
 						//aggiorno lo stato delle subquery
+						tmp.setImplicit(tmpImplicit);
+						
 						subPlans.remove(id);
 						subPlans.put(id, true);
 						
@@ -115,8 +121,37 @@ public class ParserXML {
 						item = true;
 					}	
 					
+					if (qName.equalsIgnoreCase("ITEM") && filter == true) {
+						filter_single = true;
+					}
+										
+					//operatori impliciti
 					if (qName.equalsIgnoreCase("FILTER")) {
+						filter_single = true;
+					}
+					
+					if (qName.equalsIgnoreCase("GRUOP-KEY")) {
 						filter = true;
+					}
+					
+					if (qName.equalsIgnoreCase("SORT-KEY")) {
+						filter = true;
+					}
+					
+					if (qName.equalsIgnoreCase("HASH-COND")) {
+						filter_single = true;
+					}
+					
+					if (qName.equalsIgnoreCase("JOIN-FILTER")) {
+						filter_single = true;
+					}
+					
+					if (qName.equalsIgnoreCase("INDEX-COND")) {
+						filter_single = true;
+					}
+					
+					if (qName.equalsIgnoreCase("MERGE-COND")) {
+						filter_single = true;
 					}
 			 
 				}
@@ -127,6 +162,8 @@ public class ParserXML {
 					if (qName.equalsIgnoreCase("PLAN")) {
 						if(subPlans.get(id) == false) //l'elemento è una foglia non ha sottopiani, lo devo aggiungere
 						{
+							tmp.setImplicit(tmpImplicit);
+							
 							subPlans.remove(id);
 							subPlans.put(id, true);
 							
@@ -139,6 +176,14 @@ public class ParserXML {
 					if (qName.equalsIgnoreCase("OUTPUT")) {
 						output = false;
 						tmp.setOutput(tmpOutput);
+					}
+					
+					if (qName.equalsIgnoreCase("GROUP-KEY")) {
+						filter = false;
+					}
+					
+					if (qName.equalsIgnoreCase("SORT-KEY")) {
+						filter = false;
 					}
 			 
 				}
@@ -188,10 +233,10 @@ public class ParserXML {
 						item = false;
 					}
 					
-					if (filter) {
+					if (filter_single) {
 						String value = new String(ch, start, length);
-						tmp.setFilter(value);
-						filter = false;
+						tmpImplicit.add(value);
+						filter_single = false;
 					}
 			  
 				} 

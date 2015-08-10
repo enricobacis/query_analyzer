@@ -375,7 +375,32 @@ public class Analyzer {
 							
 						}//end attributi
 						
+						
 						//2.4
+						//attributi impliciti
+						ArrayList<String> implicit = localOperator.getImplicit();
+						if(implicit != null && implicit.size() > 0) //ci sono attributi impliciti da controllare
+						{
+							for(int m = 0;m<implicit.size();m++)
+							{
+								ArrayList<String> implicitAttributes = TPCHUtils.findColumnsInString(implicit.get(m));
+								for(int n = 0; n<implicitAttributes.size(); n++)
+								{
+									String nodePolicy = localNode.verifyPolicy(implicitAttributes.get(n));
+									if(nodePolicy.equals("No")) //non c'è visibilità di nessun tipo per quel nodo
+									{
+										admissible = false;
+										break;
+									}
+								}
+								if(admissible == false)
+								{
+									break;
+								}
+							}
+						}//chiusura attributi impliciti
+						
+						//2.5
 						//devo calcorare i tempi di trasferimento da un nodo all'altro
 						if(prevNode != null && admissible == true)
 						{

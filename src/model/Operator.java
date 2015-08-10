@@ -13,6 +13,7 @@ public class Operator {
 	private int id;
 	private int id_parent;
 	private ArrayList<String> output;
+	private ArrayList<String> implicit;
 	private String filter;
 	
 	//usato solo dal parser simple
@@ -30,6 +31,13 @@ public class Operator {
 	
 	public String toString()
 	{
+		String outputString = "";
+		if(output != null)
+			outputString = output.toString();
+		String implicitString = "";
+		if(implicit != null)
+			implicitString = implicit.toString();
+		
 		return "Node-Type: "+nodeType
 				+" | ID: "+id
 				+" | Parent ID: "+id_parent
@@ -38,7 +46,8 @@ public class Operator {
 				+" | Plan Rows: "+planRows
 				+" | Plan Width: "+planWidth
 				+" | Actual Loops: "+actualLoops
-				+" | Output Items: "+output.toString()
+				+" | Output Items: "+outputString
+				+" | Implicit Items: "+implicitString
 				+" | Filter: "+filter;
 				
 		
@@ -130,6 +139,12 @@ public class Operator {
 		this.filter = filter;
 	}
 	
-	
+	public ArrayList<String> getImplicit() {
+		return implicit;
+	}
+
+	public void setImplicit(ArrayList<String> implicit) {
+		this.implicit = implicit;
+	}
 
 }
