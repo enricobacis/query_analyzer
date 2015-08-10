@@ -46,6 +46,14 @@ public class ParserXML {
 		subPlans = new HashMap<Integer, Boolean>();
 	}
 	
+	public void clearParser()
+	{
+		id=-1;
+		id_parent=-1;
+		operators = new ArrayList<Operator>();
+		subPlans = new HashMap<Integer, Boolean>(); 
+	}
+	
 	
 	/*
 	 * Logica del parse: ad ogno i nodo "plan" crea una struttura, nella quale vado ad inserire diversi campi
