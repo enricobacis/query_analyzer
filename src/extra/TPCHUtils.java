@@ -199,6 +199,20 @@ public class TPCHUtils {
 		else
 			return output[0]; //query su singola tabella
 	}
+	
+	public static String getItemTable(String relationName) {
+		//replace dell'alias
+		if(relationName.indexOf("1") > -1 || relationName.indexOf("2") > -1 || relationName.indexOf("3") > -1 || relationName.indexOf("4") > -1 || relationName.indexOf("5") > -1)
+		{
+			relationName = relationName.replace("_1", "");
+			relationName = relationName.replace("_2", "");
+			relationName = relationName.replace("_3", "");
+			relationName = relationName.replace("_4", "");
+			relationName = relationName.replace("_5", "");
+		}
+		String[] output = relationName.split("\\."); //nome_tabella.nome_colonna
+		return output[0]; //query su singola tabella
+	}
 
 	public static int findWidthByColumn(String table, String column) {
 		int output = 4; //dimensione di default di moltissimi campi

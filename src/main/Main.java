@@ -38,7 +38,7 @@ public class Main {
 		//System.out.println(tpchUtils.getAllOperators().toString());
 		
 		/* PARSING DEL NETWORK */
-		Network network = new Network(parsernetwork.parseDocument("config/netconfig.xml"));
+		Network network = new Network(parsernetwork.parseDocument("config/netconfig_all_enc.xml"));
 		
 		/* CONFIGURAZIONE DEGLI OPERATORI */		
 		EncSchemes encSchemes = new EncSchemes();
