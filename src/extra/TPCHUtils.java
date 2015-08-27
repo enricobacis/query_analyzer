@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
+
 import model.Operator;
 
 public class TPCHUtils {
@@ -226,6 +227,12 @@ public class TPCHUtils {
 			}
 		}
 		return output;
+	}
+
+	public static boolean isEquality(String string) {
+		if(string.indexOf("=") >= 0)
+			return true;
+		return false;
 	}
 	
 }
