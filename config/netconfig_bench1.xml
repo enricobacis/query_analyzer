@@ -6,7 +6,7 @@
 <!-- bclo : ms -->
 <!-- cost-per-second : costo che tiene in conto tutte le risorse impiegate in quel secondo -->
 <network>
-	<node name="SS1">
+	<node name="SS1"> 
 		<node-type>Storage Server</node-type>
 		<node-datas>
 			<node-data attribute="c_custkey">Plain</node-data>
