@@ -1,84 +1,8 @@
 QUERY 
-START ELABORATION: 27-08-2015 22:56:04
-END ELABORATION: 27-08-2015 22:56:04
-MIN TIME: 0.13782234778109456 sec.
-MIN COST: 1.2428648123076925E-4 €
+START ELABORATION: 27-08-2015 23:36:04
+END ELABORATION: 27-08-2015 23:36:05
+MIN TIME: -1.0 sec.
+MIN COST: -1.0 €
 MIN TIME OPERATIONS: 
-NODE: SS1 
-Seq Scan-> ID: 1-> IDParent: 0 -> Item: 0 -> Width: 12 -> Enc: NDET -> Time: 0.007614933333333333 -> Cost: 1.5229866666666666E-5
-Seq Scan-> ID: 1-> IDParent: 0 -> Item: 1 -> Width: 12 -> Enc: NDET -> Time: 0.007614933333333333 -> Cost: 1.5229866666666666E-5
-Seq Scan-> ID: 1-> IDParent: 0 -> Item: 2 -> Width: 12 -> Enc: NDET -> Time: 0.007614933333333333 -> Cost: 1.5229866666666666E-5
-Seq Scan-> ID: 1-> IDParent: 0 -> Item: 3 -> Width: 12 -> Enc: NDET -> Time: 0.007614933333333333 -> Cost: 1.5229866666666666E-5
-Seq Scan-> ID: 1-> IDParent: 0 -> Item: 4 -> Width: 12 -> Enc: NDET -> Time: 0.007614933333333333 -> Cost: 1.5229866666666666E-5
-Seq Scan-> ID: 1-> IDParent: 0 -> Item: 5 -> Width: 12 -> Enc: NDET -> Time: 0.007614933333333333 -> Cost: 1.5229866666666666E-5
-Seq Scan-> ID: 1-> IDParent: 0 -> (funct) Item: 6 -> Enc: DET -> Time: 0.007614933333333333 -> Cost: 1.5229866666666666E-5
-Seq Scan-> ID: 1-> IDParent: 0 -> Item: 7 -> Width: 12 -> Enc: NDET -> Time: 0.007614933333333333 -> Cost: 1.5229866666666666E-5
-Seq Scan-> ID: 1-> IDParent: 0 -> Item: 8 -> Width: 12 -> Enc: NDET -> Time: 0.007614933333333333 -> Cost: 1.5229866666666666E-5
-Seq Scan-> ID: 1-> IDParent: 0 -> Item: 9 -> Width: 12 -> Enc: NDET -> Time: 0.007614933333333333 -> Cost: 1.5229866666666666E-5
-Seq Scan-> ID: 1-> IDParent: 0 -> Item: 10 -> Width: 12 -> Enc: NDET -> Time: 0.007614933333333333 -> Cost: 1.5229866666666666E-5
-Seq Scan-> ID: 1-> IDParent: 0 -> Item: 11 -> Width: 12 -> Enc: NDET -> Time: 0.007614933333333333 -> Cost: 1.5229866666666666E-5
-Seq Scan-> ID: 1-> IDParent: 0 -> Item: 12 -> Width: 12 -> Enc: NDET -> Time: 0.007614933333333333 -> Cost: 1.5229866666666666E-5
-Seq Scan-> ID: 1-> IDParent: 0 -> Item: 13 -> Width: 12 -> Enc: NDET -> Time: 0.007614933333333333 -> Cost: 1.5229866666666666E-5
-Seq Scan-> ID: 1-> IDParent: 0 -> Item: 14 -> Width: 12 -> Enc: NDET -> Time: 0.007614933333333333 -> Cost: 1.5229866666666666E-5
-Seq Scan-> ID: 1-> IDParent: 0 -> Item: 15 -> Width: 12 -> Enc: NDET -> Time: 0.007614933333333333 -> Cost: 1.5229866666666666E-5
-TRASFERIMENTO DAL NODO CL1 AL NODO SS1 Tempo -> 0.015965504
-
-NODE: SS1 
-Aggregate-> ID: 0-> IDParent: -1 -> (funct) Item: 0 -> Enc: PAI -> Time: 1.791044776119403E-5 -> Cost: 3.5820895522388065E-8
-TRASFERIMENTO DAL NODO SS1 AL NODO SS1 Tempo -> 0.0
-
 MIN COST OPERATIONS: 
-NODE: CS2 
-Seq Scan-> ID: 1-> IDParent: 0 -> Item: 0 -> Width: 12 -> Enc: NDET -> Time: 0.00913792 -> Cost: 7.767232E-6
-Seq Scan-> ID: 1-> IDParent: 0 -> Item: 1 -> Width: 12 -> Enc: NDET -> Time: 0.00913792 -> Cost: 7.767232E-6
-Seq Scan-> ID: 1-> IDParent: 0 -> Item: 2 -> Width: 12 -> Enc: NDET -> Time: 0.00913792 -> Cost: 7.767232E-6
-Seq Scan-> ID: 1-> IDParent: 0 -> Item: 3 -> Width: 12 -> Enc: NDET -> Time: 0.00913792 -> Cost: 7.767232E-6
-Seq Scan-> ID: 1-> IDParent: 0 -> Item: 4 -> Width: 12 -> Enc: NDET -> Time: 0.00913792 -> Cost: 7.767232E-6
-Seq Scan-> ID: 1-> IDParent: 0 -> Item: 5 -> Width: 12 -> Enc: NDET -> Time: 0.00913792 -> Cost: 7.767232E-6
-Seq Scan-> ID: 1-> IDParent: 0 -> (funct) Item: 6 -> Enc: DET -> Time: 0.00913792 -> Cost: 7.767232E-6
-Seq Scan-> ID: 1-> IDParent: 0 -> Item: 7 -> Width: 12 -> Enc: NDET -> Time: 0.00913792 -> Cost: 7.767232E-6
-Seq Scan-> ID: 1-> IDParent: 0 -> Item: 8 -> Width: 12 -> Enc: NDET -> Time: 0.00913792 -> Cost: 7.767232E-6
-Seq Scan-> ID: 1-> IDParent: 0 -> Item: 9 -> Width: 12 -> Enc: NDET -> Time: 0.00913792 -> Cost: 7.767232E-6
-Seq Scan-> ID: 1-> IDParent: 0 -> Item: 10 -> Width: 12 -> Enc: NDET -> Time: 0.00913792 -> Cost: 7.767232E-6
-Seq Scan-> ID: 1-> IDParent: 0 -> Item: 11 -> Width: 12 -> Enc: NDET -> Time: 0.00913792 -> Cost: 7.767232E-6
-Seq Scan-> ID: 1-> IDParent: 0 -> Item: 12 -> Width: 12 -> Enc: NDET -> Time: 0.00913792 -> Cost: 7.767232E-6
-Seq Scan-> ID: 1-> IDParent: 0 -> Item: 13 -> Width: 12 -> Enc: NDET -> Time: 0.00913792 -> Cost: 7.767232E-6
-Seq Scan-> ID: 1-> IDParent: 0 -> Item: 14 -> Width: 12 -> Enc: NDET -> Time: 0.00913792 -> Cost: 7.767232E-6
-Seq Scan-> ID: 1-> IDParent: 0 -> Item: 15 -> Width: 12 -> Enc: NDET -> Time: 0.00913792 -> Cost: 7.767232E-6
-TRASFERIMENTO DAL NODO CL1 AL NODO CS2 Tempo -> 0.009310335999999999
-
-NODE: CS1 
-Aggregate-> ID: 0-> IDParent: -1 -> (funct) Item: 0 -> Enc: PAI -> Time: 1.5384615384615384E-5 -> Cost: 1.0769230769230768E-8
-TRASFERIMENTO DAL NODO CS2 AL NODO CS1 Tempo -> 0.004000048
-
-RESULTS: [
- Attempt: -> Time: 0.13782234778109456 | Cost: 2.4371368756218904E-4 | Counter Encryption Status :[1,1]Counter Network Status :[SS1,SS1], 
- Attempt: -> Time: 0.15670743044776117 | Cost: 2.8952512649552245E-4 | Counter Encryption Status :[1,1]Counter Network Status :[SS2,SS1], 
- Attempt: -> Time: 0.15670743044776117 | Cost: 1.3893220489552243E-4 | Counter Encryption Status :[1,1]Counter Network Status :[SS3,SS1], 
- Attempt: -> Time: 0.15753503044776115 | Cost: 1.243115328955224E-4 | Counter Encryption Status :[1,1]Counter Network Status :[CS2,SS1], 
- Attempt: -> Time: 0.15869013444776114 | Cost: 1.243115328955224E-4 | Counter Encryption Status :[1,1]Counter Network Status :[CS3,SS1], 
- Attempt: -> Time: 0.14032801474509807 | Cost: 2.4372445490196079E-4 | Counter Encryption Status :[1,1]Counter Network Status :[SS1,SS2], 
- Attempt: -> Time: 0.15421300141176467 | Cost: 2.8953589383529414E-4 | Counter Encryption Status :[1,1]Counter Network Status :[SS2,SS2], 
- Attempt: -> Time: 0.15671304941176467 | Cost: 1.3894297223529417E-4 | Counter Encryption Status :[1,1]Counter Network Status :[SS3,SS2], 
- Attempt: -> Time: 0.15804063341176466 | Cost: 1.2432230023529415E-4 | Counter Encryption Status :[1,1]Counter Network Status :[CS2,SS2], 
- Attempt: -> Time: 0.16119580141176465 | Cost: 1.2432230023529415E-4 | Counter Encryption Status :[1,1]Counter Network Status :[CS3,SS2], 
- Attempt: -> Time: 0.14032801474509807 | Cost: 2.4370021960784313E-4 | Counter Encryption Status :[1,1]Counter Network Status :[SS1,SS3], 
- Attempt: -> Time: 0.15671304941176467 | Cost: 2.895116585411765E-4 | Counter Encryption Status :[1,1]Counter Network Status :[SS2,SS3], 
- Attempt: -> Time: 0.15421300141176467 | Cost: 1.389187369411765E-4 | Counter Encryption Status :[1,1]Counter Network Status :[SS3,SS3], 
- Attempt: -> Time: 0.15804063341176466 | Cost: 1.242980649411765E-4 | Counter Encryption Status :[1,1]Counter Network Status :[CS2,SS3], 
- Attempt: -> Time: 0.16119580141176465 | Cost: 1.242980649411765E-4 | Counter Encryption Status :[1,1]Counter Network Status :[CS3,SS3], 
- Attempt: -> Time: 0.14181986994871798 | Cost: 2.4368863589743588E-4 | Counter Encryption Status :[1,1]Counter Network Status :[SS1,CS1], 
- Attempt: -> Time: 0.15820490461538458 | Cost: 2.895000748307693E-4 | Counter Encryption Status :[1,1]Counter Network Status :[SS2,CS1], 
- Attempt: -> Time: 0.15820490461538458 | Cost: 1.3890715323076926E-4 | Counter Encryption Status :[1,1]Counter Network Status :[SS3,CS1], 
- Attempt: -> Time: 0.15953248861538458 | Cost: 1.2428648123076925E-4 | Counter Encryption Status :[1,1]Counter Network Status :[CS2,CS1], 
- Attempt: -> Time: 0.16268765661538456 | Cost: 1.2428648123076925E-4 | Counter Encryption Status :[1,1]Counter Network Status :[CS3,CS1], 
- Attempt: -> Time: 0.13982803074509806 | Cost: 2.4369786666666665E-4 | Counter Encryption Status :[1,1]Counter Network Status :[SS1,CS2], 
- Attempt: -> Time: 0.15621306541176466 | Cost: 2.895093056E-4 | Counter Encryption Status :[1,1]Counter Network Status :[SS2,CS2], 
- Attempt: -> Time: 0.15621306541176466 | Cost: 1.3891638400000003E-4 | Counter Encryption Status :[1,1]Counter Network Status :[SS3,CS2], 
- Attempt: -> Time: 0.15554058541176466 | Cost: 1.2429571200000002E-4 | Counter Encryption Status :[1,1]Counter Network Status :[CS2,CS2], 
- Attempt: -> Time: 0.16069581741176464 | Cost: 1.2429571200000002E-4 | Counter Encryption Status :[1,1]Counter Network Status :[CS3,CS2], 
- Attempt: -> Time: 0.13932806274509807 | Cost: 2.4369786666666665E-4 | Counter Encryption Status :[1,1]Counter Network Status :[SS1,CS3], 
- Attempt: -> Time: 0.15571309741176467 | Cost: 2.895093056E-4 | Counter Encryption Status :[1,1]Counter Network Status :[SS2,CS3], 
- Attempt: -> Time: 0.15571309741176467 | Cost: 1.3891638400000003E-4 | Counter Encryption Status :[1,1]Counter Network Status :[SS3,CS3], 
- Attempt: -> Time: 0.15704068141176467 | Cost: 1.2429571200000002E-4 | Counter Encryption Status :[1,1]Counter Network Status :[CS2,CS3], 
- Attempt: -> Time: 0.15869575341176465 | Cost: 1.2429571200000002E-4 | Counter Encryption Status :[1,1]Counter Network Status :[CS3,CS3]]
+RESULTS: []
