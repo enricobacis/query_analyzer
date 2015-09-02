@@ -23,6 +23,9 @@ public class Analyzer {
 	private String defOperations;		 //operazioni per il costo minimo in termini di tempo
 	private String minCostDefOperations; //operazioni per il costo minimo in termini economici
 	
+	/* trick */
+	/*private int trick = 2;*/
+	
 	public Analyzer()
 	{
 		minTime = -1;
@@ -245,7 +248,12 @@ public class Analyzer {
 								
 								//verifico se l'operatore è una funzione o direttamente un attributo
 								boolean function = false;
-								String item = localOutput;					
+								String item = localOutput;
+								
+								/*trick*/
+								/*if(item.indexOf("::") > -1)
+									continue;*/
+								
 								ArrayList<String> enc = new ArrayList<String>();
 								if(item.indexOf("count") > -1)
 								{
@@ -374,6 +382,11 @@ public class Analyzer {
 						{
 							for(int m = 0;m<implicit.size();m++)
 							{
+								/*trick*/
+								/*if(implicit.get(m).indexOf("::") > -1)
+									continue;*/
+								
+								
 								if(!TPCHUtils.isEquality(implicit.get(m)))
 								{
 									ArrayList<String> implicitAttributes = TPCHUtils.findColumnsInString(implicit.get(m));
@@ -469,12 +482,26 @@ public class Analyzer {
 				{
 					minTime = localCost;
 					defOperations = localOperations;
+					
+					/* trick */
+					/*System.out.println("MIN TIME: "+minTime);
+					trick--;*/
+					
 				}
 				if(localMoney < minCost || minCost == -1) //seconda condizione applicata al primo giro
 				{
 					minCost = localMoney;
 					minCostDefOperations = localOperations;
+					
+					/* trick */
+					/*System.out.println("MIN EURO: "+minCost);
+					trick--;*/
+					
 				}
+				
+				/* trick */
+				/*if(trick <= 0)
+					return output;*/
 				
 				
 				//voglio esplorare tutte le possibilità			

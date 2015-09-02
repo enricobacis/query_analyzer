@@ -39,7 +39,7 @@ public class Main {
 		//System.out.println(tpchUtils.getAllOperators().toString());
 		
 		/* PARSING DEL NETWORK */
-		Network network = new Network(parsernetwork.parseDocument("config/netconfig_bench1.xml"));
+		Network network = new Network(parsernetwork.parseDocument("config/netconfig_bench3.xml"));
 		
 		/* CONFIGURAZIONE DEGLI OPERATORI */		
 		EncSchemes encSchemes = new EncSchemes();
@@ -97,7 +97,7 @@ public class Main {
 		
 		/* SINGOLA QUERY */
 		writer.println("QUERY ");
-		parser.parseDocument("res/21.xml");	
+		parser.parseDocument("res/8.xml");	
 		
 		ArrayList<Attempt> results = new ArrayList<Attempt>();
 		Analyzer analyzer = new Analyzer();
