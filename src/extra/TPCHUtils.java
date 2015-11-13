@@ -147,40 +147,31 @@ public class TPCHUtils {
 		structure.put(tableName, cols);
 		tableNames.add(tableName);
 	}
-
-	public ArrayList<String> findColumnsInString(String s)
-	{
+	
+	public ArrayList<String> findColumnsInString(String s) {
 		ArrayList<String> output = new ArrayList<String>();
-		for(int i = 0; i<tableNames.size();i++)
-		{
-			ArrayList<Column> cols = structure.get(tableNames.get(i));
-			for(int j=0;j<cols.size();j++)
-			{
-				if(s.indexOf(cols.get(j).columnName) > -1)
-					output.add(cols.get(j).columnName);
-			}
-		}
+
+		for (String table: tableNames)
+			for (Column column: structure.get(table))
+				if (s.indexOf(column.columnName) > -1)
+					output.add(column.columnName);
+
 		return output;
 	}
 
 
-	public void inflateOperators(ArrayList<Operator> op)
+	public void inflateOperators(ArrayList<Operator> ops)
 	{
-		for(int i = 0;i<op.size();i++)
-		{
-			String operator = op.get(i).getNodeType();
-			if(operators.containsKey(operator))
-			{
+		for (Operator op: ops) {
+			String operator = op.getNodeType();
+			if(operators.containsKey(operator)) {
 				int check = operators.get(operator);
-				check++;
 				operators.remove(operator);
-				operators.put(operator, check);
+				operators.put(operator, check + 1);
 			}
 			else
-				operators.put(operator,1);
-
+				operators.put(operator, 1);
 		}
-
 	}
 
 	public HashMap<String,Integer> getAllOperators()

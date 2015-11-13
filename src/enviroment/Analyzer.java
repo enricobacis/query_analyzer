@@ -1,9 +1,11 @@
 package enviroment;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import extra.TPCHUtils;
+import network.Link;
 import network.Network;
 import network.Node;
 import model.EncSchemes;
@@ -58,22 +60,18 @@ public class Analyzer {
 
 	private String printCounters(int[] counters)
 	{
-		String out = "[";
-		for(int i = 0;i<counters.length-1;i++)
-			out += counters[i]+",";
-		out += counters[counters.length-1]+"]";
-		return out;
-
+		StringBuilder sb = new StringBuilder('[');
+		for(int i: counters)
+			sb.append(i + ',');
+		return sb.append(']').toString();
 	}
 
 	private String printNetworkCounters(int[] counters, Network network)
 	{
-		String out = "[";
-		for(int i = 0;i<counters.length-1;i++)
-			out += network.getNodeByIndex(counters[i]-1).getName()+",";
-		out += network.getNodeByIndex(counters[counters.length-1]-1).getName()+"]";
-		return out;
-
+		StringBuilder sb = new StringBuilder('[');
+		for(int i: counters)
+			sb.append(network.getNodeByIndex(i - 1).getName() + ',');
+		return sb.append(']').toString();
 	}
 
 	private double getTransferTime(Node prevNode, Node localNode, double dataToTransfer)
@@ -81,27 +79,30 @@ public class Analyzer {
 		double output = 0;
 		if(!prevNode.getName().equals(localNode.getName())) //se non è lo stesso nodo
 		{
-			for(int i=0;i<prevNode.getLinks().size();i++)
+			for(Link link: prevNode.getLinks())
 			{
-				if(prevNode.getLinks().get(i).getNodeLinked().equals(localNode.getName()))
+				if(link.getNodeLinked().equals(localNode.getName()))
 				{
-					double throughput = prevNode.getLinks().get(i).getThroughput() / 8; //converto il throughput da Mbit/s a MB/s
+					//converto il throughput da Mbit/s a MB/s
+					double throughput = link.getThroughput() / 8;
+					
 					//i dati da trasferire sono espressi in byte
 					output = dataToTransfer / (throughput * (Math.pow(10, 6)));
-					return output + prevNode.getLinks().get(i).getLatency() ; //aggiungo la latenza della trasmissione
+					
+					//aggiungo la latenza della trasmissione
+					return output + link.getLatency();
 				}
 			}
 		}
 		return output;
-
 	}
 
 	private ArrayList<Operator> findOperatorsByParentLevel(int localParentStartLevel, ArrayList<Operator> operators)
 	{
 		ArrayList<Operator> output = new ArrayList<Operator>();
-		for(int i=0;i<operators.size();i++)
-			if(operators.get(i).getIdParent() == localParentStartLevel)
-				output.add(operators.get(i));
+		for(Operator op: operators)
+			if(op.getIdParent() == localParentStartLevel)
+				output.add(op);
 		return output;
 	}
 
@@ -160,30 +161,31 @@ public class Analyzer {
 		//2.0 per ogni possibilità adotto un sistema simil "contatori" per provarle tutte
 		int counterSize = operators.size();
 		int[] counters = new int[counterSize];
-		for(int i = 0;i<counters.length;i++)
-			counters[i] = 1;
 		int[] countersMax = new int[counterSize];
-
+		
+		Arrays.fill(counters, 1);
 
 		//2.1 individuo la foglia più estrema dell'albero, sarà il punto di partenza
 		//int startLevel = 0; //per il momento non lo uso...
 		int parentStartLevel = -1;
-		for(int i = 0; i<operators.size();i++)
-			if(operators.get(i).getIdParent() > parentStartLevel)
+		for(Operator op: operators)
+			if(op.getIdParent() > parentStartLevel)
 			{
 				//startLevel = operators.get(i).getId();
-				parentStartLevel = operators.get(i).getIdParent();
+				parentStartLevel = op.getIdParent();
 			}
 
 		//2.2 calcolo il totale delle possibili alternative
 		int possibility = 1;
-		for(int i = 0;i<operators.size();i++)
+		for(int i = 0; i < operators.size(); i++)
 		{
-			Operator currentOperator = operators.get(i);
-			ArrayList<String> currentOperatorMethods = operatorsEnc.get(currentOperator.getNodeType());
-			possibility *= currentOperatorMethods.size();	//simil permutazioni semplici al momento, bisogna vedere se le cifrature non escludono possibilità tra loro
-															//WARNING!!
-			countersMax[i] = currentOperatorMethods.size();
+			int opMethods = operatorsEnc.get(operators.get(i).getNodeType()).size();
+			
+			// !! WARNING
+			// simil permutazioni semplici al momento, bisogna vedere se le cifrature
+			// non escludono possibilità tra loro
+			possibility *= opMethods;
+			countersMax[i] = opMethods;
 		}
 
 		//2.2.2 preparo la struttura per l'esecuzione esaustiva della query
@@ -192,11 +194,13 @@ public class Analyzer {
 		int networkOperatorCountersNumber = operators.size();
 		int[] networkOperatorCounters = new int[networkOperatorCountersNumber];
 		int[] networkCountersMax = new int[networkOperatorCountersNumber];
-		for(int i = 0;i<networkOperatorCounters.length;i++)
+		
+		for(int i = 0; i < networkOperatorCounters.length; i++)
 		{
 			networkOperatorCounters[i] = 1;
 			networkCountersMax[i] = networkNodesNumber;
 		}
+		
 		//numero di tentativi "esaustivi"
 		double networkAttemps = Math.pow(networkNodesNumber, networkOperatorCountersNumber);
 		//possibili nodi su cui operare ^numero di operatori da considerare
@@ -226,9 +230,8 @@ public class Analyzer {
 				while(localParentStartLevel >= -1)
 				{
 					ArrayList<Operator> levelOperators = findOperatorsByParentLevel(localParentStartLevel,operators);
-					for(int j=0;j<levelOperators.size();j++)
+					for(Operator localOperator: levelOperators)
 					{
-						Operator localOperator = levelOperators.get(j);
 						Node localNode = null;
 
 						//2.3.1
@@ -244,7 +247,7 @@ public class Analyzer {
 						//attributi della query
 						if(localOperator.getOutput() != null)
 						{
-							for(int k=0;k<localOperator.getOutput().size();k++)
+							for(int k = 0; k < localOperator.getOutput().size(); k++)
 							{
 								String localOutput = localOperator.getOutput().get(k);
 
@@ -382,21 +385,21 @@ public class Analyzer {
 						ArrayList<String> implicit = localOperator.getImplicit();
 						if(implicit != null && implicit.size() > 0) //ci sono attributi impliciti da controllare
 						{
-							for(int m = 0;m<implicit.size();m++)
+							for(String imp: implicit)
 							{
 								/*trick*/
 								/*if(implicit.get(m).indexOf("::") > -1)
 									continue;*/
 
 
-								if(!TPCHUtils.isEquality(implicit.get(m)))
+								if(!TPCHUtils.isEquality(imp))
 								{
-									ArrayList<String> implicitAttributes = tpch.findColumnsInString(implicit.get(m));
-									for(int n = 0; n<implicitAttributes.size(); n++)
+									ArrayList<String> implicitAttributes = tpch.findColumnsInString(imp);
+									for(String attr: implicitAttributes)
 									{
-										String nodePolicy = localNode.verifyPolicy(implicitAttributes.get(n));
-										if(nodePolicy.equals("No")) //non c'è visibilità di nessun tipo per quel nodo
-										{
+										String nodePolicy = localNode.verifyPolicy(attr);
+										if(nodePolicy.equals("No")) {
+											//non c'è visibilità di nessun tipo per quel nodo
 											admissible = false;
 											break;
 										}
@@ -405,11 +408,12 @@ public class Analyzer {
 								else
 								{
 									//nell'ugualgianza mi aspetto due colonne (join, hash, ...)
-									ArrayList<String> implicitAttributes = tpch.findColumnsInString(implicit.get(m));
+									ArrayList<String> implicitAttributes = tpch.findColumnsInString(imp);
 									String prevPolicy = localNode.verifyPolicy(implicitAttributes.get(0));
-									for(int n = 1; n<implicitAttributes.size(); n++)
+									
+									for(String implicitAttribute: implicitAttributes)
 									{
-										String currPolicy = localNode.verifyPolicy(implicitAttributes.get(n));
+										String currPolicy = localNode.verifyPolicy(implicitAttribute);
 										if(currPolicy.equals("No") || !currPolicy.equals(prevPolicy)) //non c'è visibilità oppure c'è conflitto
 										{
 											//le soluzioni Plain = Encrypted sono svantaggiose, meglio Plain = Plain o Enc = Enc
@@ -464,7 +468,7 @@ public class Analyzer {
 				String networkCounterStatus = printNetworkCounters(networkOperatorCounters,network);
 
 				//aggiornamento contatori, per diversificare le possibilità
-				for(int i = 0;i<counters.length;i++)
+				for(int i = 0; i < counters.length; i++)
 				{
 					if((countersMax[i] - counters[i]) == 0) //sono già arrivato all'ultimo tentativo, passo al contatore successivo
 					{
@@ -513,7 +517,7 @@ public class Analyzer {
 			}//end possibility
 
 			//aggiorno i contatori della rete, per passare al prossimo tentivo
-			for(int i = 0;i<networkOperatorCounters.length;i++)
+			for(int i = 0; i < networkOperatorCounters.length; i++)
 			{
 				if((networkCountersMax[i] - networkOperatorCounters[i]) == 0) //sono già arrivato all'ultimo tentativo, passo al contatore successivo
 				{

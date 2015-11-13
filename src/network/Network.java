@@ -13,11 +13,10 @@ public class Network {
 
 	public String showNetwork()
 	{
-		String output = "Network: \n";
-		for(int i = 0;i<nodes.size();i++)
-			output += nodes.get(i).toString()+"\n";
-		return output;
-
+		StringBuilder sb = new StringBuilder("Network: \n");
+		for (Node node: nodes)
+			sb.append(node + "\n");
+		return sb.toString();
 	}
 
 
@@ -26,22 +25,21 @@ public class Network {
 		if(name.equals("NoNodeNeeded") || name == null)
 			return getBestNode();
 
-		for(int i = 0;i<nodes.size();i++)
-			if(nodes.get(i).getName().equals(name))
-				return nodes.get(i);
+		for (Node node: nodes)
+			if (node.getName().equals(name))
+				return node;
 		return null;
 	}
 
 	public Node getBestNode() {
-
 		//miglior nodo per throughput  -->più alto il throughput più le prestazioni della macchina sono alte..e quindi il bclo andrà meglio di
 		//conseguenza
-		Node output = nodes.get(0);
-		for(int i = 1; i<nodes.size(); i++)
-			if(nodes.get(i).getAesThroughput() > output.getAesThroughput())
-				output = nodes.get(i);
-
-		return output;
+		
+		Node best = null;
+		for (Node node: nodes)
+			if (best == null || node.getAesThroughput() > best.getAesThroughput())
+				best = node;
+		return best;
 	}
 
 	public int getNodesNumber()

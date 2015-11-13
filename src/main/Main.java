@@ -31,7 +31,7 @@ public class Main {
 		/* ANALISI DI TUTTE LE QUERY TPCH */
 		//voglio sapere il numero di operatori distinti e con che frquenza compaiono
 		TPCHUtils tpch = new TPCHUtils();
-		for(int t = 1;t<=TPCHUtils.tpch_num;t++)
+		for(int t = 1; t <= TPCHUtils.tpch_num; t++)
 		{
 			ArrayList<Operator> queryOperators = parserSimple.parseDocument("res/"+t+".xml");
 			tpch.inflateOperators(queryOperators);
@@ -49,7 +49,7 @@ public class Main {
 		int networkSize = network.getNodesNumber();
 		double total = 0;
 		System.out.println(networkSize);
-		for(int t = 1;t<=TPCHUtils.tpch_num;t++)
+		for(int t = 1; t <= TPCHUtils.tpch_num; t++)
 		{
 			parser.parseDocument("res/"+t+".xml");
 			double networkAttemps = Math.pow(networkSize, parser.operators.size());
@@ -80,7 +80,7 @@ public class Main {
 
 		/*	TUTTO IL BENCHMARK */
 		/*
-		for(int t = 1;t<=TPCHUtils.tpch_num;t++)
+		for(int t = 1; t <= TPCHUtils.tpch_num; t++)
 		{
 			writer.println("QUERY "+t);
 			parser.parseDocument("res/"+t+".xml");
