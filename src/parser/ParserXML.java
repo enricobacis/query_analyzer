@@ -168,7 +168,7 @@ public class ParserXML {
 					String qName) throws SAXException {
 
 					if (qName.equalsIgnoreCase("PLAN")) {
-						if(subPlans.get(id) == false) //l'elemento è una foglia non ha sottopiani, lo devo aggiungere
+						if(subPlans.get(id) == false) //l'elemento Ã¨ una foglia non ha sottopiani, lo devo aggiungere
 						{
 							tmp.setImplicit(tmpImplicit);
 

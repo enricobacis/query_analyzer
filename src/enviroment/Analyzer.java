@@ -79,7 +79,7 @@ public class Analyzer {
 	private double getTransferTime(Node prevNode, Node localNode, double dataToTransfer)
 	{
 		double output = 0;
-		if(!prevNode.getName().equals(localNode.getName())) //se non Ë lo stesso nodo
+		if(!prevNode.getName().equals(localNode.getName())) //se non √® lo stesso nodo
 		{
 			for(int i=0;i<prevNode.getLinks().size();i++)
 			{
@@ -117,7 +117,7 @@ public class Analyzer {
 			//AES 256bit - blocco 256bit
 			//perfromance su Intel Core iX teoricamente -> 700 MB/s
 
-			double throughput = (localNode.getAesThroughput())*(Math.pow(10, 6)); //Ë gi‡ in byte
+			double throughput = (localNode.getAesThroughput())*(Math.pow(10, 6)); //√® gi√† in byte
 			int rowsWidth = rows*rowWidth;
 			time = rowsWidth / throughput;
 
@@ -132,7 +132,7 @@ public class Analyzer {
 			}
 			else //PAI
 			{
-				double throughput = (localNode.getPaillerThroughput())*(Math.pow(10, 6)); //Ë gi‡ in byte
+				double throughput = (localNode.getPaillerThroughput())*(Math.pow(10, 6)); //√® gi√† in byte
 				int rowsWidth = rows*rowWidth;
 				time = rowsWidth / throughput;
 			}
@@ -157,7 +157,7 @@ public class Analyzer {
 		HashMap<String, ArrayList<String>> functionsEnc = encSchemes.getFunctionsEncs();
 
 		//2 scorrimento della gerarchia
-		//2.0 per ogni possibilit‡ adotto un sistema simil "contatori" per provarle tutte
+		//2.0 per ogni possibilit√† adotto un sistema simil "contatori" per provarle tutte
 		int counterSize = operators.size();
 		int[] counters = new int[counterSize];
 		for(int i = 0;i<counters.length;i++)
@@ -165,7 +165,7 @@ public class Analyzer {
 		int[] countersMax = new int[counterSize];
 
 
-		//2.1 individuo la foglia pi˘ estrema dell'albero, sar‡ il punto di partenza
+		//2.1 individuo la foglia pi√π estrema dell'albero, sar√† il punto di partenza
 		//int startLevel = 0; //per il momento non lo uso...
 		int parentStartLevel = -1;
 		for(int i = 0; i<operators.size();i++)
@@ -181,14 +181,14 @@ public class Analyzer {
 		{
 			Operator currentOperator = operators.get(i);
 			ArrayList<String> currentOperatorMethods = operatorsEnc.get(currentOperator.getNodeType());
-			possibility *= currentOperatorMethods.size();	//simil permutazioni semplici al momento, bisogna vedere se le cifrature non escludono possibilit‡ tra loro
+			possibility *= currentOperatorMethods.size();	//simil permutazioni semplici al momento, bisogna vedere se le cifrature non escludono possibilit√† tra loro
 															//WARNING!!
 			countersMax[i] = currentOperatorMethods.size();
 		}
 
 		//2.2.2 preparo la struttura per l'esecuzione esaustiva della query
 		//inizializzo contatori
-		int networkNodesNumber = network.getNodesNumber(); //il client non Ë coinvolto nell'analisi
+		int networkNodesNumber = network.getNodesNumber();
 		int networkOperatorCountersNumber = operators.size();
 		int[] networkOperatorCounters = new int[networkOperatorCountersNumber];
 		int[] networkCountersMax = new int[networkOperatorCountersNumber];
@@ -205,7 +205,7 @@ public class Analyzer {
 		while(networkAttemps > 0)
 		{
 			System.out.println("Attempt: "+networkAttemps);
-			//2.3 parto da quella foglia per risalire la gerarchia, ogni step sar‡ -1 al valore attuale
+			//2.3 parto da quella foglia per risalire la gerarchia, ogni step sar√† -1 al valore attuale
 			//facilitato dalle caratteristiche
 
 			boolean admissible = true; //do per scontato che il tentativo sia ammissibile
@@ -248,7 +248,7 @@ public class Analyzer {
 							{
 								String localOutput = localOperator.getOutput().get(k);
 
-								//verifico se l'operatore Ë una funzione o direttamente un attributo
+								//verifico se l'operatore √® una funzione o direttamente un attributo
 								boolean function = false;
 								String item = localOutput;
 
@@ -295,7 +295,7 @@ public class Analyzer {
 								else
 									nodePolicy = "Encrypted"; //per il momento le funzioni le posso considerare sempre cifrate
 
-								if(nodePolicy.equals("No")) // non c'Ë visibilit‡ sull'attributo, questa non Ë un tentativo ammissibile
+								if(nodePolicy.equals("No")) // non c'√® visibilit√† sull'attributo, questa non √® un tentativo ammissibile
 								{
 									admissible = false;
 									localOperations += "Attempt arrested -> no visibility of "+localOutput+" on "+localNode.getName()+" \n";
@@ -309,12 +309,12 @@ public class Analyzer {
 									if(!nodePolicy.equals("Plain")) //encryption necessaria
 									{
 										ArrayList<String> localOperatorEncs = operatorsEnc.get(localOperator.getNodeType());
-										selectedEnc = localOperatorEncs.get(counters[localOperator.getId()]-1); //-1 perchË le liste partono da 0, ma il contatore effettivo da 1
+										selectedEnc = localOperatorEncs.get(counters[localOperator.getId()]-1); //-1 perch√© le liste partono da 0, ma il contatore effettivo da 1
 									}
 
 									//2.3.2.2
 									//costi
-									if(selectedEnc.equals("NO")) //non Ë richieste encryption sul singolo item
+									if(selectedEnc.equals("NO")) //non √® richieste encryption sul singolo item
 									{
 										localCost += 0;
 										localMoney += 0;
@@ -353,9 +353,9 @@ public class Analyzer {
 													+"-> IDParent: "+localOperator.getIdParent()
 													+" -> Item: "+k+" -> Width: "+itemWidth+" -> Enc: "+selectedEnc+" -> Time: "+nodeTime+" -> Cost: "+nodeMoney+"\n";
 										}
-										else //Ë una funzione
+										else //√® una funzione
 										{
-											//le funzioni sono trattate con uno spazio di possibilit‡ diverse
+											//le funzioni sono trattate con uno spazio di possibilit√† diverse
 											String functionSelectedEnc = enc.get(0);
 											nodeTime = getEncryptionCost(functionSelectedEnc, localOperator.getPlanRows(), localOperator.getPlanWidth(), localNode);
 											localCost += nodeTime;
@@ -367,7 +367,7 @@ public class Analyzer {
 													+" -> (funct) Item: "+k+" -> Enc: "+functionSelectedEnc+" -> Time: "+nodeTime+" -> Cost: "+nodeMoney+"\n";
 										}//chiusura funzione
 									}//chiusura encryption
-								}//chiusura ammissibilit‡ del tentativo
+								}//chiusura ammissibilit√† del tentativo
 							}//end scorrimento attributi
 							if(admissible == false)
 							{
@@ -395,7 +395,7 @@ public class Analyzer {
 									for(int n = 0; n<implicitAttributes.size(); n++)
 									{
 										String nodePolicy = localNode.verifyPolicy(implicitAttributes.get(n));
-										if(nodePolicy.equals("No")) //non c'Ë visibilit‡ di nessun tipo per quel nodo
+										if(nodePolicy.equals("No")) //non c'√® visibilit√† di nessun tipo per quel nodo
 										{
 											admissible = false;
 											break;
@@ -410,7 +410,7 @@ public class Analyzer {
 									for(int n = 1; n<implicitAttributes.size(); n++)
 									{
 										String currPolicy = localNode.verifyPolicy(implicitAttributes.get(n));
-										if(currPolicy.equals("No") || !currPolicy.equals(prevPolicy)) //non c'Ë visibilit‡ oppure c'Ë conflitto
+										if(currPolicy.equals("No") || !currPolicy.equals(prevPolicy)) //non c'√® visibilit√† oppure c'√® conflitto
 										{
 											//le soluzioni Plain = Encrypted sono svantaggiose, meglio Plain = Plain o Enc = Enc
 											admissible = false;
@@ -434,12 +434,12 @@ public class Analyzer {
 						//devo calcorare i tempi di trasferimento da un nodo all'altro
 						if(prevNode != null && admissible == true)
 						{
-							double dataToTransfer = localOperator.getPlanWidth()*localOperator.getPlanRows(); //non mi interessa la singola width di ogni output, questa Ë la loro somma
+							double dataToTransfer = localOperator.getPlanWidth()*localOperator.getPlanRows(); //non mi interessa la singola width di ogni output, questa √® la loro somma
 							double transferTime = getTransferTime(prevNode,localNode, dataToTransfer);
 							localCost += transferTime;
 							localOperations += "TRASFERIMENTO DAL NODO "+prevNode.getName()+" AL NODO "+localNode.getName()+" Tempo -> "+transferTime+"\n";
 							//si potrebbe introdurre un modello di costo per la comunicazione tra nodi, ma le policy nelle situazioni reali
-							//prevedono dei costi sui dati in uscita pi˘ che sull'ingresso...
+							//prevedono dei costi sui dati in uscita pi√π che sull'ingresso...
 						}
 						prevNode = localNode;
 
@@ -463,10 +463,10 @@ public class Analyzer {
 				String counterStatus = printCounters(counters);
 				String networkCounterStatus = printNetworkCounters(networkOperatorCounters,network);
 
-				//aggiornamento contatori, per diversificare le possibilit‡
+				//aggiornamento contatori, per diversificare le possibilit√†
 				for(int i = 0;i<counters.length;i++)
 				{
-					if((countersMax[i] - counters[i]) == 0) //sono gi‡ arrivato all'ultimo tentativo, passo al contatore successivo
+					if((countersMax[i] - counters[i]) == 0) //sono gi√† arrivato all'ultimo tentativo, passo al contatore successivo
 					{
 						counters[i] = 1;
 						continue;
@@ -506,7 +506,7 @@ public class Analyzer {
 					return output;*/
 
 
-				//voglio esplorare tutte le possibilit‡
+				//voglio esplorare tutte le possibilit√†
 				output.add(new Attempt(localOperations, localCost, localMoney, counterStatus, networkCounterStatus));
 
 				currentPossibility--;
@@ -515,7 +515,7 @@ public class Analyzer {
 			//aggiorno i contatori della rete, per passare al prossimo tentivo
 			for(int i = 0;i<networkOperatorCounters.length;i++)
 			{
-				if((networkCountersMax[i] - networkOperatorCounters[i]) == 0) //sono gi‡ arrivato all'ultimo tentativo, passo al contatore successivo
+				if((networkCountersMax[i] - networkOperatorCounters[i]) == 0) //sono gi√† arrivato all'ultimo tentativo, passo al contatore successivo
 				{
 					networkOperatorCounters[i] = 1;
 					continue;

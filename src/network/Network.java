@@ -34,7 +34,7 @@ public class Network {
 
 	public Node getBestNode() {
 
-		//miglior nodo per throughput  -->pi˘ alto il throughput pi˘ le prestazioni della macchina sono alte..e quindi il bclo andr‡ meglio di
+		//miglior nodo per throughput  -->pi√π alto il throughput pi√π le prestazioni della macchina sono alte..e quindi il bclo andr√† meglio di
 		//conseguenza
 		Node output = nodes.get(0);
 		for(int i = 1; i<nodes.size(); i++)

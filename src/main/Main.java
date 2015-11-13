@@ -88,7 +88,7 @@ public class Main {
 			Analyzer analyzer = new Analyzer();
 			results = analyzer.Analyze(encSchemes, parser.operators, network);
 			writer.println("MIN TIME: "+analyzer.getMinTime()+ " sec.");
-			writer.println("MIN COST: "+analyzer.getMinCost()+ " €");
+			writer.println("MIN COST: "+analyzer.getMinCost()+ " â‚¬");
 			writer.println("OPERATIONS: "+analyzer.getOperations());
 			writer.println("RESULTS: "+results.toString());
 		}
@@ -112,7 +112,7 @@ public class Main {
 		writer.println("END ELABORATION: "+dateFormat.format(date));
 
 		writer.println("MIN TIME: "+analyzer.getMinTime()+ " sec.");
-		writer.println("MIN COST: "+analyzer.getMinCost()+ " €");
+		writer.println("MIN COST: "+analyzer.getMinCost()+ " â‚¬");
 		writer.println("MIN TIME OPERATIONS: "+analyzer.getMinTimeOperations());
 		writer.println("MIN COST OPERATIONS: "+analyzer.getMinCostOperations());
 		writer.println("RESULTS: "+results.toString());
