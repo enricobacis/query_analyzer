@@ -70,7 +70,8 @@ public class Main {
 
 
 		/* ANALISI DELLE QUERY */
-		PrintWriter writer = null;
+		PrintWriter writer = new PrintWriter(System.out);
+		
 		try {
 			writer = new PrintWriter("output/results.txt", "UTF-8");
 		} catch (FileNotFoundException | UnsupportedEncodingException e) {
