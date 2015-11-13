@@ -44,13 +44,16 @@ public class Network {
 		return output;
 	}
 
-	public int getNodesNumber() //non coinvolgo i client nell'elaborazione
+	public int getNodesNumber()
 	{
+		return nodes.size();
+		/*
 		int output = 0;
 		for(int i = 0; i<nodes.size(); i++)
 			if(!nodes.get(i).getType().equals("Client"))
 				output++;
 		return output;
+		*/
 	}
 
 	public Node getNodeByIndex(int i)
