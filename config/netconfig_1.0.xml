@@ -1,5 +1,10 @@
 <?xml version="1.0"?>
 <network>
+	<node name="CL1">
+		<node-type>Client</node-type>
+		<node-policy>Plain</node-policy>
+		<node-data>none</node-data>
+	</node>
 	<node name="SS1">
 		<node-type>Storage Server</node-type>
 		<node-policy>Encrypted</node-policy>
@@ -17,11 +22,6 @@
 	</node>
 	<node name="CS1">
 		<node-type>Computational Server</node-type>
-		<node-policy>Plain</node-policy>
-		<node-data>none</node-data>
-	</node>
-	<node name="CL1">
-		<node-type>Client</node-type>
 		<node-policy>Plain</node-policy>
 		<node-data>none</node-data>
 	</node>

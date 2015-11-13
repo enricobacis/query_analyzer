@@ -6,6 +6,110 @@
 <!-- bclo : ms -->
 <!-- cost-per-second : costo che tiene in conto tutte le risorse impiegate in quel secondo -->
 <network>
+	<node name="CL1">
+		<node-type>Client</node-type>
+		<node-datas>
+			<node-data attribute="c_custkey">Encrypted</node-data>
+			<node-data attribute="c_name">Encrypted</node-data>
+			<node-data attribute="c_address">Encrypted</node-data>
+			<node-data attribute="c_nationkey">Encrypted</node-data>
+			<node-data attribute="c_phone">Encrypted</node-data>
+			<node-data attribute="c_acctbal">Encrypted</node-data>
+			<node-data attribute="c_mktsegment">Encrypted</node-data>
+			<node-data attribute="c_comment">Encrypted</node-data>	
+			<node-data attribute="l_orderkey">Encrypted</node-data>
+			<node-data attribute="l_partkey">Encrypted</node-data>
+			<node-data attribute="l_suppkey">Encrypted</node-data>
+			<node-data attribute="l_linenumber">Encrypted</node-data>
+			<node-data attribute="l_quantity">Encrypted</node-data>
+			<node-data attribute="l_extendedprice">Encrypted</node-data>
+			<node-data attribute="l_discount">Encrypted</node-data>
+			<node-data attribute="l_tax">Encrypted</node-data>
+			<node-data attribute="l_returnflag">Encrypted</node-data>
+			<node-data attribute="l_linestatus">Encrypted</node-data>
+			<node-data attribute="l_shipdate">Encrypted</node-data>
+			<node-data attribute="l_commitdate">Encrypted</node-data>
+			<node-data attribute="l_receiptdate">Encrypted</node-data>
+			<node-data attribute="l_shipinstruct">Encrypted</node-data>
+			<node-data attribute="l_shipmode">Encrypted</node-data>
+			<node-data attribute="l_comment">Encrypted</node-data>
+			<node-data attribute="n_nationkey">Encrypted</node-data>
+			<node-data attribute="n_name">Encrypted</node-data>
+			<node-data attribute="n_regionkey">Encrypted</node-data>
+			<node-data attribute="n_comment">Encrypted</node-data>
+			<node-data attribute="o_orderkey">Encrypted</node-data>
+			<node-data attribute="o_custkey">Encrypted</node-data>
+			<node-data attribute="o_orderstatus">Encrypted</node-data>
+			<node-data attribute="o_totalprice">Encrypted</node-data>
+			<node-data attribute="o_orderdate">Encrypted</node-data>
+			<node-data attribute="o_orderpriority">Encrypted</node-data>
+			<node-data attribute="o_clerk">Encrypted</node-data>
+			<node-data attribute="o_shippriority">Encrypted</node-data>
+			<node-data attribute="o_comment">Encrypted</node-data>
+			<node-data attribute="p_partkey">Encrypted</node-data>
+			<node-data attribute="p_name">Encrypted</node-data>
+			<node-data attribute="p_mfgr">Encrypted</node-data>
+			<node-data attribute="p_brand">Encrypted</node-data>
+			<node-data attribute="p_type">Encrypted</node-data>
+			<node-data attribute="p_size">Encrypted</node-data>
+			<node-data attribute="p_container">Encrypted</node-data>
+			<node-data attribute="p_retailprice">Encrypted</node-data>
+			<node-data attribute="p_comment">Encrypted</node-data>
+			<node-data attribute="ps_partkey">Encrypted</node-data>
+			<node-data attribute="ps_suppkey">Encrypted</node-data>
+			<node-data attribute="ps_availqty">Encrypted</node-data>
+			<node-data attribute="ps_supplycost">Encrypted</node-data>
+			<node-data attribute="ps_comment">Encrypted</node-data>
+			<node-data attribute="r_regionkey">Encrypted</node-data>
+			<node-data attribute="r_name">Encrypted</node-data>
+			<node-data attribute="r_comment">Encrypted</node-data>
+			<node-data attribute="s_suppkey">Encrypted</node-data>
+			<node-data attribute="s_name">Encrypted</node-data>
+			<node-data attribute="s_address">Encrypted</node-data>
+			<node-data attribute="s_nationkey">Encrypted</node-data>
+			<node-data attribute="s_phone">Encrypted</node-data>
+			<node-data attribute="s_acctbal">Encrypted</node-data>
+			<node-data attribute="s_comment">Encrypted</node-data>
+		</node-datas>
+		<performance>
+			<aes-throughput>50</aes-throughput>
+			<pailler-throughput>0.40</pailler-throughput>
+			<bclo-value-time>0.0216</bclo-value-time>			
+		</performance>
+		<cost-per-second>0.0008</cost-per-second>
+		<links>
+			<link>
+				<node-linked>SS2</node-linked>
+				<latency>0.0025</latency>
+				<throughput>2000</throughput>
+			</link>
+			<link>
+				<node-linked>SS3</node-linked>
+				<latency>0.0025</latency>
+				<throughput>2000</throughput>
+			</link>	
+			<link>
+				<node-linked>CS1</node-linked>
+				<latency>0.0040</latency>
+				<throughput>2000</throughput>
+			</link>	
+			<link>
+				<node-linked>CS2</node-linked>
+				<latency>0.0020</latency>
+				<throughput>1500</throughput>
+			</link>
+			<link>
+				<node-linked>CS3</node-linked>
+				<latency>0.0015</latency>
+				<throughput>1000</throughput>
+			</link>
+			<link>
+				<node-linked>SS1</node-linked>
+				<latency>0.0050</latency>
+				<throughput>1000</throughput>
+			</link>	
+		</links>
+	</node>
 	<node name="SS1">
 		<node-type>Storage Server</node-type>
 		<node-datas>
@@ -211,110 +315,6 @@
 			</link>
 			<link>
 				<node-linked>CL1</node-linked>
-				<latency>0.0050</latency>
-				<throughput>1000</throughput>
-			</link>	
-		</links>
-	</node>
-	<node name="CL1">
-		<node-type>Client</node-type>
-		<node-datas>
-			<node-data attribute="c_custkey">Encrypted</node-data>
-			<node-data attribute="c_name">Encrypted</node-data>
-			<node-data attribute="c_address">Encrypted</node-data>
-			<node-data attribute="c_nationkey">Encrypted</node-data>
-			<node-data attribute="c_phone">Encrypted</node-data>
-			<node-data attribute="c_acctbal">Encrypted</node-data>
-			<node-data attribute="c_mktsegment">Encrypted</node-data>
-			<node-data attribute="c_comment">Encrypted</node-data>	
-			<node-data attribute="l_orderkey">Encrypted</node-data>
-			<node-data attribute="l_partkey">Encrypted</node-data>
-			<node-data attribute="l_suppkey">Encrypted</node-data>
-			<node-data attribute="l_linenumber">Encrypted</node-data>
-			<node-data attribute="l_quantity">Encrypted</node-data>
-			<node-data attribute="l_extendedprice">Encrypted</node-data>
-			<node-data attribute="l_discount">Encrypted</node-data>
-			<node-data attribute="l_tax">Encrypted</node-data>
-			<node-data attribute="l_returnflag">Encrypted</node-data>
-			<node-data attribute="l_linestatus">Encrypted</node-data>
-			<node-data attribute="l_shipdate">Encrypted</node-data>
-			<node-data attribute="l_commitdate">Encrypted</node-data>
-			<node-data attribute="l_receiptdate">Encrypted</node-data>
-			<node-data attribute="l_shipinstruct">Encrypted</node-data>
-			<node-data attribute="l_shipmode">Encrypted</node-data>
-			<node-data attribute="l_comment">Encrypted</node-data>
-			<node-data attribute="n_nationkey">Encrypted</node-data>
-			<node-data attribute="n_name">Encrypted</node-data>
-			<node-data attribute="n_regionkey">Encrypted</node-data>
-			<node-data attribute="n_comment">Encrypted</node-data>
-			<node-data attribute="o_orderkey">Encrypted</node-data>
-			<node-data attribute="o_custkey">Encrypted</node-data>
-			<node-data attribute="o_orderstatus">Encrypted</node-data>
-			<node-data attribute="o_totalprice">Encrypted</node-data>
-			<node-data attribute="o_orderdate">Encrypted</node-data>
-			<node-data attribute="o_orderpriority">Encrypted</node-data>
-			<node-data attribute="o_clerk">Encrypted</node-data>
-			<node-data attribute="o_shippriority">Encrypted</node-data>
-			<node-data attribute="o_comment">Encrypted</node-data>
-			<node-data attribute="p_partkey">Encrypted</node-data>
-			<node-data attribute="p_name">Encrypted</node-data>
-			<node-data attribute="p_mfgr">Encrypted</node-data>
-			<node-data attribute="p_brand">Encrypted</node-data>
-			<node-data attribute="p_type">Encrypted</node-data>
-			<node-data attribute="p_size">Encrypted</node-data>
-			<node-data attribute="p_container">Encrypted</node-data>
-			<node-data attribute="p_retailprice">Encrypted</node-data>
-			<node-data attribute="p_comment">Encrypted</node-data>
-			<node-data attribute="ps_partkey">Encrypted</node-data>
-			<node-data attribute="ps_suppkey">Encrypted</node-data>
-			<node-data attribute="ps_availqty">Encrypted</node-data>
-			<node-data attribute="ps_supplycost">Encrypted</node-data>
-			<node-data attribute="ps_comment">Encrypted</node-data>
-			<node-data attribute="r_regionkey">Encrypted</node-data>
-			<node-data attribute="r_name">Encrypted</node-data>
-			<node-data attribute="r_comment">Encrypted</node-data>
-			<node-data attribute="s_suppkey">Encrypted</node-data>
-			<node-data attribute="s_name">Encrypted</node-data>
-			<node-data attribute="s_address">Encrypted</node-data>
-			<node-data attribute="s_nationkey">Encrypted</node-data>
-			<node-data attribute="s_phone">Encrypted</node-data>
-			<node-data attribute="s_acctbal">Encrypted</node-data>
-			<node-data attribute="s_comment">Encrypted</node-data>
-		</node-datas>
-		<performance>
-			<aes-throughput>50</aes-throughput>
-			<pailler-throughput>0.40</pailler-throughput>
-			<bclo-value-time>0.0216</bclo-value-time>			
-		</performance>
-		<cost-per-second>0.0008</cost-per-second>
-		<links>
-			<link>
-				<node-linked>SS2</node-linked>
-				<latency>0.0025</latency>
-				<throughput>2000</throughput>
-			</link>
-			<link>
-				<node-linked>SS3</node-linked>
-				<latency>0.0025</latency>
-				<throughput>2000</throughput>
-			</link>	
-			<link>
-				<node-linked>CS1</node-linked>
-				<latency>0.0040</latency>
-				<throughput>2000</throughput>
-			</link>	
-			<link>
-				<node-linked>CS2</node-linked>
-				<latency>0.0020</latency>
-				<throughput>1500</throughput>
-			</link>
-			<link>
-				<node-linked>CS3</node-linked>
-				<latency>0.0015</latency>
-				<throughput>1000</throughput>
-			</link>
-			<link>
-				<node-linked>SS1</node-linked>
 				<latency>0.0050</latency>
 				<throughput>1000</throughput>
 			</link>	
