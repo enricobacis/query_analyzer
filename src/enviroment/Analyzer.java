@@ -204,13 +204,14 @@ public class Analyzer {
 		//numero di tentativi "esaustivi"
 		double networkAttemps = Math.pow(networkNodesNumber, networkOperatorCountersNumber);
 		//possibili nodi su cui operare ^numero di operatori da considerare
+		System.out.println("Remaining attempts: " + (int) networkAttemps);
 
 		//2.2.3 ricerca esaustiva della soluzione
 		while(networkAttemps > 0)
 		{
 			// print only every 1 thousand attempts
-			if (networkAttemps % 1000 == 0);
-			    System.out.println("Attempt: " + (int) networkAttemps);
+			if (networkAttemps % 1000 == 0)
+			    System.out.println("Remaining attempts: " + (int) networkAttemps);
 
 			//2.3 parto da quella foglia per risalire la gerarchia, ogni step sarà -1 al valore attuale
 			//facilitato dalle caratteristiche
