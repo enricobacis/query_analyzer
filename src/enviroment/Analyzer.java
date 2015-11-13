@@ -22,16 +22,18 @@ public class Analyzer {
 	private double minTime;
 	private String defOperations;		 //operazioni per il costo minimo in termini di tempo
 	private String minCostDefOperations; //operazioni per il costo minimo in termini economici
+	private TPCHUtils tpch;
 
 	/* trick */
 	/*private int trick = 2;*/
 
-	public Analyzer()
+	public Analyzer(TPCHUtils tpch)
 	{
 		minTime = -1;
 		minCost = -1;
 		defOperations = "";
 		minCostDefOperations = "";
+		this.tpch = tpch;
 	}
 
 	public double getMinTime()
@@ -289,7 +291,7 @@ public class Analyzer {
 
 								String nodePolicy = "";
 								if(!function)
-									nodePolicy = localNode.verifyPolicy(TPCHUtils.getItemColumn(localOutput));
+									nodePolicy = localNode.verifyPolicy(tpch.getItemColumn(localOutput));
 								else
 									nodePolicy = "Encrypted"; //per il momento le funzioni le posso considerare sempre cifrate
 
@@ -328,11 +330,11 @@ public class Analyzer {
 										{
 											int itemWidth = localOperator.getPlanWidth();
 
-												String column = TPCHUtils.getItemColumn(item);
-												String table = TPCHUtils.getItemTable(item);
-												if(TPCHUtils.getStructure().containsKey(table))
+												String column = tpch.getItemColumn(item);
+												String table = tpch.getItemTable(item);
+												if(tpch.getStructure().containsKey(table))
 												{
-													itemWidth = TPCHUtils.findWidthByColumn(table,column);
+													itemWidth = tpch.findWidthByColumn(table,column);
 													nodeTime = getEncryptionCost(selectedEnc, localOperator.getPlanRows(), itemWidth, localNode);
 													localCost += nodeTime;
 													nodeMoney = getEncryptionNodeCost(localNode, nodeTime);
@@ -389,7 +391,7 @@ public class Analyzer {
 
 								if(!TPCHUtils.isEquality(implicit.get(m)))
 								{
-									ArrayList<String> implicitAttributes = TPCHUtils.findColumnsInString(implicit.get(m));
+									ArrayList<String> implicitAttributes = tpch.findColumnsInString(implicit.get(m));
 									for(int n = 0; n<implicitAttributes.size(); n++)
 									{
 										String nodePolicy = localNode.verifyPolicy(implicitAttributes.get(n));
@@ -403,7 +405,7 @@ public class Analyzer {
 								else
 								{
 									//nell'ugualgianza mi aspetto due colonne (join, hash, ...)
-									ArrayList<String> implicitAttributes = TPCHUtils.findColumnsInString(implicit.get(m));
+									ArrayList<String> implicitAttributes = tpch.findColumnsInString(implicit.get(m));
 									String prevPolicy = localNode.verifyPolicy(implicitAttributes.get(0));
 									for(int n = 1; n<implicitAttributes.size(); n++)
 									{

@@ -30,9 +30,9 @@ public class TPCHUtils {
 
 	}
 
-	private static HashMap<String,Integer> operators;
-	private static HashMap<String, ArrayList<Column>> structure;
-	private static ArrayList<String> tableNames;
+	private HashMap<String,Integer> operators;
+	private HashMap<String, ArrayList<Column>> structure;
+	private ArrayList<String> tableNames;
 
 	public final static int tpch_num = 22;
 
@@ -148,7 +148,7 @@ public class TPCHUtils {
 		tableNames.add(tableName);
 	}
 
-	public static ArrayList<String> findColumnsInString(String s)
+	public ArrayList<String> findColumnsInString(String s)
 	{
 		ArrayList<String> output = new ArrayList<String>();
 		for(int i = 0; i<tableNames.size();i++)
@@ -188,12 +188,12 @@ public class TPCHUtils {
 		return operators;
 	}
 
-	public static HashMap<String, ArrayList<Column>> getStructure()
+	public HashMap<String, ArrayList<Column>> getStructure()
 	{
 		return structure;
 	}
 
-	public static String getItemColumn(String relationName) {
+	public String getItemColumn(String relationName) {
 		String[] output = relationName.split("\\."); //nome_tabella.nome_colonna
 		if(output.length > 1)
 			return output[1];
@@ -201,7 +201,7 @@ public class TPCHUtils {
 			return output[0]; //query su singola tabella
 	}
 
-	public static String getItemTable(String relationName) {
+	public String getItemTable(String relationName) {
 		//replace dell'alias
 		if(relationName.indexOf("1") > -1 || relationName.indexOf("2") > -1 || relationName.indexOf("3") > -1 || relationName.indexOf("4") > -1 || relationName.indexOf("5") > -1)
 		{
@@ -215,7 +215,7 @@ public class TPCHUtils {
 		return output[0]; //query su singola tabella
 	}
 
-	public static int findWidthByColumn(String table, String column) {
+	public int findWidthByColumn(String table, String column) {
 		int output = 4; //dimensione di default di moltissimi campi
 		ArrayList<Column> tableFields = structure.get(table);
 		for(int i = 0;i<tableFields.size();i++)

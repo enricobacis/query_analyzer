@@ -30,11 +30,11 @@ public class Main {
 
 		/* ANALISI DI TUTTE LE QUERY TPCH */
 		//voglio sapere il numero di operatori distinti e con che frquenza compaiono
-		TPCHUtils tpchUtils = new TPCHUtils();
+		TPCHUtils tpch = new TPCHUtils();
 		for(int t = 1;t<=TPCHUtils.tpch_num;t++)
 		{
 			ArrayList<Operator> queryOperators = parserSimple.parseDocument("res/"+t+".xml");
-			tpchUtils.inflateOperators(queryOperators);
+			tpch.inflateOperators(queryOperators);
 		}
 		//System.out.println(tpchUtils.getAllOperators().toString());
 
@@ -100,7 +100,7 @@ public class Main {
 		parser.parseDocument("res/4.xml");
 
 		ArrayList<Attempt> results = new ArrayList<Attempt>();
-		Analyzer analyzer = new Analyzer();
+		Analyzer analyzer = new Analyzer(tpch);
 
 		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyy HH:mm:ss");
 		Date date = new Date();
