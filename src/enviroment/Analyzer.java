@@ -26,9 +26,6 @@ public class Analyzer {
 	private String minCostDefOperations; //operazioni per il costo minimo in termini economici
 	private TPCHUtils tpch;
 
-	/* trick */
-	/*private int trick = 2;*/
-
 	public Analyzer(TPCHUtils tpch)
 	{
 		minTime = -1;
@@ -259,10 +256,6 @@ public class Analyzer {
 								boolean function = false;
 								String item = localOutput;
 
-								/*trick*/
-								/*if(item.indexOf("::") > -1)
-									continue;*/
-
 								ArrayList<String> enc = new ArrayList<String>();
 								if(item.indexOf("count") > -1)
 								{
@@ -333,7 +326,7 @@ public class Analyzer {
 									{
 
 										//se non si tratta di una funzione uso gli schemi per gli operatori
-										if(!function)
+										if (!function)
 										{
 											int itemWidth = localOperator.getPlanWidth();
 
@@ -376,10 +369,9 @@ public class Analyzer {
 									}//chiusura encryption
 								}//chiusura ammissibilità del tentativo
 							}//end scorrimento attributi
-							if(admissible == false)
-							{
+							
+							if (!admissible)
 								break;
-							}
 
 						}//end attributi
 
@@ -387,15 +379,12 @@ public class Analyzer {
 						//2.4
 						//attributi impliciti
 						ArrayList<String> implicit = localOperator.getImplicit();
-						if(implicit != null && implicit.size() > 0) //ci sono attributi impliciti da controllare
+						
+						//ci sono attributi impliciti da controllare
+						if(implicit != null && implicit.size() > 0)
 						{
 							for(String imp: implicit)
 							{
-								/*trick*/
-								/*if(implicit.get(m).indexOf("::") > -1)
-									continue;*/
-
-
 								if(!TPCHUtils.isEquality(imp))
 								{
 									ArrayList<String> implicitAttributes = tpch.findColumnsInString(imp);
@@ -430,11 +419,8 @@ public class Analyzer {
 
 								}
 
-
-								if(admissible == false)
-								{
+								if (!admissible)
 									break;
-								}
 							}
 						}//chiusura attributi impliciti
 
@@ -453,19 +439,16 @@ public class Analyzer {
 
 
 					}//end operators di un determinato livello
-					if(admissible == false)
-					{
+					if (!admissible)
 						break;
-					}
 
 					//passo al livello gerarchicamente sopra
 					localParentStartLevel--;
 
 				}//end local parent start level
-				if(admissible == false)
-				{
+				
+				if (!admissible)
 					break;
-				}
 
 				//situazione attuale dei contatori per il tentativo in corso
 				String counterStatus = printCounters(counters);
@@ -492,33 +475,21 @@ public class Analyzer {
 				{
 					minTime = localCost;
 					defOperations = localOperations;
-
-					/* trick */
-					/*System.out.println("MIN TIME: "+minTime);
-					trick--;*/
+					System.out.println("MIN TIME: " + minTime);
 
 				}
 				if(localMoney < minCost || minCost == -1) //seconda condizione applicata al primo giro
 				{
 					minCost = localMoney;
 					minCostDefOperations = localOperations;
-
-					/* trick */
-					/*System.out.println("MIN EURO: "+minCost);
-					trick--;*/
-
+					System.out.println("MIN EURO: " + minCost);
 				}
-
-				/* trick */
-				/*if(trick <= 0)
-					return output;*/
-
 
 				//voglio esplorare tutte le possibilità
 				output.add(new Attempt(localOperations, localCost, localMoney, counterStatus, networkCounterStatus));
 
 				currentPossibility--;
-			}//end possibility
+			} //end possibility
 
 			//aggiorno i contatori della rete, per passare al prossimo tentivo
 			for(int i = 0; i < networkOperatorCounters.length; i++)
@@ -536,12 +507,10 @@ public class Analyzer {
 			}
 
 			networkAttemps--;
-		}//end network attemps
+			
+		} //end network attemps
 
 		return output;
-
 	}
-
-
 
 }
