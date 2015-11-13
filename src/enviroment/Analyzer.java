@@ -15,9 +15,8 @@ public class Analyzer {
 
 	/*
 	 * Classe effettiva per il testing delle alternative
+	 * version 0.7
 	 */
-
-	//version 0.7.0
 
 	//variabili frutto dell'analisi temporale/costo
 	private double minCost;
@@ -28,11 +27,11 @@ public class Analyzer {
 
 	public Analyzer(TPCHUtils tpch)
 	{
-		minTime = -1;
-		minCost = -1;
-		defOperations = "";
-		minCostDefOperations = "";
 		this.tpch = tpch;
+		this.minTime = -1;
+		this.minCost = -1;
+		this.defOperations = "";
+		this.minCostDefOperations = "";
 	}
 
 	public double getMinTime()
@@ -58,7 +57,7 @@ public class Analyzer {
 	private String printCounters(int[] counters)
 	{
 		StringBuilder sb = new StringBuilder('[');
-		for(int i: counters)
+		for (int i: counters)
 			sb.append(i + ',');
 		return sb.append(']').toString();
 	}
@@ -66,7 +65,7 @@ public class Analyzer {
 	private String printNetworkCounters(int[] counters, Network network)
 	{
 		StringBuilder sb = new StringBuilder('[');
-		for(int i: counters)
+		for (int i: counters)
 			sb.append(network.getNodeByIndex(i - 1).getName() + ',');
 		return sb.append(']').toString();
 	}
@@ -74,17 +73,19 @@ public class Analyzer {
 	private double getTransferTime(Node prevNode, Node localNode, double dataToTransfer)
 	{
 		double output = 0;
-		if(!prevNode.getName().equals(localNode.getName())) //se non è lo stesso nodo
+		
+		//se non è lo stesso nodo
+		if (!prevNode.getName().equals(localNode.getName()))
 		{
-			for(Link link: prevNode.getLinks())
+			for (Link link: prevNode.getLinks())
 			{
-				if(link.getNodeLinked().equals(localNode.getName()))
+				if (link.getNodeLinked().equals(localNode.getName()))
 				{
 					//converto il throughput da Mbit/s a MB/s
 					double throughput = link.getThroughput() / 8;
 					
 					//i dati da trasferire sono espressi in byte
-					output = dataToTransfer / (throughput * (Math.pow(10, 6)));
+					output = dataToTransfer / (throughput * Math.pow(10, 6));
 					
 					//aggiungo la latenza della trasmissione
 					return output + link.getLatency();
@@ -97,8 +98,8 @@ public class Analyzer {
 	private ArrayList<Operator> findOperatorsByParentLevel(int localParentStartLevel, ArrayList<Operator> operators)
 	{
 		ArrayList<Operator> output = new ArrayList<Operator>();
-		for(Operator op: operators)
-			if(op.getIdParent() == localParentStartLevel)
+		for (Operator op: operators)
+			if (op.getIdParent() == localParentStartLevel)
 				output.add(op);
 		return output;
 	}
@@ -115,10 +116,9 @@ public class Analyzer {
 			//AES 256bit - blocco 256bit
 			//perfromance su Intel Core iX teoricamente -> 700 MB/s
 
-			double throughput = (localNode.getAesThroughput())*(Math.pow(10, 6)); //è già in byte
-			int rowsWidth = rows*rowWidth;
+			double throughput = localNode.getAesThroughput() * Math.pow(10, 6); // già in byte
+			int rowsWidth = rows * rowWidth;
 			time = rowsWidth / throughput;
-
 		}
 		else
 		{
@@ -126,12 +126,12 @@ public class Analyzer {
 			{
 				//BCLO scheme applicato su uno spazio di 256 bit
 				double singleEnc = localNode.getBcloValueTime() /1000;
-				time = singleEnc*rows;
+				time = singleEnc * rows;
 			}
 			else //PAI
 			{
-				double throughput = (localNode.getPaillerThroughput())*(Math.pow(10, 6)); //è già in byte
-				int rowsWidth = rows*rowWidth;
+				double throughput = localNode.getPaillerThroughput()* Math.pow(10, 6); // già in byte
+				int rowsWidth = rows * rowWidth;
 				time = rowsWidth / throughput;
 			}
 		}
