@@ -208,7 +208,10 @@ public class Analyzer {
 		//2.2.3 ricerca esaustiva della soluzione
 		while(networkAttemps > 0)
 		{
-			System.out.println("Attempt: " + (int) networkAttemps);
+			// print only every 1 thousand attempts
+			if (networkAttemps % 1000 == 0);
+			    System.out.println("Attempt: " + (int) networkAttemps);
+
 			//2.3 parto da quella foglia per risalire la gerarchia, ogni step sarà -1 al valore attuale
 			//facilitato dalle caratteristiche
 
