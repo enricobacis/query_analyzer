@@ -208,7 +208,7 @@ public class Analyzer {
 		//2.2.3 ricerca esaustiva della soluzione
 		while(networkAttemps > 0)
 		{
-			System.out.println("Attempt: "+networkAttemps);
+			System.out.println("Attempt: " + (int) networkAttemps);
 			//2.3 parto da quella foglia per risalire la gerarchia, ogni step sarà -1 al valore attuale
 			//facilitato dalle caratteristiche
 
