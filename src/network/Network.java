@@ -22,7 +22,7 @@ public class Network {
 
 	public Node getNodeByName(String name)
 	{
-		if(name.equals("NoNodeNeeded") || name == null)
+		if(name == null || name.equals("NoNodeNeeded"))
 			return getBestNode();
 
 		for (Node node: nodes)
