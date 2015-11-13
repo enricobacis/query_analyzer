@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 
 public class Operator {
-	
+
 	private String nodeType;
 	private String relationName;
 	private String parentRelationship;
@@ -15,7 +15,7 @@ public class Operator {
 	private ArrayList<String> output;
 	private ArrayList<String> implicit;
 	private String filter;
-	
+
 	//usato solo dal parser simple
 	public Operator(String tmp_node_type, int id, int id_parent)
 	{
@@ -23,12 +23,12 @@ public class Operator {
 		this.setId(id);
 		this.setIdParent(id_parent);
 	}
-	
+
 	public Operator()
 	{
-		
+
 	}
-	
+
 	public String toString()
 	{
 		String outputString = "";
@@ -37,7 +37,7 @@ public class Operator {
 		String implicitString = "";
 		if(implicit != null)
 			implicitString = implicit.toString();
-		
+
 		return "Node-Type: "+nodeType
 				+" | ID: "+id
 				+" | Parent ID: "+id_parent
@@ -49,35 +49,35 @@ public class Operator {
 				+" | Output Items: "+outputString
 				+" | Implicit Items: "+implicitString
 				+" | Filter: "+filter;
-				
-		
+
+
 	}
-	
+
 	public String getNodeType()
 	{
 		return this.nodeType;
 	}
-	
+
 	public String getRelationName()
 	{
 		return this.relationName;
 	}
-	
+
 	public String getParentRelationship()
 	{
 		return this.parentRelationship;
 	}
-	
+
 	public void setNodeType(String s)
 	{
 		this.nodeType = s;
 	}
-	
+
 	public void setRelationName(String s)
 	{
 		this.relationName = s;
 	}
-	
+
 	public void setParentRelationship(String s)
 	{
 		this.parentRelationship = s;
@@ -138,7 +138,7 @@ public class Operator {
 	public void setFilter(String filter) {
 		this.filter = filter;
 	}
-	
+
 	public ArrayList<String> getImplicit() {
 		return implicit;
 	}

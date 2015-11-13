@@ -8,18 +8,18 @@ import java.util.HashMap;
 import model.Operator;
 
 public class TPCHUtils {
-	
+
 	private class Column //classe di supporto che rappresenta una colonna all'interno di una tabella del tpch
 	{
 		private String columnName;
 		private int columnWidth;
-		
+
 		public Column(String name, int width)
 		{
 			this.columnName = name;
 			this.columnWidth = width;
 		}
-		
+
 		public String getColumnName() {
 			return columnName;
 		}
@@ -29,13 +29,13 @@ public class TPCHUtils {
 		}
 
 	}
-	
+
 	private static HashMap<String,Integer> operators;
 	private static HashMap<String, ArrayList<Column>> structure;
 	private static ArrayList<String> tableNames;
-	
+
 	public final static int tpch_num = 22;
-	
+
 	public TPCHUtils()
 	{
 		operators = new HashMap<String,Integer>();
@@ -43,7 +43,7 @@ public class TPCHUtils {
 		tableNames = new ArrayList<String>();
 		createTPCHStructure();
 	}
-	
+
 	public void createTPCHStructure()
 	{
 		String tableName = "customer";
@@ -55,10 +55,10 @@ public class TPCHUtils {
 		cols.add(new Column("c_phone", 15));
 		cols.add(new Column("c_acctbal", 15));
 		cols.add(new Column("c_mktsegment", 10));
-		cols.add(new Column("c_comment", 117));	
+		cols.add(new Column("c_comment", 117));
 		structure.put(tableName, cols);
 		tableNames.add(tableName);
-		
+
 		tableName = "lineitem";
 		cols = new ArrayList<Column>();
 		cols.add(new Column("l_orderkey", 4));
@@ -79,7 +79,7 @@ public class TPCHUtils {
 		cols.add(new Column("l_comment", 44));
 		structure.put(tableName, cols);
 		tableNames.add(tableName);
-		
+
 		tableName = "nation";
 		cols = new ArrayList<Column>();
 		cols.add(new Column("n_nationkey", 4));
@@ -88,7 +88,7 @@ public class TPCHUtils {
 		cols.add(new Column("n_comment", 152));
 		structure.put(tableName, cols);
 		tableNames.add(tableName);
-		
+
 		tableName = "orders";
 		cols = new ArrayList<Column>();
 		cols.add(new Column("o_orderkey", 4));
@@ -102,7 +102,7 @@ public class TPCHUtils {
 		cols.add(new Column("o_comment", 79));
 		structure.put(tableName, cols);
 		tableNames.add(tableName);
-		
+
 		tableName = "part";
 		cols = new ArrayList<Column>();
 		cols.add(new Column("p_partkey", 4));
@@ -116,7 +116,7 @@ public class TPCHUtils {
 		cols.add(new Column("p_comment", 23));
 		structure.put(tableName, cols);
 		tableNames.add(tableName);
-		
+
 		tableName = "partsupp";
 		cols = new ArrayList<Column>();
 		cols.add(new Column("ps_partkey", 4));
@@ -126,7 +126,7 @@ public class TPCHUtils {
 		cols.add(new Column("ps_comment", 199));
 		structure.put(tableName, cols);
 		tableNames.add(tableName);
-		
+
 		tableName = "region";
 		cols = new ArrayList<Column>();
 		cols.add(new Column("r_regionkey", 4));
@@ -134,7 +134,7 @@ public class TPCHUtils {
 		cols.add(new Column("r_comment", 152));
 		structure.put(tableName, cols);
 		tableNames.add(tableName);
-		
+
 		tableName = "supplier";
 		cols = new ArrayList<Column>();
 		cols.add(new Column("s_suppkey", 4));
@@ -144,10 +144,10 @@ public class TPCHUtils {
 		cols.add(new Column("s_phone", 15));
 		cols.add(new Column("s_acctbal", 15));
 		cols.add(new Column("s_comment", 101));
-		structure.put(tableName, cols);		
+		structure.put(tableName, cols);
 		tableNames.add(tableName);
 	}
-	
+
 	public static ArrayList<String> findColumnsInString(String s)
 	{
 		ArrayList<String> output = new ArrayList<String>();
@@ -162,8 +162,8 @@ public class TPCHUtils {
 		}
 		return output;
 	}
-	
-	
+
+
 	public void inflateOperators(ArrayList<Operator> op)
 	{
 		for(int i = 0;i<op.size();i++)
@@ -177,17 +177,17 @@ public class TPCHUtils {
 				operators.put(operator, check);
 			}
 			else
-				operators.put(operator,1);	
-			
+				operators.put(operator,1);
+
 		}
-		
+
 	}
-	
+
 	public HashMap<String,Integer> getAllOperators()
 	{
 		return operators;
 	}
-	
+
 	public static HashMap<String, ArrayList<Column>> getStructure()
 	{
 		return structure;
@@ -200,7 +200,7 @@ public class TPCHUtils {
 		else
 			return output[0]; //query su singola tabella
 	}
-	
+
 	public static String getItemTable(String relationName) {
 		//replace dell'alias
 		if(relationName.indexOf("1") > -1 || relationName.indexOf("2") > -1 || relationName.indexOf("3") > -1 || relationName.indexOf("4") > -1 || relationName.indexOf("5") > -1)
@@ -234,5 +234,5 @@ public class TPCHUtils {
 			return true;
 		return false;
 	}
-	
+
 }

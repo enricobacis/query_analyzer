@@ -5,7 +5,7 @@ public class Link
 	private String nodeLinked;
 	private double latency;
 	private double throughput;
-	
+
 	public Link(String n, double l, double t)
 	{
 		nodeLinked = n;
@@ -24,7 +24,7 @@ public class Link
 	public double getThroughput(){
 		return throughput;
 	}
-	
+
 	public String toString()
 	{
 		return "Node: "+nodeLinked+
@@ -32,5 +32,5 @@ public class Link
 				" | Throughput: "+throughput;
 	}
 
-	
+
 }

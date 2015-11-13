@@ -16,7 +16,7 @@
 			<node-data attribute="c_phone">Plain</node-data>
 			<node-data attribute="c_acctbal">Plain</node-data>
 			<node-data attribute="c_mktsegment">Plain</node-data>
-			<node-data attribute="c_comment">Plain</node-data>	
+			<node-data attribute="c_comment">Plain</node-data>
 			<node-data attribute="l_orderkey">Plain</node-data>
 			<node-data attribute="l_partkey">Plain</node-data>
 			<node-data attribute="l_suppkey">Plain</node-data>
@@ -74,7 +74,7 @@
 		<performance>
 			<aes-throughput>50</aes-throughput>
 			<pailler-throughput>0.40</pailler-throughput>
-			<bclo-value-time>0.0216</bclo-value-time>			
+			<bclo-value-time>0.0216</bclo-value-time>
 		</performance>
 		<cost-per-second>0.0008</cost-per-second>
 		<links>
@@ -87,12 +87,12 @@
 				<node-linked>SS3</node-linked>
 				<latency>0.0025</latency>
 				<throughput>2000</throughput>
-			</link>	
+			</link>
 			<link>
 				<node-linked>CS1</node-linked>
 				<latency>0.0040</latency>
 				<throughput>2000</throughput>
-			</link>	
+			</link>
 			<link>
 				<node-linked>CS2</node-linked>
 				<latency>0.0020</latency>
@@ -107,10 +107,10 @@
 				<node-linked>SS1</node-linked>
 				<latency>0.0050</latency>
 				<throughput>1000</throughput>
-			</link>	
+			</link>
 		</links>
 	</node>
-	<node name="SS1"> 
+	<node name="SS1">
 		<node-type>Storage Server</node-type>
 		<node-datas>
 			<node-data attribute="supplier_no">Encrypted</node-data>
@@ -122,7 +122,7 @@
 			<node-data attribute="c_phone">Plain</node-data>
 			<node-data attribute="c_acctbal">Plain</node-data>
 			<node-data attribute="c_mktsegment">Plain</node-data>
-			<node-data attribute="c_comment">Plain</node-data>	
+			<node-data attribute="c_comment">Plain</node-data>
 			<node-data attribute="l_orderkey">Plain</node-data>
 			<node-data attribute="l_partkey">Plain</node-data>
 			<node-data attribute="l_suppkey">Plain</node-data>
@@ -193,12 +193,12 @@
 				<node-linked>SS3</node-linked>
 				<latency>0.0025</latency>
 				<throughput>2000</throughput>
-			</link>	
+			</link>
 			<link>
 				<node-linked>CS1</node-linked>
 				<latency>0.0040</latency>
 				<throughput>2000</throughput>
-			</link>	
+			</link>
 			<link>
 				<node-linked>CS2</node-linked>
 				<latency>0.0020</latency>
@@ -213,7 +213,7 @@
 				<node-linked>CL1</node-linked>
 				<latency>0.0050</latency>
 				<throughput>1000</throughput>
-			</link>	
+			</link>
 		</links>
 	</node>
 	<node name="SS2">
@@ -226,7 +226,7 @@
 			<node-data attribute="c_phone">Plain</node-data>
 			<node-data attribute="c_acctbal">Plain</node-data>
 			<node-data attribute="c_mktsegment">Plain</node-data>
-			<node-data attribute="c_comment">Plain</node-data>	
+			<node-data attribute="c_comment">Plain</node-data>
 			<node-data attribute="l_orderkey">Plain</node-data>
 			<node-data attribute="l_partkey">Plain</node-data>
 			<node-data attribute="l_suppkey">Plain</node-data>
@@ -297,12 +297,12 @@
 				<node-linked>SS3</node-linked>
 				<latency>0.0025</latency>
 				<throughput>2000</throughput>
-			</link>	
+			</link>
 			<link>
 				<node-linked>SS1</node-linked>
 				<latency>0.0040</latency>
 				<throughput>2000</throughput>
-			</link>	
+			</link>
 			<link>
 				<node-linked>CS2</node-linked>
 				<latency>0.0020</latency>
@@ -317,7 +317,7 @@
 				<node-linked>CL1</node-linked>
 				<latency>0.0050</latency>
 				<throughput>1000</throughput>
-			</link>	
+			</link>
 		</links>
 	</node>
 </network>

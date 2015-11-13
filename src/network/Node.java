@@ -6,36 +6,36 @@ public class Node {
 
 	private String name;
 	private String type;
-	
+
 	private ArrayList<String> plainVisibility;
 	private ArrayList<String> encryptedVisibility;
-	
+
 	//performance
 	private double aesThroughput;
 	private double bcloValueTime;
 	private double paillerThroughput;
-	
+
 	//cost
 	private double costPerSecond;
-	
+
 	//links
 	private ArrayList<Link> links;
-		
+
 	public Node()
 	{
-		
+
 	}
-		
+
 	public String toString()
 	{
 		String stringDataPlain = "";
 		if(plainVisibility != null && plainVisibility.size() > 0)
 			stringDataPlain = plainVisibility.toString();
-		
+
 		String stringDataEnc = "";
 		if(encryptedVisibility != null && encryptedVisibility.size() > 0)
 			stringDataEnc = encryptedVisibility.toString();
-		
+
 		return "Type: "+type+
 				" | Name: "+name+
 				" | PlainVisibility: "+stringDataPlain+
@@ -44,20 +44,20 @@ public class Node {
 				" | Cost Per Second:  "+costPerSecond+
 				" | Links : "+links.toString();
 	}
-	
-	
-	
+
+
+
 	public String getName()
 	{
 		return name;
 	}
-	
+
 	public void setName(String s)
 	{
 		name = s;
 	}
-	
-	
+
+
 	public ArrayList<String> getPlainVisibility() {
 		return plainVisibility;
 	}
@@ -78,7 +78,7 @@ public class Node {
 	{
 		return type;
 	}
-	
+
 	public void setType(String s)
 	{
 		type = s;
@@ -99,37 +99,37 @@ public class Node {
 	public void setBcloValueTime(double bcloValueTime) {
 		this.bcloValueTime = bcloValueTime;
 	}
-	
+
 	public void setLinks(ArrayList<Link> i)
 	{
 		links = i;
 	}
-	
+
 	public ArrayList<Link> getLinks()
 	{
 		return links;
 	}
-	
+
 	public double getCostPerSecond()
 	{
 		return costPerSecond;
 	}
-	
+
 	public void setCostPerSecond(double i)
 	{
 		costPerSecond = i;
 	}
 
-	public double getPaillerThroughput() 
+	public double getPaillerThroughput()
 	{
 		return paillerThroughput;
 	}
 
-	public void setPaillerThroughput(double paillerThroughput) 
+	public void setPaillerThroughput(double paillerThroughput)
 	{
 		this.paillerThroughput = paillerThroughput;
 	}
-	
+
 	public String verifyPolicy(String attribute)
 	{
 		if(encryptedVisibility.contains(attribute))
@@ -138,5 +138,5 @@ public class Node {
 			return "Plain";
 		return "No";
 	}
-	
+
 }

@@ -1,14 +1,14 @@
 package enviroment;
 
 public class Attempt {
-	
+
 	private String operations;
 	private double time;
 	private double cost;
 	private String counters;
 	private String networkCounters;
-	
-	
+
+
 	public Attempt(String o, double t, double c, String cs, String ncs)
 	{
 		operations = o;
@@ -17,7 +17,7 @@ public class Attempt {
 		counters = cs;
 		networkCounters = ncs;
 	}
-	
+
 	public String getOperations() {
 		return operations;
 	}
@@ -41,7 +41,7 @@ public class Attempt {
 	public void setCost(double cost) {
 		this.cost = cost;
 	}
-	
+
 	public String toString()
 	{
 		return "\n Attempt: -> Time: "+time+" | Cost: "+cost+" | "+
@@ -50,6 +50,6 @@ public class Attempt {
 				 ;
 	}
 
-	
+
 
 }

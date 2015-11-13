@@ -19,31 +19,31 @@ import parser.ParserSimpleXML;
 import parser.ParserXML;
 
 public class Main {
-	
-	
+
+
 	public static void main(String[] args) {
-		
+
 		ParserXML parser = new ParserXML(); //parser che crea la struttura ad albero
 		ParserSimpleXML parserSimple = new ParserSimpleXML(); //parser che non si preoccupa della struttura ma estrae gli operatori di una query
 		ParserNetwork parsernetwork = new ParserNetwork();
-			
-		
+
+
 		/* ANALISI DI TUTTE LE QUERY TPCH */
 		//voglio sapere il numero di operatori distinti e con che frquenza compaiono
 		TPCHUtils tpchUtils = new TPCHUtils();
 		for(int t = 1;t<=TPCHUtils.tpch_num;t++)
 		{
 			ArrayList<Operator> queryOperators = parserSimple.parseDocument("res/"+t+".xml");
-			tpchUtils.inflateOperators(queryOperators);			
-		}		
+			tpchUtils.inflateOperators(queryOperators);
+		}
 		//System.out.println(tpchUtils.getAllOperators().toString());
-		
+
 		/* PARSING DEL NETWORK */
 		Network network = new Network(parsernetwork.parseDocument("config/netconfig_bench3.xml"));
-		
-		/* CONFIGURAZIONE DEGLI OPERATORI */		
+
+		/* CONFIGURAZIONE DEGLI OPERATORI */
 		EncSchemes encSchemes = new EncSchemes();
-		
+
 		/* ANALISI PRESTAZIONALE */
 		/*
 		int networkSize = network.getNodesNumber();
@@ -55,20 +55,20 @@ public class Main {
 			double networkAttemps = Math.pow(networkSize, parser.operators.size());
 			total += networkAttemps;
 			System.out.println("# "+t+" | "+networkAttemps);
-			parser.clearParser();					
+			parser.clearParser();
 		}
 		total = total*0.061;
 		System.out.println("TOTAL TIME "+ total); //0.061 msec impiegati per eseguire un tentativo mediamente
 		double second = (total / 1000) % 60;
 		double minute = (total / (1000 * 60)) % 60;
 		double hour = (total / (1000 * 60 * 60)) % 24;
-	
+
 		System.out.println((int)hour+" ore "+(int)minute+" minuti "+(int)second+" secondi ");
 		*/
 
-		
-		
-		
+
+
+
 		/* ANALISI DELLE QUERY */
 		PrintWriter writer = null;
 		try {
@@ -76,14 +76,14 @@ public class Main {
 		} catch (FileNotFoundException | UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}	
-		
-		/*	TUTTO IL BENCHMARK */ 
+		}
+
+		/*	TUTTO IL BENCHMARK */
 		/*
 		for(int t = 1;t<=TPCHUtils.tpch_num;t++)
 		{
 			writer.println("QUERY "+t);
-			parser.parseDocument("res/"+t+".xml");	
+			parser.parseDocument("res/"+t+".xml");
 			ArrayList<Attempt> results = new ArrayList<Attempt>();
 			Analyzer analyzer = new Analyzer();
 			results = analyzer.Analyze(encSchemes, parser.operators, network);
@@ -93,34 +93,34 @@ public class Main {
 			writer.println("RESULTS: "+results.toString());
 		}
 		*/
-		
-		
+
+
 		/* SINGOLA QUERY */
 		writer.println("QUERY ");
-		parser.parseDocument("res/8.xml");	
-		
+		parser.parseDocument("res/8.xml");
+
 		ArrayList<Attempt> results = new ArrayList<Attempt>();
 		Analyzer analyzer = new Analyzer();
-		
+
 		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyy HH:mm:ss");
 		Date date = new Date();
 		writer.println("START ELABORATION: "+dateFormat.format(date));
-		
+
 		results = analyzer.Analyze(encSchemes, parser.operators, network);
-		
+
 		date = new Date();
 		writer.println("END ELABORATION: "+dateFormat.format(date));
-		
+
 		writer.println("MIN TIME: "+analyzer.getMinTime()+ " sec.");
 		writer.println("MIN COST: "+analyzer.getMinCost()+ " €");
 		writer.println("MIN TIME OPERATIONS: "+analyzer.getMinTimeOperations());
 		writer.println("MIN COST OPERATIONS: "+analyzer.getMinCostOperations());
-		writer.println("RESULTS: "+results.toString());		
+		writer.println("RESULTS: "+results.toString());
 		writer.close();
-		
+
 		System.out.println("DONE");
 	}
-	
-	
+
+
 
 }

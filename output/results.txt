@@ -1,19 +1,19 @@
-QUERY 
+QUERY
 START ELABORATION: 02-09-2015 23:27:42
 END ELABORATION: 02-09-2015 23:27:42
 MIN TIME: 0.5899541666666662 sec.
 MIN COST: 0.0011698651333333335 €
-MIN TIME OPERATIONS: 
-NODE: SS1 
+MIN TIME OPERATIONS:
+NODE: SS1
 Seq Scan-> ID: 21-> IDParent: 20 -> Item: 0 -> Width: 108 -> Enc: NDET -> Time: 1.5E-5 -> Cost: 3.0000000000000004E-8
 Seq Scan-> ID: 21-> IDParent: 20 -> Item: 1 -> Width: 108 -> Enc: NDET -> Time: 1.5E-5 -> Cost: 3.0000000000000004E-8
 TRASFERIMENTO DAL NODO CL1 AL NODO SS1 Tempo -> 0.0050216
 
-NODE: SS1 
+NODE: SS1
 Seq Scan-> ID: 18-> IDParent: 17 -> Item: 0 -> Width: 4 -> Enc: NDET -> Time: 2.9622222222222224E-5 -> Cost: 5.924444444444445E-8
 TRASFERIMENTO DAL NODO SS1 AL NODO SS1 Tempo -> 0.0
 
-NODE: SS1 
+NODE: SS1
 Index Scan-> ID: 19-> IDParent: 17 -> Item: 0 -> Width: 4 -> Enc: NDET -> Time: 2.2222222222222224E-8 -> Cost: 4.444444444444445E-11
 Index Scan-> ID: 19-> IDParent: 17 -> Item: 1 -> Width: 25 -> Enc: NDET -> Time: 1.3888888888888888E-7 -> Cost: 2.7777777777777777E-10
 Index Scan-> ID: 19-> IDParent: 17 -> Item: 2 -> Width: 40 -> Enc: NDET -> Time: 2.2222222222222222E-7 -> Cost: 4.4444444444444443E-10
@@ -23,16 +23,16 @@ Index Scan-> ID: 19-> IDParent: 17 -> Item: 5 -> Width: 15 -> Enc: NDET -> Time:
 Index Scan-> ID: 19-> IDParent: 17 -> Item: 6 -> Width: 101 -> Enc: NDET -> Time: 5.611111111111111E-7 -> Cost: 1.1222222222222222E-9
 TRASFERIMENTO DAL NODO SS1 AL NODO SS1 Tempo -> 0.0
 
-NODE: SS1 
+NODE: SS1
 Hash-> ID: 20-> IDParent: 17 -> Item: 0 -> Width: 108 -> Enc: DET -> Time: 1.5E-5 -> Cost: 3.0000000000000004E-8
 Hash-> ID: 20-> IDParent: 17 -> Item: 1 -> Width: 108 -> Enc: DET -> Time: 1.5E-5 -> Cost: 3.0000000000000004E-8
 TRASFERIMENTO DAL NODO SS1 AL NODO SS1 Tempo -> 0.0
 
-NODE: SS1 
+NODE: SS1
 Seq Scan-> ID: 15-> IDParent: 14 -> Item: 0 -> Width: 4 -> Enc: NDET -> Time: 2.2222222222222224E-8 -> Cost: 4.444444444444445E-11
 TRASFERIMENTO DAL NODO SS1 AL NODO SS1 Tempo -> 0.0
 
-NODE: SS1 
+NODE: SS1
 Index Scan-> ID: 16-> IDParent: 14 -> Item: 0 -> Width: 4 -> Enc: NDET -> Time: 3.3333333333333335E-7 -> Cost: 6.666666666666667E-10
 Index Scan-> ID: 16-> IDParent: 14 -> Item: 1 -> Width: 4 -> Enc: NDET -> Time: 3.3333333333333335E-7 -> Cost: 6.666666666666667E-10
 Index Scan-> ID: 16-> IDParent: 14 -> Item: 2 -> Width: 4 -> Enc: NDET -> Time: 3.3333333333333335E-7 -> Cost: 6.666666666666667E-10
@@ -51,26 +51,26 @@ Index Scan-> ID: 16-> IDParent: 14 -> Item: 14 -> Width: 10 -> Enc: NDET -> Time
 Index Scan-> ID: 16-> IDParent: 14 -> Item: 15 -> Width: 44 -> Enc: NDET -> Time: 3.6666666666666666E-6 -> Cost: 7.333333333333334E-9
 TRASFERIMENTO DAL NODO SS1 AL NODO SS1 Tempo -> 0.0
 
-NODE: SS1 
+NODE: SS1
 Hash-> ID: 17-> IDParent: 14 -> Item: 0 -> Width: 4 -> Enc: DET -> Time: 2.9622222222222224E-5 -> Cost: 5.924444444444445E-8
 TRASFERIMENTO DAL NODO SS1 AL NODO SS1 Tempo -> 0.0
 
-NODE: SS1 
+NODE: SS1
 Seq Scan-> ID: 13-> IDParent: 12 -> Item: 0 -> Width: 8 -> Enc: NDET -> Time: 1.111111111111111E-6 -> Cost: 2.222222222222222E-9
 Seq Scan-> ID: 13-> IDParent: 12 -> Item: 1 -> Width: 8 -> Enc: NDET -> Time: 1.111111111111111E-6 -> Cost: 2.222222222222222E-9
 Seq Scan-> ID: 13-> IDParent: 12 -> Item: 2 -> Width: 8 -> Enc: NDET -> Time: 1.111111111111111E-6 -> Cost: 2.222222222222222E-9
 Seq Scan-> ID: 13-> IDParent: 12 -> Item: 3 -> Width: 8 -> Enc: NDET -> Time: 1.111111111111111E-6 -> Cost: 2.222222222222222E-9
 TRASFERIMENTO DAL NODO SS1 AL NODO SS1 Tempo -> 0.0
 
-NODE: SS1 
+NODE: SS1
 Hash-> ID: 14-> IDParent: 12 -> Item: 0 -> Width: 4 -> Enc: DET -> Time: 2.2222222222222224E-8 -> Cost: 4.444444444444445E-11
 TRASFERIMENTO DAL NODO SS1 AL NODO SS1 Tempo -> 0.0
 
-NODE: SS1 
+NODE: SS1
 Hash Join-> ID: 12-> IDParent: 11 -> Item: 0 -> Width: 4 -> Enc: DET -> Time: 2.2222222222222224E-8 -> Cost: 4.444444444444445E-11
 TRASFERIMENTO DAL NODO SS1 AL NODO SS1 Tempo -> 0.0
 
-NODE: SS1 
+NODE: SS1
 Seq Scan-> ID: 10-> IDParent: 9 -> Item: 0 -> Width: 4 -> Enc: NDET -> Time: 0.0033333333333333335 -> Cost: 6.6666666666666675E-6
 Seq Scan-> ID: 10-> IDParent: 9 -> Item: 1 -> Width: 25 -> Enc: NDET -> Time: 0.020833333333333332 -> Cost: 4.1666666666666665E-5
 Seq Scan-> ID: 10-> IDParent: 9 -> Item: 2 -> Width: 40 -> Enc: NDET -> Time: 0.03333333333333333 -> Cost: 6.666666666666667E-5
@@ -81,15 +81,15 @@ Seq Scan-> ID: 10-> IDParent: 9 -> Item: 6 -> Width: 10 -> Enc: NDET -> Time: 0.
 Seq Scan-> ID: 10-> IDParent: 9 -> Item: 7 -> Width: 117 -> Enc: NDET -> Time: 0.0975 -> Cost: 1.9500000000000002E-4
 TRASFERIMENTO DAL NODO SS1 AL NODO SS1 Tempo -> 0.0
 
-NODE: SS1 
+NODE: SS1
 Hash-> ID: 11-> IDParent: 9 -> Item: 0 -> Width: 4 -> Enc: DET -> Time: 2.2222222222222224E-8 -> Cost: 4.444444444444445E-11
 TRASFERIMENTO DAL NODO SS1 AL NODO SS1 Tempo -> 0.0
 
-NODE: SS1 
+NODE: SS1
 Hash Join-> ID: 9-> IDParent: 8 -> Item: 0 -> Width: 4 -> Enc: DET -> Time: 1.3333333333333334E-4 -> Cost: 2.6666666666666667E-7
 TRASFERIMENTO DAL NODO SS1 AL NODO SS1 Tempo -> 0.0
 
-NODE: SS1 
+NODE: SS1
 Seq Scan-> ID: 7-> IDParent: 6 -> Item: 0 -> Width: 4 -> Enc: NDET -> Time: 0.010226666666666667 -> Cost: 2.0453333333333333E-5
 Seq Scan-> ID: 7-> IDParent: 6 -> Item: 1 -> Width: 4 -> Enc: NDET -> Time: 0.010226666666666667 -> Cost: 2.0453333333333333E-5
 Seq Scan-> ID: 7-> IDParent: 6 -> Item: 2 -> Width: 1 -> Enc: NDET -> Time: 0.0025566666666666667 -> Cost: 5.113333333333333E-6
@@ -101,16 +101,16 @@ Seq Scan-> ID: 7-> IDParent: 6 -> Item: 7 -> Width: 4 -> Enc: NDET -> Time: 0.01
 Seq Scan-> ID: 7-> IDParent: 6 -> Item: 8 -> Width: 79 -> Enc: NDET -> Time: 0.20197666666666667 -> Cost: 4.0395333333333335E-4
 TRASFERIMENTO DAL NODO SS1 AL NODO SS1 Tempo -> 0.0
 
-NODE: SS1 
+NODE: SS1
 Hash-> ID: 8-> IDParent: 6 -> Item: 0 -> Width: 4 -> Enc: DET -> Time: 1.3333333333333334E-4 -> Cost: 2.6666666666666667E-7
 TRASFERIMENTO DAL NODO SS1 AL NODO SS1 Tempo -> 0.0
 
-NODE: SS1 
+NODE: SS1
 Hash Join-> ID: 6-> IDParent: 5 -> Item: 0 -> Width: 4 -> Enc: DET -> Time: 4.0906666666666667E-4 -> Cost: 8.181333333333334E-7
 Hash Join-> ID: 6-> IDParent: 5 -> Item: 1 -> Width: 4 -> Enc: DET -> Time: 4.0906666666666667E-4 -> Cost: 8.181333333333334E-7
 TRASFERIMENTO DAL NODO SS1 AL NODO SS1 Tempo -> 0.0
 
-NODE: SS1 
+NODE: SS1
 Nested Loop-> ID: 5-> IDParent: 4 -> Item: 0 -> Width: 15 -> Enc: DET -> Time: 0.00613725 -> Cost: 1.22745E-5
 Nested Loop-> ID: 5-> IDParent: 4 -> (funct) Item: 1 -> Enc: DET -> Time: 0.0098196 -> Cost: 1.96392E-5
 Nested Loop-> ID: 5-> IDParent: 4 -> Item: 2 -> Width: 4 -> Enc: DET -> Time: 0.0016366 -> Cost: 3.2732E-6
@@ -118,46 +118,46 @@ Nested Loop-> ID: 5-> IDParent: 4 -> Item: 3 -> Width: 4 -> Enc: DET -> Time: 0.
 Nested Loop-> ID: 5-> IDParent: 4 -> Item: 4 -> Width: 4 -> Enc: DET -> Time: 0.0016366 -> Cost: 3.2732E-6
 TRASFERIMENTO DAL NODO SS1 AL NODO SS1 Tempo -> 0.0
 
-NODE: SS1 
+NODE: SS1
 Hash Join-> ID: 4-> IDParent: 3 -> Item: 0 -> Width: 15 -> Enc: DET -> Time: 4.091666666666667E-5 -> Cost: 8.183333333333333E-8
 Hash Join-> ID: 4-> IDParent: 3 -> (funct) Item: 1 -> Enc: DET -> Time: 5.4555555555555554E-5 -> Cost: 1.091111111111111E-7
 Hash Join-> ID: 4-> IDParent: 3 -> Item: 2 -> Width: 4 -> Enc: DET -> Time: 1.0911111111111112E-5 -> Cost: 2.1822222222222224E-8
 Hash Join-> ID: 4-> IDParent: 3 -> Item: 3 -> Width: 4 -> Enc: DET -> Time: 1.0911111111111112E-5 -> Cost: 2.1822222222222224E-8
 TRASFERIMENTO DAL NODO SS1 AL NODO SS1 Tempo -> 0.0
 
-NODE: SS1 
+NODE: SS1
 Nested Loop-> ID: 3-> IDParent: 2 -> Item: 0 -> Width: 15 -> Enc: DET -> Time: 4.091666666666667E-5 -> Cost: 8.183333333333333E-8
 Nested Loop-> ID: 3-> IDParent: 2 -> (funct) Item: 1 -> Enc: DET -> Time: 5.4555555555555554E-5 -> Cost: 1.091111111111111E-7
 Nested Loop-> ID: 3-> IDParent: 2 -> Item: 2 -> Width: 4 -> Enc: DET -> Time: 1.0911111111111112E-5 -> Cost: 2.1822222222222224E-8
 Nested Loop-> ID: 3-> IDParent: 2 -> Item: 3 -> Width: 4 -> Enc: DET -> Time: 1.0911111111111112E-5 -> Cost: 2.1822222222222224E-8
 TRASFERIMENTO DAL NODO SS1 AL NODO SS1 Tempo -> 0.0
 
-NODE: SS1 
+NODE: SS1
 Hash Join-> ID: 2-> IDParent: 1 -> Item: 1 -> Width: 120 -> Enc: DET -> Time: 3.2733333333333334E-4 -> Cost: 6.546666666666667E-7
 Hash Join-> ID: 2-> IDParent: 1 -> Item: 2 -> Width: 15 -> Enc: DET -> Time: 4.091666666666667E-5 -> Cost: 8.183333333333333E-8
 Hash Join-> ID: 2-> IDParent: 1 -> (funct) Item: 3 -> Enc: DET -> Time: 3.2733333333333334E-4 -> Cost: 6.546666666666667E-7
 TRASFERIMENTO DAL NODO SS1 AL NODO SS1 Tempo -> 0.0
 
-NODE: SS1 
+NODE: SS1
 Sort-> ID: 1-> IDParent: 0 -> Item: 1 -> Width: 120 -> Enc: OPE -> Time: 0.0047136 -> Cost: 9.4272E-6
 Sort-> ID: 1-> IDParent: 0 -> Item: 2 -> Width: 15 -> Enc: OPE -> Time: 0.0047136 -> Cost: 9.4272E-6
 Sort-> ID: 1-> IDParent: 0 -> (funct) Item: 3 -> Enc: DET -> Time: 3.2733333333333334E-4 -> Cost: 6.546666666666667E-7
 TRASFERIMENTO DAL NODO SS1 AL NODO SS1 Tempo -> 0.0
 
-NODE: SS1 
+NODE: SS1
 TRASFERIMENTO DAL NODO SS1 AL NODO SS1 Tempo -> 0.0
 
-MIN COST OPERATIONS: 
-NODE: SS1 
+MIN COST OPERATIONS:
+NODE: SS1
 Seq Scan-> ID: 21-> IDParent: 20 -> Item: 0 -> Width: 108 -> Enc: NDET -> Time: 1.5E-5 -> Cost: 3.0000000000000004E-8
 Seq Scan-> ID: 21-> IDParent: 20 -> Item: 1 -> Width: 108 -> Enc: NDET -> Time: 1.5E-5 -> Cost: 3.0000000000000004E-8
 TRASFERIMENTO DAL NODO CL1 AL NODO SS1 Tempo -> 0.0050216
 
-NODE: SS1 
+NODE: SS1
 Seq Scan-> ID: 18-> IDParent: 17 -> Item: 0 -> Width: 4 -> Enc: NDET -> Time: 2.9622222222222224E-5 -> Cost: 5.924444444444445E-8
 TRASFERIMENTO DAL NODO SS1 AL NODO SS1 Tempo -> 0.0
 
-NODE: SS1 
+NODE: SS1
 Index Scan-> ID: 19-> IDParent: 17 -> Item: 0 -> Width: 4 -> Enc: NDET -> Time: 2.2222222222222224E-8 -> Cost: 4.444444444444445E-11
 Index Scan-> ID: 19-> IDParent: 17 -> Item: 1 -> Width: 25 -> Enc: NDET -> Time: 1.3888888888888888E-7 -> Cost: 2.7777777777777777E-10
 Index Scan-> ID: 19-> IDParent: 17 -> Item: 2 -> Width: 40 -> Enc: NDET -> Time: 2.2222222222222222E-7 -> Cost: 4.4444444444444443E-10
@@ -167,16 +167,16 @@ Index Scan-> ID: 19-> IDParent: 17 -> Item: 5 -> Width: 15 -> Enc: NDET -> Time:
 Index Scan-> ID: 19-> IDParent: 17 -> Item: 6 -> Width: 101 -> Enc: NDET -> Time: 5.611111111111111E-7 -> Cost: 1.1222222222222222E-9
 TRASFERIMENTO DAL NODO SS1 AL NODO SS1 Tempo -> 0.0
 
-NODE: SS1 
+NODE: SS1
 Hash-> ID: 20-> IDParent: 17 -> Item: 0 -> Width: 108 -> Enc: DET -> Time: 1.5E-5 -> Cost: 3.0000000000000004E-8
 Hash-> ID: 20-> IDParent: 17 -> Item: 1 -> Width: 108 -> Enc: DET -> Time: 1.5E-5 -> Cost: 3.0000000000000004E-8
 TRASFERIMENTO DAL NODO SS1 AL NODO SS1 Tempo -> 0.0
 
-NODE: SS1 
+NODE: SS1
 Seq Scan-> ID: 15-> IDParent: 14 -> Item: 0 -> Width: 4 -> Enc: NDET -> Time: 2.2222222222222224E-8 -> Cost: 4.444444444444445E-11
 TRASFERIMENTO DAL NODO SS1 AL NODO SS1 Tempo -> 0.0
 
-NODE: SS1 
+NODE: SS1
 Index Scan-> ID: 16-> IDParent: 14 -> Item: 0 -> Width: 4 -> Enc: NDET -> Time: 3.3333333333333335E-7 -> Cost: 6.666666666666667E-10
 Index Scan-> ID: 16-> IDParent: 14 -> Item: 1 -> Width: 4 -> Enc: NDET -> Time: 3.3333333333333335E-7 -> Cost: 6.666666666666667E-10
 Index Scan-> ID: 16-> IDParent: 14 -> Item: 2 -> Width: 4 -> Enc: NDET -> Time: 3.3333333333333335E-7 -> Cost: 6.666666666666667E-10
@@ -195,26 +195,26 @@ Index Scan-> ID: 16-> IDParent: 14 -> Item: 14 -> Width: 10 -> Enc: NDET -> Time
 Index Scan-> ID: 16-> IDParent: 14 -> Item: 15 -> Width: 44 -> Enc: NDET -> Time: 3.6666666666666666E-6 -> Cost: 7.333333333333334E-9
 TRASFERIMENTO DAL NODO SS1 AL NODO SS1 Tempo -> 0.0
 
-NODE: SS1 
+NODE: SS1
 Hash-> ID: 17-> IDParent: 14 -> Item: 0 -> Width: 4 -> Enc: DET -> Time: 2.9622222222222224E-5 -> Cost: 5.924444444444445E-8
 TRASFERIMENTO DAL NODO SS1 AL NODO SS1 Tempo -> 0.0
 
-NODE: SS1 
+NODE: SS1
 Seq Scan-> ID: 13-> IDParent: 12 -> Item: 0 -> Width: 8 -> Enc: NDET -> Time: 1.111111111111111E-6 -> Cost: 2.222222222222222E-9
 Seq Scan-> ID: 13-> IDParent: 12 -> Item: 1 -> Width: 8 -> Enc: NDET -> Time: 1.111111111111111E-6 -> Cost: 2.222222222222222E-9
 Seq Scan-> ID: 13-> IDParent: 12 -> Item: 2 -> Width: 8 -> Enc: NDET -> Time: 1.111111111111111E-6 -> Cost: 2.222222222222222E-9
 Seq Scan-> ID: 13-> IDParent: 12 -> Item: 3 -> Width: 8 -> Enc: NDET -> Time: 1.111111111111111E-6 -> Cost: 2.222222222222222E-9
 TRASFERIMENTO DAL NODO SS1 AL NODO SS1 Tempo -> 0.0
 
-NODE: SS1 
+NODE: SS1
 Hash-> ID: 14-> IDParent: 12 -> Item: 0 -> Width: 4 -> Enc: DET -> Time: 2.2222222222222224E-8 -> Cost: 4.444444444444445E-11
 TRASFERIMENTO DAL NODO SS1 AL NODO SS1 Tempo -> 0.0
 
-NODE: SS1 
+NODE: SS1
 Hash Join-> ID: 12-> IDParent: 11 -> Item: 0 -> Width: 4 -> Enc: DET -> Time: 2.2222222222222224E-8 -> Cost: 4.444444444444445E-11
 TRASFERIMENTO DAL NODO SS1 AL NODO SS1 Tempo -> 0.0
 
-NODE: SS1 
+NODE: SS1
 Seq Scan-> ID: 10-> IDParent: 9 -> Item: 0 -> Width: 4 -> Enc: NDET -> Time: 0.0033333333333333335 -> Cost: 6.6666666666666675E-6
 Seq Scan-> ID: 10-> IDParent: 9 -> Item: 1 -> Width: 25 -> Enc: NDET -> Time: 0.020833333333333332 -> Cost: 4.1666666666666665E-5
 Seq Scan-> ID: 10-> IDParent: 9 -> Item: 2 -> Width: 40 -> Enc: NDET -> Time: 0.03333333333333333 -> Cost: 6.666666666666667E-5
@@ -225,15 +225,15 @@ Seq Scan-> ID: 10-> IDParent: 9 -> Item: 6 -> Width: 10 -> Enc: NDET -> Time: 0.
 Seq Scan-> ID: 10-> IDParent: 9 -> Item: 7 -> Width: 117 -> Enc: NDET -> Time: 0.0975 -> Cost: 1.9500000000000002E-4
 TRASFERIMENTO DAL NODO SS1 AL NODO SS1 Tempo -> 0.0
 
-NODE: SS1 
+NODE: SS1
 Hash-> ID: 11-> IDParent: 9 -> Item: 0 -> Width: 4 -> Enc: DET -> Time: 2.2222222222222224E-8 -> Cost: 4.444444444444445E-11
 TRASFERIMENTO DAL NODO SS1 AL NODO SS1 Tempo -> 0.0
 
-NODE: SS1 
+NODE: SS1
 Hash Join-> ID: 9-> IDParent: 8 -> Item: 0 -> Width: 4 -> Enc: DET -> Time: 1.3333333333333334E-4 -> Cost: 2.6666666666666667E-7
 TRASFERIMENTO DAL NODO SS1 AL NODO SS1 Tempo -> 0.0
 
-NODE: SS1 
+NODE: SS1
 Seq Scan-> ID: 7-> IDParent: 6 -> Item: 0 -> Width: 4 -> Enc: NDET -> Time: 0.010226666666666667 -> Cost: 2.0453333333333333E-5
 Seq Scan-> ID: 7-> IDParent: 6 -> Item: 1 -> Width: 4 -> Enc: NDET -> Time: 0.010226666666666667 -> Cost: 2.0453333333333333E-5
 Seq Scan-> ID: 7-> IDParent: 6 -> Item: 2 -> Width: 1 -> Enc: NDET -> Time: 0.0025566666666666667 -> Cost: 5.113333333333333E-6
@@ -245,16 +245,16 @@ Seq Scan-> ID: 7-> IDParent: 6 -> Item: 7 -> Width: 4 -> Enc: NDET -> Time: 0.01
 Seq Scan-> ID: 7-> IDParent: 6 -> Item: 8 -> Width: 79 -> Enc: NDET -> Time: 0.20197666666666667 -> Cost: 4.0395333333333335E-4
 TRASFERIMENTO DAL NODO SS1 AL NODO SS1 Tempo -> 0.0
 
-NODE: SS1 
+NODE: SS1
 Hash-> ID: 8-> IDParent: 6 -> Item: 0 -> Width: 4 -> Enc: DET -> Time: 1.3333333333333334E-4 -> Cost: 2.6666666666666667E-7
 TRASFERIMENTO DAL NODO SS1 AL NODO SS1 Tempo -> 0.0
 
-NODE: SS1 
+NODE: SS1
 Hash Join-> ID: 6-> IDParent: 5 -> Item: 0 -> Width: 4 -> Enc: DET -> Time: 4.0906666666666667E-4 -> Cost: 8.181333333333334E-7
 Hash Join-> ID: 6-> IDParent: 5 -> Item: 1 -> Width: 4 -> Enc: DET -> Time: 4.0906666666666667E-4 -> Cost: 8.181333333333334E-7
 TRASFERIMENTO DAL NODO SS1 AL NODO SS1 Tempo -> 0.0
 
-NODE: SS1 
+NODE: SS1
 Nested Loop-> ID: 5-> IDParent: 4 -> Item: 0 -> Width: 15 -> Enc: DET -> Time: 0.00613725 -> Cost: 1.22745E-5
 Nested Loop-> ID: 5-> IDParent: 4 -> (funct) Item: 1 -> Enc: DET -> Time: 0.0098196 -> Cost: 1.96392E-5
 Nested Loop-> ID: 5-> IDParent: 4 -> Item: 2 -> Width: 4 -> Enc: DET -> Time: 0.0016366 -> Cost: 3.2732E-6
@@ -262,33 +262,33 @@ Nested Loop-> ID: 5-> IDParent: 4 -> Item: 3 -> Width: 4 -> Enc: DET -> Time: 0.
 Nested Loop-> ID: 5-> IDParent: 4 -> Item: 4 -> Width: 4 -> Enc: DET -> Time: 0.0016366 -> Cost: 3.2732E-6
 TRASFERIMENTO DAL NODO SS1 AL NODO SS1 Tempo -> 0.0
 
-NODE: SS1 
+NODE: SS1
 Hash Join-> ID: 4-> IDParent: 3 -> Item: 0 -> Width: 15 -> Enc: DET -> Time: 4.091666666666667E-5 -> Cost: 8.183333333333333E-8
 Hash Join-> ID: 4-> IDParent: 3 -> (funct) Item: 1 -> Enc: DET -> Time: 5.4555555555555554E-5 -> Cost: 1.091111111111111E-7
 Hash Join-> ID: 4-> IDParent: 3 -> Item: 2 -> Width: 4 -> Enc: DET -> Time: 1.0911111111111112E-5 -> Cost: 2.1822222222222224E-8
 Hash Join-> ID: 4-> IDParent: 3 -> Item: 3 -> Width: 4 -> Enc: DET -> Time: 1.0911111111111112E-5 -> Cost: 2.1822222222222224E-8
 TRASFERIMENTO DAL NODO SS1 AL NODO SS1 Tempo -> 0.0
 
-NODE: SS1 
+NODE: SS1
 Nested Loop-> ID: 3-> IDParent: 2 -> Item: 0 -> Width: 15 -> Enc: DET -> Time: 4.091666666666667E-5 -> Cost: 8.183333333333333E-8
 Nested Loop-> ID: 3-> IDParent: 2 -> (funct) Item: 1 -> Enc: DET -> Time: 5.4555555555555554E-5 -> Cost: 1.091111111111111E-7
 Nested Loop-> ID: 3-> IDParent: 2 -> Item: 2 -> Width: 4 -> Enc: DET -> Time: 1.0911111111111112E-5 -> Cost: 2.1822222222222224E-8
 Nested Loop-> ID: 3-> IDParent: 2 -> Item: 3 -> Width: 4 -> Enc: DET -> Time: 1.0911111111111112E-5 -> Cost: 2.1822222222222224E-8
 TRASFERIMENTO DAL NODO SS1 AL NODO SS1 Tempo -> 0.0
 
-NODE: SS1 
+NODE: SS1
 Hash Join-> ID: 2-> IDParent: 1 -> Item: 1 -> Width: 120 -> Enc: DET -> Time: 3.2733333333333334E-4 -> Cost: 6.546666666666667E-7
 Hash Join-> ID: 2-> IDParent: 1 -> Item: 2 -> Width: 15 -> Enc: DET -> Time: 4.091666666666667E-5 -> Cost: 8.183333333333333E-8
 Hash Join-> ID: 2-> IDParent: 1 -> (funct) Item: 3 -> Enc: DET -> Time: 3.2733333333333334E-4 -> Cost: 6.546666666666667E-7
 TRASFERIMENTO DAL NODO SS1 AL NODO SS1 Tempo -> 0.0
 
-NODE: SS1 
+NODE: SS1
 Sort-> ID: 1-> IDParent: 0 -> Item: 1 -> Width: 120 -> Enc: OPE -> Time: 0.0047136 -> Cost: 9.4272E-6
 Sort-> ID: 1-> IDParent: 0 -> Item: 2 -> Width: 15 -> Enc: OPE -> Time: 0.0047136 -> Cost: 9.4272E-6
 Sort-> ID: 1-> IDParent: 0 -> (funct) Item: 3 -> Enc: DET -> Time: 3.2733333333333334E-4 -> Cost: 6.546666666666667E-7
 TRASFERIMENTO DAL NODO SS1 AL NODO SS1 Tempo -> 0.0
 
-NODE: SS1 
+NODE: SS1
 TRASFERIMENTO DAL NODO SS1 AL NODO SS1 Tempo -> 0.0
 
 RESULTS: []
