@@ -17,6 +17,8 @@ public class Analyzer {
 	 * Classe effettiva per il testing delle alternative
 	 * version 0.7
 	 */
+	
+	private static String[] fns = {"substring", "min", "max", "avg", "sum", "count"};
 
 	//variabili frutto dell'analisi temporale/costo
 	private double minCost;
@@ -75,12 +77,9 @@ public class Analyzer {
 		double output = 0;
 		
 		//se non è lo stesso nodo
-		if (!prevNode.getName().equals(localNode.getName()))
-		{
-			for (Link link: prevNode.getLinks())
-			{
-				if (link.getNodeLinked().equals(localNode.getName()))
-				{
+		if (!prevNode.getName().equals(localNode.getName())) {
+			for (Link link: prevNode.getLinks()) {
+				if (link.getNodeLinked().equals(localNode.getName())) {
 					//converto il throughput da Mbit/s a MB/s
 					double throughput = link.getThroughput() / 8;
 					
@@ -95,8 +94,7 @@ public class Analyzer {
 		return output;
 	}
 
-	private ArrayList<Operator> findOperatorsByParentLevel(int localParentStartLevel, ArrayList<Operator> operators)
-	{
+	private ArrayList<Operator> findOperatorsByParentLevel(int localParentStartLevel, ArrayList<Operator> operators) {
 		ArrayList<Operator> output = new ArrayList<Operator>();
 		for (Operator op: operators)
 			if (op.getIdParent() == localParentStartLevel)
@@ -104,32 +102,28 @@ public class Analyzer {
 		return output;
 	}
 
-	private double getEncryptionCost(String enc, int rows, int rowWidth, Node localNode) //ritorna il valore in secondi
-	{
+	/*
+	 * Ritorna il valore in secondi
+	 */
+	private double getEncryptionCost(String enc, int rows, int rowWidth, Node localNode) {
 		double time = 0;
 		//tecnica di cifratura usata -> DET : AES + ECB mode -> test openssl
 		//							 -> NDET : AES + CBC mode (IV) (hanno sostanzialmente le stesse performance)
 		//							 -> OPE : BCLO scheme
 
-		if (enc.equals("DET") || enc.equals("NDET"))
-		{
+		if (enc.equals("DET") || enc.equals("NDET")) {
 			//AES 256bit - blocco 256bit
 			//perfromance su Intel Core iX teoricamente -> 700 MB/s
 
 			double throughput = localNode.getAesThroughput() * Math.pow(10, 6); // già in byte
 			int rowsWidth = rows * rowWidth;
 			time = rowsWidth / throughput;
-		}
-		else
-		{
-			if (enc.equals("OPE")) //OPE
-			{
+		} else {
+			if (enc.equals("OPE")) { //OPE
 				//BCLO scheme applicato su uno spazio di 256 bit
 				double singleEnc = localNode.getBcloValueTime() /1000;
 				time = singleEnc * rows;
-			}
-			else //PAI
-			{
+			} else { //PAI
 				double throughput = localNode.getPaillerThroughput() * Math.pow(10, 6); // già in byte
 				int rowsWidth = rows * rowWidth;
 				time = rowsWidth / throughput;
@@ -139,14 +133,11 @@ public class Analyzer {
 		return time;
 	}
 
-	private double getEncryptionNodeCost(Node localNode, double nodeTime)
-	{
+	private double getEncryptionNodeCost(Node localNode, double nodeTime) {
 		return localNode.getCostPerSecond() * nodeTime;
 	}
 
-	public ArrayList<Attempt> Analyze(EncSchemes encSchemes, ArrayList<Operator> operators, Network network)
-	{
-		//output
+	public ArrayList<Attempt> Analyze(EncSchemes encSchemes, ArrayList<Operator> operators, Network network) {
 		ArrayList<Attempt> output = new ArrayList<Attempt>();
 
 		//1 creare la lista dei possibili metodi di encryption
@@ -167,15 +158,11 @@ public class Analyzer {
 		int parentStartLevel = -1;
 		for (Operator op: operators)
 			if (op.getIdParent() > parentStartLevel)
-			{
-				//startLevel = operators.get(i).getId();
 				parentStartLevel = op.getIdParent();
-			}
 
 		//2.2 calcolo il totale delle possibili alternative
 		int possibility = 1;
-		for (int i = 0; i < operators.size(); i++)
-		{
+		for (int i = 0; i < operators.size(); i++) {
 			int opMethods = operatorsEnc.get(operators.get(i).getNodeType()).size();
 			
 			// !! WARNING
@@ -192,8 +179,7 @@ public class Analyzer {
 		int[] networkOperatorCounters = new int[networkOperatorCountersNumber];
 		int[] networkCountersMax = new int[networkOperatorCountersNumber];
 		
-		for (int i = 0; i < networkOperatorCounters.length; i++)
-		{
+		for (int i = 0; i < networkOperatorCounters.length; i++) {
 			networkOperatorCounters[i] = 1;
 			networkCountersMax[i] = networkNodesNumber;
 		}
@@ -204,8 +190,7 @@ public class Analyzer {
 		System.out.println("Remaining attempts: " + (int) networkAttemps);
 
 		//2.2.3 ricerca esaustiva della soluzione
-		while (networkAttemps > 0)
-		{
+		while (networkAttemps > 0) {
 			// print only every 1 thousand attempts
 			if (networkAttemps % 1000 == 0)
 			    System.out.println("Remaining attempts: " + (int) networkAttemps);
@@ -216,23 +201,22 @@ public class Analyzer {
 			boolean admissible = true; //do per scontato che il tentativo sia ammissibile
 			int currentPossibility = possibility;
 
-			while(currentPossibility > 0)
-			{
+			while (currentPossibility > 0) {
 				int localParentStartLevel = parentStartLevel;
 				double localCost = 0; //in time
 				double localMoney = 0;
 				double nodeTime = 0;
 				double nodeMoney = 0;
-				Node prevNode = network.getNodeByName("CL1"); //suppongo che le richieste partano dal client
+				
+				//suppongo che le richieste partano dal client
+				Node prevNode = network.getNodeByName("CL1");
 				String localOperations = new String();
 				int networkIndex = 0; //indice di scorrimento dell'array di contatori della rete
 
 
-				while(localParentStartLevel >= -1)
-				{
+				while (localParentStartLevel >= -1) {
 					ArrayList<Operator> levelOperators = findOperatorsByParentLevel(localParentStartLevel,operators);
-					for(Operator localOperator: levelOperators)
-					{
+					for(Operator localOperator: levelOperators) {
 						Node localNode = null;
 
 						//2.3.1
@@ -246,10 +230,8 @@ public class Analyzer {
 
 						//2.3.2
 						//attributi della query
-						if (localOperator.getOutput() != null)
-						{
-							for (int k = 0; k < localOperator.getOutput().size(); k++)
-							{
+						if (localOperator.getOutput() != null) {
+							for (int k = 0; k < localOperator.getOutput().size(); k++) {
 								String localOutput = localOperator.getOutput().get(k);
 
 								//verifico se l'operatore è una funzione o direttamente un attributo
@@ -257,37 +239,12 @@ public class Analyzer {
 								String item = localOutput;
 
 								ArrayList<String> enc = new ArrayList<String>();
-								if (item.indexOf("count") > -1)
-								{
-									 enc = functionsEnc.get("count");
-									 function = true;
+								for (String fn: fns) {
+									if (item.contains(fn)) {
+										enc = functionsEnc.get(fn);
+										function = true;
+									}
 								}
-								if (item.indexOf("sum") > -1)
-								{
-									 enc = functionsEnc.get("sum");
-									 function = true;
-								}
-								if (item.indexOf("avg") > -1)
-								{
-									 enc = functionsEnc.get("avg");
-									 function = true;
-								}
-								if (item.indexOf("max") > -1)
-								{
-									 enc = functionsEnc.get("max");
-									 function = true;
-								}
-								if (item.indexOf("min") > -1)
-								{
-									 enc = functionsEnc.get("min");
-									 function = true;
-								}
-								if (item.indexOf("substring") > -1)
-								{
-									 enc = functionsEnc.get("substring");
-									 function = true;
-								}
-
 
 								String nodePolicy = "";
 								if (function)
@@ -296,57 +253,45 @@ public class Analyzer {
 								else
 									nodePolicy = localNode.verifyPolicy(tpch.getItemColumn(localOutput));									
 
-								if (nodePolicy.equals("No"))
-								{
+								if (nodePolicy.equals("No")) {
 									// non c'è visibilità sull'attributo, questa non è un tentativo ammissibile
 									admissible = false;
 									localOperations += "Attempt arrested -> no visibility of " + localOutput +
 											           " on " + localNode.getName() + " \n";
 									break;
-								}
-								else
-								{
+								} else {
 									//2.3.2.1
 									//determino il tipo di encryption da usare
 									
 									String selectedEnc = "NO"; //suppongo non serva ma...
-									if (!nodePolicy.equals("Plain")) //encryption necessaria
-									{
+									if (!nodePolicy.equals("Plain")) { //encryption necessaria
 										ArrayList<String> localOperatorEncs = operatorsEnc.get(localOperator.getNodeType());
 										selectedEnc = localOperatorEncs.get(counters[localOperator.getId()] - 1); //-1 perché le liste partono da 0, ma il contatore effettivo da 1
 									}
 
 									//2.3.2.2
 									//costi
-									if (selectedEnc.equals("NO")) //non è richieste encryption sul singolo item
-									{
+									if (selectedEnc.equals("NO")) { //non è richieste encryption sul singolo item
 										localCost += 0;
 										localMoney += 0;
 										localOperations += localOperator.getNodeType() + "-> ID: " + localOperator.getId()
 												        + "-> IDParent: " + localOperator.getIdParent()
 												        + " -> Item: " + k + " -> Enc: " + selectedEnc
 												        + " -> Time: 0 -> Cost : 0\n";
-									}
-									else //encryption richiesta dalla policy del nodo
-									{
-
+									} else { //encryption richiesta dalla policy del nodo
 										//se non si tratta di una funzione uso gli schemi per gli operatori
-										if (!function)
-										{
+										if (!function) {
 											int itemWidth = localOperator.getPlanWidth();
 
 												String column = tpch.getItemColumn(item);
 												String table = tpch.getItemTable(item);
-												if(tpch.getStructure().containsKey(table))
-												{
+												if (tpch.getStructure().containsKey(table)) {
 													itemWidth = tpch.findWidthByColumn(table,column);
 													nodeTime = getEncryptionCost(selectedEnc, localOperator.getPlanRows(), itemWidth, localNode);
 													localCost += nodeTime;
 													nodeMoney = getEncryptionNodeCost(localNode, nodeTime);
 													localMoney += nodeMoney;
-												}
-												else
-												{
+												} else {
 													nodeTime = getEncryptionCost(selectedEnc, localOperator.getPlanRows(), itemWidth, localNode);
 													localCost += nodeTime;
 													nodeMoney = getEncryptionNodeCost(localNode, nodeTime);
@@ -359,9 +304,7 @@ public class Analyzer {
 													        + " -> Item: " + k + " -> Width: " + itemWidth
 													        + " -> Enc: " + selectedEnc + " -> Time: " + nodeTime
 													        + " -> Cost: " + nodeMoney + "\n";
-										}
-										else //è una funzione
-										{
+										} else { //è una funzione
 											//le funzioni sono trattate con uno spazio di possibilità diverse
 											String functionSelectedEnc = enc.get(0);
 											nodeTime = getEncryptionCost(functionSelectedEnc, localOperator.getPlanRows(), localOperator.getPlanWidth(), localNode);
@@ -389,15 +332,11 @@ public class Analyzer {
 						ArrayList<String> implicit = localOperator.getImplicit();
 						
 						//ci sono attributi impliciti da controllare
-						if (implicit != null && implicit.size() > 0)
-						{
-							for (String imp: implicit)
-							{
-								if (!TPCHUtils.isEquality(imp))
-								{
+						if (implicit != null && implicit.size() > 0) {
+							for (String imp: implicit) {
+								if (!TPCHUtils.isEquality(imp)) {
 									ArrayList<String> implicitAttributes = tpch.findColumnsInString(imp);
-									for (String attr: implicitAttributes)
-									{
+									for (String attr: implicitAttributes) {
 										String nodePolicy = localNode.verifyPolicy(attr);
 										if (nodePolicy.equals("No")) {
 											//non c'è visibilità di nessun tipo per quel nodo
@@ -405,25 +344,21 @@ public class Analyzer {
 											break;
 										}
 									}
-								}
-								else
-								{
+								} else {
 									//nell'ugualgianza mi aspetto due colonne (join, hash, ...)
 									ArrayList<String> implicitAttributes = tpch.findColumnsInString(imp);
 									String prevPolicy = localNode.verifyPolicy(implicitAttributes.get(0));
 									
-									for (String implicitAttribute: implicitAttributes)
-									{
+									for (String implicitAttribute: implicitAttributes) {
 										String currPolicy = localNode.verifyPolicy(implicitAttribute);
-										if (currPolicy.equals("No") || !currPolicy.equals(prevPolicy))
-										{
+										if (currPolicy.equals("No") || !currPolicy.equals(prevPolicy)) {
 											//non c'è visibilità oppure c'è conflitto
 											//le soluzioni Plain = Encrypted sono svantaggiose, meglio Plain = Plain o Enc = Enc
 											admissible = false;
 											break;
-										}
-										else
+										} else {
 											prevPolicy = currPolicy;
+										}
 									}
 
 								}
@@ -435,8 +370,7 @@ public class Analyzer {
 
 						//2.5
 						//devo calcorare i tempi di trasferimento da un nodo all'altro
-						if (prevNode != null && admissible == true)
-						{
+						if (prevNode != null && admissible == true) {
 							//non mi interessa la singola width di ogni output, questa è la loro somma
 							double dataToTransfer = localOperator.getPlanWidth() * localOperator.getPlanRows();
 							double transferTime = getTransferTime(prevNode, localNode, dataToTransfer);
@@ -466,31 +400,24 @@ public class Analyzer {
 				String networkCounterStatus = printNetworkCounters(networkOperatorCounters, network);
 
 				//aggiornamento contatori, per diversificare le possibilità
-				for (int i = 0; i < counters.length; i++)
-				{
-					if ((countersMax[i] - counters[i]) == 0) //sono già arrivato all'ultimo tentativo, passo al contatore successivo
-					{
+				for (int i = 0; i < counters.length; i++) {
+					if ((countersMax[i] - counters[i]) == 0) { //sono già arrivato all'ultimo tentativo, passo al contatore successivo
 						counters[i] = 1;
 						continue;
-					}
-					else
-					{
+					} else {
 						counters[i]++;
 						break;
 					}
 				}
 
 
-				//--> soluzione greeedy, vecchia implementazione, la tengo per avere subito sotto mano la miglior soluzione trovata
-				if (localCost < minTime || minTime == -1) //seconda condizione applicata al primo giro
-				{
+				if (localCost < minTime || minTime == -1) {
 					minTime = localCost;
 					defOperations = localOperations;
 					System.out.println("MIN TIME: " + minTime);
-
 				}
-				if(localMoney < minCost || minCost == -1) //seconda condizione applicata al primo giro
-				{
+				
+				if(localMoney < minCost || minCost == -1) {
 					minCost = localMoney;
 					minCostDefOperations = localOperations;
 					System.out.println("MIN EURO: " + minCost);
@@ -503,15 +430,13 @@ public class Analyzer {
 			} //end possibility
 
 			//aggiorno i contatori della rete, per passare al prossimo tentivo
-			for(int i = 0; i < networkOperatorCounters.length; i++)
-			{
-				if((networkCountersMax[i] - networkOperatorCounters[i]) == 0) //sono già arrivato all'ultimo tentativo, passo al contatore successivo
-				{
+			for(int i = 0; i < networkOperatorCounters.length; i++) {
+				
+				//sono già arrivato all'ultimo tentativo, passo al contatore successivo
+				if((networkCountersMax[i] - networkOperatorCounters[i]) == 0) {
 					networkOperatorCounters[i] = 1;
 					continue;
-				}
-				else
-				{
+				} else {
 					networkOperatorCounters[i]++;
 					break;
 				}
