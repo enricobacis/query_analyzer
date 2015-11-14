@@ -1,14 +1,14 @@
 package network;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Node {
 
 	private String name;
 	private String type;
 
-	private ArrayList<String> plainVisibility;
-	private ArrayList<String> encryptedVisibility;
+	private List<String> plainVisibility;
+	private List<String> encryptedVisibility;
 
 	//performance
 	private double aesThroughput;
@@ -19,69 +19,41 @@ public class Node {
 	private double costPerSecond;
 
 	//links
-	private ArrayList<Link> links;
+	private List<Link> links;
 
-	public Node()
-	{
+	public Node() {}
 
-	}
-
-	public String toString()
-	{
-		String stringDataPlain = "";
-		if(plainVisibility != null && plainVisibility.size() > 0)
-			stringDataPlain = plainVisibility.toString();
-
-		String stringDataEnc = "";
-		if(encryptedVisibility != null && encryptedVisibility.size() > 0)
-			stringDataEnc = encryptedVisibility.toString();
-
-		return "Type: "+type+
-				" | Name: "+name+
-				" | PlainVisibility: "+stringDataPlain+
-				" | EncryptedVisibility: "+stringDataEnc+
-				" | Performance:  AES -> "+aesThroughput+" BCLO -> "+bcloValueTime+
-				" | Cost Per Second:  "+costPerSecond+
-				" | Links : "+links.toString();
-	}
-
-
-
-	public String getName()
-	{
+	public String getName() {
 		return name;
 	}
 
-	public void setName(String s)
-	{
-		name = s;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 
-	public ArrayList<String> getPlainVisibility() {
+	public List<String> getPlainVisibility() {
 		return plainVisibility;
 	}
 
-	public void setPlainVisibility(ArrayList<String> plainVisibility) {
+	public void setPlainVisibility(List<String> plainVisibility) {
 		this.plainVisibility = plainVisibility;
 	}
 
-	public ArrayList<String> getEncryptedVisibility() {
+	public List<String> getEncryptedVisibility() {
 		return encryptedVisibility;
 	}
 
-	public void setEncryptedVisibility(ArrayList<String> encryptedVisibility) {
+	public void setEncryptedVisibility(List<String> encryptedVisibility) {
 		this.encryptedVisibility = encryptedVisibility;
 	}
 
-	public String getType()
-	{
+	public String getType() {
 		return type;
 	}
 
-	public void setType(String s)
-	{
-		type = s;
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public double getAesThroughput() {
@@ -100,43 +72,54 @@ public class Node {
 		this.bcloValueTime = bcloValueTime;
 	}
 
-	public void setLinks(ArrayList<Link> i)
-	{
-		links = i;
+	public void setLinks(List<Link> links) {
+		this.links = links;
 	}
 
-	public ArrayList<Link> getLinks()
-	{
+	public List<Link> getLinks() {
 		return links;
 	}
 
-	public double getCostPerSecond()
-	{
+	public double getCostPerSecond() {
 		return costPerSecond;
 	}
 
-	public void setCostPerSecond(double i)
-	{
-		costPerSecond = i;
+	public void setCostPerSecond(double costPerSecond) {
+		this.costPerSecond = costPerSecond;
 	}
 
-	public double getPaillerThroughput()
-	{
+	public double getPaillerThroughput() {
 		return paillerThroughput;
 	}
 
-	public void setPaillerThroughput(double paillerThroughput)
-	{
+	public void setPaillerThroughput(double paillerThroughput) {
 		this.paillerThroughput = paillerThroughput;
 	}
 
-	public String verifyPolicy(String attribute)
-	{
-		if(encryptedVisibility.contains(attribute))
+	public String verifyPolicy(String attribute) {
+		if (encryptedVisibility.contains(attribute))
 			return "Encrypted";
-		if(plainVisibility.contains(attribute))
+		if (plainVisibility.contains(attribute))
 			return "Plain";
 		return "No";
+	}
+	
+	public String toString() {
+		String stringDataPlain = "";
+		if (plainVisibility != null && plainVisibility.size() > 0)
+			stringDataPlain = plainVisibility.toString();
+
+		String stringDataEnc = "";
+		if(encryptedVisibility != null && encryptedVisibility.size() > 0)
+			stringDataEnc = encryptedVisibility.toString();
+
+		return "Type: " + type +
+				" | Name: " + name +
+				" | PlainVisibility: " + stringDataPlain +
+				" | EncryptedVisibility: " + stringDataEnc +
+				" | Performance:  AES -> " + aesThroughput + " BCLO -> " + bcloValueTime +
+				" | Cost Per Second:  " + costPerSecond +
+				" | Links : " + links.toString();
 	}
 
 }
