@@ -5,14 +5,12 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import enviroment.Analyzer;
 import enviroment.Attempt;
 import extra.TPCHUtils;
-import model.EncSchemes;
-import model.Operator;
 import network.Network;
 import parser.ParserNetwork;
 import parser.ParserSimpleXML;
@@ -22,27 +20,18 @@ public class Main {
 
 
 	public static void main(String[] args) {
-
-		ParserXML parser = new ParserXML(); //parser che crea la struttura ad albero
-		ParserSimpleXML parserSimple = new ParserSimpleXML(); //parser che non si preoccupa della struttura ma estrae gli operatori di una query
-		ParserNetwork parsernetwork = new ParserNetwork();
-
-
+		
 		/* ANALISI DI TUTTE LE QUERY TPCH */
 		//voglio sapere il numero di operatori distinti e con che frquenza compaiono
 		TPCHUtils tpch = new TPCHUtils();
+		ParserSimpleXML parserSimple = new ParserSimpleXML();
+		
 		for(int t = 1; t <= TPCHUtils.tpch_num; t++)
-		{
-			ArrayList<Operator> queryOperators = parserSimple.parseDocument("res/"+t+".xml");
-			tpch.inflateOperators(queryOperators);
-		}
-		//System.out.println(tpchUtils.getAllOperators().toString());
+			tpch.inflateOperators(parserSimple.parseDocument("res/"+t+".xml"));
 
 		/* PARSING DEL NETWORK */
+		ParserNetwork parsernetwork = new ParserNetwork();
 		Network network = new Network(parsernetwork.parseDocument("config/netconfig_bench3.xml"));
-
-		/* CONFIGURAZIONE DEGLI OPERATORI */
-		EncSchemes encSchemes = new EncSchemes();
 
 		/* ANALISI PRESTAZIONALE */
 		/*
@@ -66,16 +55,13 @@ public class Main {
 		System.out.println((int)hour+" ore "+(int)minute+" minuti "+(int)second+" secondi ");
 		*/
 
-
-
-
 		/* ANALISI DELLE QUERY */
+		ParserXML parser = new ParserXML();
 		PrintWriter writer = new PrintWriter(System.out);
 		
 		try {
 			writer = new PrintWriter("output/results.txt", "UTF-8");
 		} catch (FileNotFoundException | UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -85,9 +71,8 @@ public class Main {
 		{
 			writer.println("QUERY "+t);
 			parser.parseDocument("res/"+t+".xml");
-			ArrayList<Attempt> results = new ArrayList<Attempt>();
 			Analyzer analyzer = new Analyzer();
-			results = analyzer.Analyze(encSchemes, parser.operators, network);
+			List<Attempt> results = analyzer.Analyze(encSchemes, parser.operators, network);
 			writer.println("MIN TIME: "+analyzer.getMinTime()+ " sec.");
 			writer.println("MIN COST: "+analyzer.getMinCost()+ " €");
 			writer.println("OPERATIONS: "+analyzer.getOperations());
@@ -95,19 +80,21 @@ public class Main {
 		}
 		*/
 
-
 		/* SINGOLA QUERY */
+		analyzeQuery(tpch, network, parser, writer);
+	}
+
+	private static void analyzeQuery(TPCHUtils tpch, Network network, ParserXML parser, PrintWriter writer) {
 		writer.println("QUERY ");
 		parser.parseDocument("res/4.xml");
 
-		ArrayList<Attempt> results = new ArrayList<Attempt>();
 		Analyzer analyzer = new Analyzer(tpch);
 
 		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyy HH:mm:ss");
 		Date date = new Date();
 		writer.println("START ELABORATION: "+dateFormat.format(date));
 
-		results = analyzer.Analyze(encSchemes, parser.operators, network);
+		List<Attempt> results = analyzer.Analyze(parser.operators, network);
 
 		date = new Date();
 		writer.println("END ELABORATION: "+dateFormat.format(date));
@@ -121,7 +108,5 @@ public class Main {
 
 		System.out.println("DONE");
 	}
-
-
 
 }

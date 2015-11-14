@@ -2,7 +2,10 @@ package enviroment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
+import java.util.List;
+
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 
 import extra.TPCHUtils;
 import network.Link;
@@ -27,8 +30,7 @@ public class Analyzer {
 	private String minCostDefOperations; //operazioni per il costo minimo in termini economici
 	private TPCHUtils tpch;
 
-	public Analyzer(TPCHUtils tpch)
-	{
+	public Analyzer(TPCHUtils tpch) {
 		this.tpch = tpch;
 		this.minTime = -1;
 		this.minCost = -1;
@@ -36,44 +38,37 @@ public class Analyzer {
 		this.minCostDefOperations = "";
 	}
 
-	public double getMinTime()
-	{
+	public double getMinTime() {
 		return minTime;
 	}
 
-	public String getMinTimeOperations()
-	{
+	public String getMinTimeOperations() {
 		return defOperations;
 	}
 
-	public String getMinCostOperations()
-	{
+	public String getMinCostOperations() {
 		return minCostDefOperations;
 	}
 
-	public double getMinCost()
-	{
+	public double getMinCost() {
 		return minCost;
 	}
 
-	private String printCounters(int[] counters)
-	{
+	private String printCounters(int[] counters) {
 		StringBuilder sb = new StringBuilder('[');
 		for (int i: counters)
 			sb.append(i + ',');
 		return sb.append(']').toString();
 	}
 
-	private String printNetworkCounters(int[] counters, Network network)
-	{
+	private String printNetworkCounters(int[] counters, Network network) {
 		StringBuilder sb = new StringBuilder('[');
 		for (int i: counters)
 			sb.append(network.getNodeByIndex(i - 1).getName() + ',');
 		return sb.append(']').toString();
 	}
 
-	private double getTransferTime(Node prevNode, Node localNode, double dataToTransfer)
-	{
+	private double getTransferTime(Node prevNode, Node localNode, double dataToTransfer) {
 		double output = 0;
 		
 		//se non è lo stesso nodo
@@ -94,8 +89,8 @@ public class Analyzer {
 		return output;
 	}
 
-	private ArrayList<Operator> findOperatorsByParentLevel(int localParentStartLevel, ArrayList<Operator> operators) {
-		ArrayList<Operator> output = new ArrayList<Operator>();
+	private List<Operator> findOperatorsByParentLevel(int localParentStartLevel, List<Operator> operators) {
+		List<Operator> output = new ArrayList<Operator>();
 		for (Operator op: operators)
 			if (op.getIdParent() == localParentStartLevel)
 				output.add(op);
@@ -137,13 +132,13 @@ public class Analyzer {
 		return localNode.getCostPerSecond() * nodeTime;
 	}
 
-	public ArrayList<Attempt> Analyze(EncSchemes encSchemes, ArrayList<Operator> operators, Network network) {
-		ArrayList<Attempt> output = new ArrayList<Attempt>();
+	public List<Attempt> Analyze(List<Operator> operators, Network network) {
+		List<Attempt> output = new ArrayList<Attempt>();
 
 		//1 creare la lista dei possibili metodi di encryption
 		//1.1 tecniche e relativi operatori abbinati
-		HashMap<String, ArrayList<String>> operatorsEnc = encSchemes.getOperatorsEncs();
-		HashMap<String, ArrayList<String>> functionsEnc = encSchemes.getFunctionsEncs();
+		ImmutableMap<String, ImmutableList<String>> operatorsEnc = EncSchemes.operatorsEncs;
+		ImmutableMap<String, ImmutableList<String>> functionsEnc = EncSchemes.functionsEncs;
 
 		//2 scorrimento della gerarchia
 		//2.0 per ogni possibilità adotto un sistema simil "contatori" per provarle tutte
@@ -215,7 +210,7 @@ public class Analyzer {
 
 
 				while (localParentStartLevel >= -1) {
-					ArrayList<Operator> levelOperators = findOperatorsByParentLevel(localParentStartLevel,operators);
+					List<Operator> levelOperators = findOperatorsByParentLevel(localParentStartLevel,operators);
 					for(Operator localOperator: levelOperators) {
 						Node localNode = null;
 
@@ -238,7 +233,7 @@ public class Analyzer {
 								boolean function = false;
 								String item = localOutput;
 
-								ArrayList<String> enc = new ArrayList<String>();
+								List<String> enc = new ArrayList<String>();
 								for (String fn: fns) {
 									if (item.contains(fn)) {
 										enc = functionsEnc.get(fn);
@@ -265,7 +260,7 @@ public class Analyzer {
 									
 									String selectedEnc = "NO"; //suppongo non serva ma...
 									if (!nodePolicy.equals("Plain")) { //encryption necessaria
-										ArrayList<String> localOperatorEncs = operatorsEnc.get(localOperator.getNodeType());
+										List<String> localOperatorEncs = operatorsEnc.get(localOperator.getNodeType());
 										selectedEnc = localOperatorEncs.get(counters[localOperator.getId()] - 1); //-1 perché le liste partono da 0, ma il contatore effettivo da 1
 									}
 
@@ -329,13 +324,13 @@ public class Analyzer {
 
 						//2.4
 						//attributi impliciti
-						ArrayList<String> implicit = localOperator.getImplicit();
+						List<String> implicit = localOperator.getImplicit();
 						
 						//ci sono attributi impliciti da controllare
 						if (implicit != null && implicit.size() > 0) {
 							for (String imp: implicit) {
 								if (!TPCHUtils.isEquality(imp)) {
-									ArrayList<String> implicitAttributes = tpch.findColumnsInString(imp);
+									List<String> implicitAttributes = tpch.findColumnsInString(imp);
 									for (String attr: implicitAttributes) {
 										String nodePolicy = localNode.verifyPolicy(attr);
 										if (nodePolicy.equals("No")) {
@@ -346,7 +341,7 @@ public class Analyzer {
 									}
 								} else {
 									//nell'ugualgianza mi aspetto due colonne (join, hash, ...)
-									ArrayList<String> implicitAttributes = tpch.findColumnsInString(imp);
+									List<String> implicitAttributes = tpch.findColumnsInString(imp);
 									String prevPolicy = localNode.verifyPolicy(implicitAttributes.get(0));
 									
 									for (String implicitAttribute: implicitAttributes) {

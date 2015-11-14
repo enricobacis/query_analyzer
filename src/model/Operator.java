@@ -1,6 +1,6 @@
 package model;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Operator {
 
@@ -12,75 +12,55 @@ public class Operator {
 	private int planWidth; //dimensione in byte delle righe (o della singola riga?)
 	private int id;
 	private int id_parent;
-	private ArrayList<String> output;
-	private ArrayList<String> implicit;
+	private List<String> output;
+	private List<String> implicit;
 	private String filter;
 
+	public Operator() {}
+	
 	//usato solo dal parser simple
-	public Operator(String tmp_node_type, int id, int id_parent)
-	{
-		this.nodeType = tmp_node_type;
-		this.setId(id);
+	public Operator(String tmp_node_type, int id, int id_parent) {
+		this.setNodeType(tmp_node_type);
 		this.setIdParent(id_parent);
+		this.setId(id);
 	}
 
-	public Operator()
-	{
-
+	public String toString() {
+		return "Node-Type: " + nodeType
+				+ " | ID: " + id
+				+ " | Parent ID: " + id_parent
+				+ " | Relation Name: " + relationName
+				+ " | Parent Relationship: " + parentRelationship
+				+ " | Plan Rows: " + planRows
+				+ " | Plan Width: " + planWidth
+				+ " | Actual Loops: " + actualLoops
+				+ " | Output Items: " + (output == null ? "" : output.toString())
+				+ " | Implicit Items: " + (implicit == null ? "" : implicit.toString())
+				+ " | Filter: " + filter;
 	}
 
-	public String toString()
-	{
-		String outputString = "";
-		if(output != null)
-			outputString = output.toString();
-		String implicitString = "";
-		if(implicit != null)
-			implicitString = implicit.toString();
-
-		return "Node-Type: "+nodeType
-				+" | ID: "+id
-				+" | Parent ID: "+id_parent
-				+" | Relation Name: "+relationName
-				+" | Parent Relationship: "+parentRelationship
-				+" | Plan Rows: "+planRows
-				+" | Plan Width: "+planWidth
-				+" | Actual Loops: "+actualLoops
-				+" | Output Items: "+outputString
-				+" | Implicit Items: "+implicitString
-				+" | Filter: "+filter;
-
-
-	}
-
-	public String getNodeType()
-	{
+	public String getNodeType() {
 		return this.nodeType;
 	}
 
-	public String getRelationName()
-	{
+	public String getRelationName() {
 		return this.relationName;
 	}
 
-	public String getParentRelationship()
-	{
+	public String getParentRelationship() {
 		return this.parentRelationship;
 	}
 
-	public void setNodeType(String s)
-	{
-		this.nodeType = s;
+	public void setNodeType(String nodeType) {
+		this.nodeType = nodeType;
 	}
 
-	public void setRelationName(String s)
-	{
-		this.relationName = s;
+	public void setRelationName(String relationName) {
+		this.relationName = relationName;
 	}
 
-	public void setParentRelationship(String s)
-	{
-		this.parentRelationship = s;
+	public void setParentRelationship(String parentRelationship) {
+		this.parentRelationship = parentRelationship;
 	}
 
 	public int getId() {
@@ -123,11 +103,11 @@ public class Operator {
 		this.actualLoops = actualLoops;
 	}
 
-	public ArrayList<String> getOutput() {
+	public List<String> getOutput() {
 		return output;
 	}
 
-	public void setOutput(ArrayList<String> output) {
+	public void setOutput(List<String> output) {
 		this.output = output;
 	}
 
@@ -139,11 +119,11 @@ public class Operator {
 		this.filter = filter;
 	}
 
-	public ArrayList<String> getImplicit() {
+	public List<String> getImplicit() {
 		return implicit;
 	}
 
-	public void setImplicit(ArrayList<String> implicit) {
+	public void setImplicit(List<String> implicit) {
 		this.implicit = implicit;
 	}
 

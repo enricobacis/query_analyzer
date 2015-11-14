@@ -2,20 +2,18 @@ package enviroment;
 
 public class Attempt {
 
+	private String networkCounters;
 	private String operations;
+	private String counters;
 	private double time;
 	private double cost;
-	private String counters;
-	private String networkCounters;
 
-
-	public Attempt(String o, double t, double c, String cs, String ncs)
-	{
+	public Attempt(String o, double t, double c, String cs, String ncs) {
+		networkCounters = ncs;
 		operations = o;
+		counters = cs;
 		time = t;
 		cost = c;
-		counters = cs;
-		networkCounters = ncs;
 	}
 
 	public String getOperations() {
@@ -42,14 +40,11 @@ public class Attempt {
 		this.cost = cost;
 	}
 
-	public String toString()
-	{
-		return "\n Attempt: -> Time: "+time+" | Cost: "+cost+" | "+
-				 "Counter Encryption Status :"+counters+
-				 "Counter Network Status :"+networkCounters
-				 ;
+	public String toString() {
+		return "\n Attempt -> Time: " + time +
+			   " | Cost: " + cost +
+			   " | Counter Encryption Status: " + counters +
+		       " | Counter Network Status: " + networkCounters;
 	}
-
-
 
 }
