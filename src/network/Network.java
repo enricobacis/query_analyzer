@@ -1,27 +1,16 @@
 package network;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Network {
 
-	private ArrayList<Node> nodes;
+	private List<Node> nodes;
 
-	public Network(ArrayList<Node> list)
-	{
-		nodes = list;
+	public Network(List<Node> nodes) {
+		this.nodes = nodes;
 	}
 
-	public String showNetwork()
-	{
-		StringBuilder sb = new StringBuilder("Network: \n");
-		for (Node node: nodes)
-			sb.append(node + "\n");
-		return sb.toString();
-	}
-
-
-	public Node getNodeByName(String name)
-	{
+	public Node getNodeByName(String name) {
 		if(name == null || name.equals("NoNodeNeeded"))
 			return getBestNode();
 
@@ -31,10 +20,8 @@ public class Network {
 		return null;
 	}
 
+	// best node based on throughput
 	public Node getBestNode() {
-		//miglior nodo per throughput  -->più alto il throughput più le prestazioni della macchina sono alte..e quindi il bclo andrà meglio di
-		//conseguenza
-		
 		Node best = null;
 		for (Node node: nodes)
 			if (best == null || node.getAesThroughput() > best.getAesThroughput())
@@ -42,21 +29,19 @@ public class Network {
 		return best;
 	}
 
-	public int getNodesNumber()
-	{
+	public int getNodesNumber() {
 		return nodes.size();
-		/*
-		int output = 0;
-		for(int i = 0; i<nodes.size(); i++)
-			if(!nodes.get(i).getType().equals("Client"))
-				output++;
-		return output;
-		*/
 	}
 
-	public Node getNodeByIndex(int i)
-	{
+	public Node getNodeByIndex(int i) {
 		return nodes.get(i);
+	}
+	
+	public String toString() {
+		StringBuilder sb = new StringBuilder("Network: \n");
+		for (Node node: nodes)
+			sb.append(node + "\n");
+		return sb.toString();
 	}
 
 }
