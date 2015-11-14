@@ -1,137 +1,59 @@
 package model;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class EncSchemes {
 
-	private HashMap<String, ArrayList<String>> operatorsEncs;
-	private HashMap<String, ArrayList<String>> functionsEncs;
+	// cifrature ammesse DET - NDET - OPE - NO - PAI
+	private Map<String, List<String>> operatorsEncs;
+	private Map<String, List<String>> functionsEncs;
 
+	@SuppressWarnings("serial")
 	public EncSchemes()
 	{
-		//inizializzazione delle varibili necessarie
-		//cifrature ammesse DET - NDET - OPE - NO - PAI
-		operatorsEncs = new HashMap<String, ArrayList<String>>();
-		functionsEncs = new HashMap<String, ArrayList<String>>();
-		ArrayList<String> encs = new ArrayList<String>();
-		String operator = "";
-
-		operator = "Seq Scan";
-		encs.add("NDET");
-		operatorsEncs.put(operator, encs);
-
-		operator = "Index Scan";
-		encs = new ArrayList<String>();
-		encs.add("NDET");
-		operatorsEncs.put(operator, encs);
-
-		operator = "Bitmap Heap Scan";
-		encs = new ArrayList<String>();
-		encs.add("DET");
-		operatorsEncs.put(operator, encs);
-
-		operator = "Bitmap Index Scan";
-		encs = new ArrayList<String>();
-		encs.add("DET");
-		operatorsEncs.put(operator, encs);
-
-		operator = "Nested Loop";
-		encs = new ArrayList<String>();
-		encs.add("DET");
-		operatorsEncs.put(operator, encs);
-
-		operator = "Merge Join";
-		encs = new ArrayList<String>();
-		encs.add("DET");
-		operatorsEncs.put(operator, encs);
-
-		operator = "Hash Join";
-		encs = new ArrayList<String>();
-		encs.add("DET");
-		operatorsEncs.put(operator, encs);
-
-		operator = "Index Only Scan";
-		encs = new ArrayList<String>();
-		encs.add("NDET");
-		operatorsEncs.put(operator, encs);
-
-		operator = "Hash";
-		encs = new ArrayList<String>();
-		encs.add("DET");
-		operatorsEncs.put(operator, encs);
-
-		operator = "Sort";
-		encs = new ArrayList<String>();
-		encs.add("OPE");
-		operatorsEncs.put(operator, encs);
-
-		operator = "Limit";
-		encs = new ArrayList<String>();
-		encs.add("NO");
-		operatorsEncs.put(operator, encs);
-
-		operator = "Aggregate";
-		encs = new ArrayList<String>();
-		encs.add("DET");
-		operatorsEncs.put(operator, encs);
-
-		operator = "Subquery Scan";
-		encs = new ArrayList<String>();
-		encs.add("NO");
-		operatorsEncs.put(operator, encs);
-
-		operator = "Materialize";
-		encs = new ArrayList<String>();
-		encs.add("DET");
-		operatorsEncs.put(operator, encs);
-
-		String function = "";
-		function = "count";
-		encs = new ArrayList<String>();
-		encs.add("DET");
-		functionsEncs.put(function,encs);
-
-		function = "sum";
-		encs = new ArrayList<String>();
-		encs.add("PAI");
-		functionsEncs.put(function,encs);
-
-		function = "avg";
-		encs = new ArrayList<String>();
-		encs.add("PAI");
-		functionsEncs.put(function,encs);
-
-		function = "max";
-		encs = new ArrayList<String>();
-		encs.add("OPE");
-		functionsEncs.put(function,encs);
-
-		function = "min";
-		encs = new ArrayList<String>();
-		encs.add("OPE");
-		functionsEncs.put(function,encs);
-
-		function = "substring";
-		encs = new ArrayList<String>();
-		encs.add("DET");
-		functionsEncs.put(function,encs);
-
+		operatorsEncs = new HashMap<String, List<String>>() {{
+			put("Seq Scan", Arrays.asList("NDET"));
+			put("Index Scan", Arrays.asList("NDET"));
+			put("Bitmap Heap Scan", Arrays.asList("DET"));
+			put("Bitmap Index Scan", Arrays.asList("DET"));
+			put("Nested Loop", Arrays.asList("DET"));
+			put("Merge Join", Arrays.asList("DET"));
+			put("Hash Join", Arrays.asList("DET"));
+			put("Index Only Scan", Arrays.asList("NDET"));
+			put("Hash", Arrays.asList("DET"));
+			put("Sort", Arrays.asList("OPE"));
+			put("Limit", Arrays.asList("NO"));
+			put("Aggregate", Arrays.asList("DET"));
+			put("Subquery Scan", Arrays.asList("NO"));
+			put("Materialize", Arrays.asList("DET"));
+		}};
+		
+		functionsEncs = new HashMap<String, List<String>>() {{
+			put("count", Arrays.asList("DET"));
+			put("sum", Arrays.asList("PAI"));
+			put("avg", Arrays.asList("PAI"));
+			put("max", Arrays.asList("OPE"));
+			put("min", Arrays.asList("OPE"));
+			put("substring", Arrays.asList("DET"));
+		}};
 	}
 
-	public HashMap<String, ArrayList<String>> getOperatorsEncs() {
+	public Map<String, List<String>> getOperatorsEncs() {
 		return operatorsEncs;
 	}
 
-	public void setOperatorsEncs(HashMap<String, ArrayList<String>> operatorsEncs) {
+	public void setOperatorsEncs(Map<String, List<String>> operatorsEncs) {
 		this.operatorsEncs = operatorsEncs;
 	}
 
-	public HashMap<String, ArrayList<String>> getFunctionsEncs() {
+	public Map<String, List<String>> getFunctionsEncs() {
 		return functionsEncs;
 	}
 
-	public void setFunctionsEncs(HashMap<String, ArrayList<String>> functionsEncs) {
+	public void setFunctionsEncs(Map<String, List<String>> functionsEncs) {
 		this.functionsEncs = functionsEncs;
 	}
 
