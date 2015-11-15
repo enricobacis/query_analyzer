@@ -2,20 +2,23 @@ package extra;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableSet;
 
 import model.Operator;
 
 public class TPCHUtils {
 
-	private class Column //classe di supporto che rappresenta una colonna all'interno di una tabella del tpch
-	{
+	//classe di supporto che rappresenta una colonna all'interno di una tabella del tpch
+	private class Column {
 		private String columnName;
 		private int columnWidth;
 
-		public Column(String name, int width)
-		{
+		public Column(String name, int width) {
 			this.columnName = name;
 			this.columnWidth = width;
 		}
@@ -27,129 +30,102 @@ public class TPCHUtils {
 		public int getColumnWidth() {
 			return columnWidth;
 		}
-
 	}
 
-	private HashMap<String,Integer> operators;
-	private HashMap<String, ArrayList<Column>> structure;
-	private ArrayList<String> tableNames;
-
+	private Map<String,Integer> operators;
+	private static ImmutableMap<String, ImmutableList<Column>> structure;
+	private ImmutableSet<String> tableNames;
 	public final static int tpch_num = 22;
 
-	public TPCHUtils()
-	{
+	public TPCHUtils() {
 		operators = new HashMap<String,Integer>();
-		structure = new HashMap<String, ArrayList<Column>>();
-		tableNames = new ArrayList<String>();
-		createTPCHStructure();
-	}
+		
+		structure = ImmutableMap.<String, ImmutableList<Column>>builder()
+		.put("customer", ImmutableList.of(
+				 new Column("c_custkey",        4),
+				 new Column("c_name",          25),
+				 new Column("c_address",       40),
+				 new Column("c_nationkey",      4),
+				 new Column("c_phone",         15),
+				 new Column("c_acctbal",       15),
+				 new Column("c_mktsegment",    10),
+				 new Column("c_comment",      117)))
+		
+		.put("nation", ImmutableList.of(
+				 new Column("n_nationkey",      4),
+				 new Column("n_name",          25),
+				 new Column("n_regionkey",      4),
+				 new Column("n_comment",      152)))
+		
+		.put("lineitem", ImmutableList.<Column>builder()
+			.add(new Column("l_orderkey",       4))
+			.add(new Column("l_partkey",        4))
+			.add(new Column("l_suppkey",        4))
+			.add(new Column("l_linenumber",     4))
+			.add(new Column("l_quantity",      15))
+			.add(new Column("l_extendedprice", 15))
+			.add(new Column("l_discount",      15))
+			.add(new Column("l_tax",           15))
+			.add(new Column("l_returnflag",     1))
+			.add(new Column("l_linestatus",     1))
+			.add(new Column("l_shipdate",       4))
+			.add(new Column("l_commitdate",     4))
+			.add(new Column("l_receiptdate",    4))
+			.add(new Column("l_shipinstruct",  25))
+			.add(new Column("l_shipmode",      10))
+			.add(new Column("l_comment",       44))
+			.build())
+		
+		.put("orders", ImmutableList.of(
+				 new Column("o_orderkey",       4),
+				 new Column("o_custkey",        4),
+				 new Column("o_orderstatus",    1),
+				 new Column("o_totalprice",    15),
+				 new Column("o_orderdate",      4),
+				 new Column("o_orderpriority", 15),
+				 new Column("o_clerk",         15),
+				 new Column("o_shippriority",   4),
+				 new Column("o_comment",       79)))
+		
+		.put("part", ImmutableList.of(
+				 new Column("p_partkey",        4),
+				 new Column("p_name",          55),
+				 new Column("p_mfgr",          15),
+				 new Column("p_brand",         10),
+				 new Column("p_type",          25),
+				 new Column("p_size",           4),
+				 new Column("p_container",     10),
+				 new Column("p_retailprice",   15),
+				 new Column("p_comment",       23)))
+		
+		.put("partsupp", ImmutableList.of(
+				 new Column("ps_partkey",       4),
+				 new Column("ps_suppkey",       4),
+				 new Column("ps_availqty",      4),
+				 new Column("ps_supplycost",   15),
+				 new Column("ps_comment",     199)))
+		
+		.put("region", ImmutableList.of(
+				 new Column("r_regionkey",      4),
+				 new Column("r_name",          25),
+				 new Column("r_comment",      152)))
+		
+		.put("supplier", ImmutableList.of(
+				 new Column("s_suppkey",        4),
+				 new Column("s_name",          25),
+				 new Column("s_address",       40),
+				 new Column("s_nationkey",      4),
+				 new Column("s_phone",         15),
+				 new Column("s_acctbal",       15),
+				 new Column("s_comment",      101)))
 
-	public void createTPCHStructure()
-	{
-		String tableName = "customer";
-		ArrayList<Column> cols = new ArrayList<Column>();
-		cols.add(new Column("c_custkey", 4));
-		cols.add(new Column("c_name", 25));
-		cols.add(new Column("c_address", 40));
-		cols.add(new Column("c_nationkey", 4));
-		cols.add(new Column("c_phone", 15));
-		cols.add(new Column("c_acctbal", 15));
-		cols.add(new Column("c_mktsegment", 10));
-		cols.add(new Column("c_comment", 117));
-		structure.put(tableName, cols);
-		tableNames.add(tableName);
-
-		tableName = "lineitem";
-		cols = new ArrayList<Column>();
-		cols.add(new Column("l_orderkey", 4));
-		cols.add(new Column("l_partkey", 4));
-		cols.add(new Column("l_suppkey", 4));
-		cols.add(new Column("l_linenumber", 4));
-		cols.add(new Column("l_quantity", 15));
-		cols.add(new Column("l_extendedprice", 15));
-		cols.add(new Column("l_discount", 15));
-		cols.add(new Column("l_tax", 15));
-		cols.add(new Column("l_returnflag", 1));
-		cols.add(new Column("l_linestatus", 1));
-		cols.add(new Column("l_shipdate", 4));
-		cols.add(new Column("l_commitdate", 4));
-		cols.add(new Column("l_receiptdate", 4));
-		cols.add(new Column("l_shipinstruct", 25));
-		cols.add(new Column("l_shipmode", 10));
-		cols.add(new Column("l_comment", 44));
-		structure.put(tableName, cols);
-		tableNames.add(tableName);
-
-		tableName = "nation";
-		cols = new ArrayList<Column>();
-		cols.add(new Column("n_nationkey", 4));
-		cols.add(new Column("n_name", 25));
-		cols.add(new Column("n_regionkey", 4));
-		cols.add(new Column("n_comment", 152));
-		structure.put(tableName, cols);
-		tableNames.add(tableName);
-
-		tableName = "orders";
-		cols = new ArrayList<Column>();
-		cols.add(new Column("o_orderkey", 4));
-		cols.add(new Column("o_custkey", 4));
-		cols.add(new Column("o_orderstatus", 1));
-		cols.add(new Column("o_totalprice", 15));
-		cols.add(new Column("o_orderdate", 4));
-		cols.add(new Column("o_orderpriority", 15));
-		cols.add(new Column("o_clerk", 15));
-		cols.add(new Column("o_shippriority", 4));
-		cols.add(new Column("o_comment", 79));
-		structure.put(tableName, cols);
-		tableNames.add(tableName);
-
-		tableName = "part";
-		cols = new ArrayList<Column>();
-		cols.add(new Column("p_partkey", 4));
-		cols.add(new Column("p_name", 55));
-		cols.add(new Column("p_mfgr", 15));
-		cols.add(new Column("p_brand", 10));
-		cols.add(new Column("p_type", 25));
-		cols.add(new Column("p_size", 4));
-		cols.add(new Column("p_container", 10));
-		cols.add(new Column("p_retailprice", 15));
-		cols.add(new Column("p_comment", 23));
-		structure.put(tableName, cols);
-		tableNames.add(tableName);
-
-		tableName = "partsupp";
-		cols = new ArrayList<Column>();
-		cols.add(new Column("ps_partkey", 4));
-		cols.add(new Column("ps_suppkey", 4));
-		cols.add(new Column("ps_availqty", 4));
-		cols.add(new Column("ps_supplycost", 15));
-		cols.add(new Column("ps_comment", 199));
-		structure.put(tableName, cols);
-		tableNames.add(tableName);
-
-		tableName = "region";
-		cols = new ArrayList<Column>();
-		cols.add(new Column("r_regionkey", 4));
-		cols.add(new Column("r_name", 25));
-		cols.add(new Column("r_comment", 152));
-		structure.put(tableName, cols);
-		tableNames.add(tableName);
-
-		tableName = "supplier";
-		cols = new ArrayList<Column>();
-		cols.add(new Column("s_suppkey", 4));
-		cols.add(new Column("s_name", 25));
-		cols.add(new Column("s_address", 40));
-		cols.add(new Column("s_nationkey", 4));
-		cols.add(new Column("s_phone", 15));
-		cols.add(new Column("s_acctbal", 15));
-		cols.add(new Column("s_comment", 101));
-		structure.put(tableName, cols);
-		tableNames.add(tableName);
+		.build();
+		
+		tableNames = structure.keySet();
 	}
 	
-	public ArrayList<String> findColumnsInString(String s) {
-		ArrayList<String> output = new ArrayList<String>();
+	public List<String> findColumnsInString(String s) {
+		List<String> output = new ArrayList<String>();
 
 		for (String table: tableNames)
 			for (Column column: structure.get(table))
@@ -160,70 +136,47 @@ public class TPCHUtils {
 	}
 
 
-	public void inflateOperators(ArrayList<Operator> ops)
-	{
+	public void inflateOperators(List<Operator> ops) {
 		for (Operator op: ops) {
 			String operator = op.getNodeType();
-			if(operators.containsKey(operator)) {
+			if (operators.containsKey(operator)) {
 				int check = operators.get(operator);
 				operators.remove(operator);
 				operators.put(operator, check + 1);
-			}
-			else
+			} else
 				operators.put(operator, 1);
 		}
 	}
 
-	public HashMap<String,Integer> getAllOperators()
-	{
+	public Map<String,Integer> getAllOperators() {
 		return operators;
 	}
 
-	public HashMap<String, ArrayList<Column>> getStructure()
-	{
+	public ImmutableMap<String, ImmutableList<Column>> getStructure() {
 		return structure;
 	}
 
 	public String getItemColumn(String relationName) {
 		String[] output = relationName.split("\\."); //nome_tabella.nome_colonna
-		if(output.length > 1)
-			return output[1];
-		else
-			return output[0]; //query su singola tabella
+		return output.length > 1 ? output[1] : output[0];
 	}
 
+	//replace dell'alias
 	public String getItemTable(String relationName) {
-		//replace dell'alias
-		if(relationName.indexOf("1") > -1 || relationName.indexOf("2") > -1 || relationName.indexOf("3") > -1 || relationName.indexOf("4") > -1 || relationName.indexOf("5") > -1)
-		{
-			relationName = relationName.replace("_1", "");
-			relationName = relationName.replace("_2", "");
-			relationName = relationName.replace("_3", "");
-			relationName = relationName.replace("_4", "");
-			relationName = relationName.replace("_5", "");
-		}
+		relationName.replaceAll("_[1-5]", "");
 		String[] output = relationName.split("\\."); //nome_tabella.nome_colonna
 		return output[0]; //query su singola tabella
 	}
 
 	public int findWidthByColumn(String table, String column) {
-		int output = 4; //dimensione di default di moltissimi campi
-		ArrayList<Column> tableFields = structure.get(table);
-		for(int i = 0;i<tableFields.size();i++)
-		{
-			if(tableFields.get(i).getColumnName().equals(column))
-			{
-				output = tableFields.get(i).getColumnWidth();
-				break;
-			}
-		}
-		return output;
+		for (Column col: structure.get(table))
+			if (col.getColumnName().equals(column))
+				return col.getColumnWidth();
+		return -1;
 	}
 
 	public static boolean isEquality(String string) {
-		if(string.indexOf("=") >= 0)
-			return true;
-		return false;
+		return string.contains("=");
 	}
 
 }
