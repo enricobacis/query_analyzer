@@ -2,6 +2,8 @@ package parser;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -12,10 +14,9 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-//basato su SAX
 public class ParserXML {
 
-	public ArrayList<Operator> operators;
+	public List<Operator> operators;
 
 	private static boolean node_type;
 	private static boolean parent_relationship;
@@ -30,46 +31,40 @@ public class ParserXML {
 	private static boolean filter_single;
 
 	private Operator tmp;
-	private ArrayList<String> tmpOutput;
-	private ArrayList<String> tmpImplicit;
+	private List<String> tmpOutput;
+	private List<String> tmpImplicit;
 
 	private int id;
 	private int id_parent;
 
-	private HashMap<Integer, Boolean> subPlans;
+	private Map<Integer, Boolean> subPlans;
 
-	public ParserXML()
-	{
-		id=-1;
-		id_parent=-1;
+	public ParserXML() {
+		id = -1;
+		id_parent = -1;
 		operators = new ArrayList<Operator>();
 		subPlans = new HashMap<Integer, Boolean>();
 	}
 
-	public void clearParser()
-	{
-		id=-1;
-		id_parent=-1;
+	public void clearParser() {
+		id = -1;
+		id_parent = -1;
 		operators = new ArrayList<Operator>();
 		subPlans = new HashMap<Integer, Boolean>();
 	}
-
 
 	/*
 	 * Logica del parse: ad ogno i nodo "plan" crea una struttura, nella quale vado ad inserire diversi campi
 	 * ->tipo di operatore (node type)
 	 * ->parent relationship
 	 * ->tabella coinvolta (relation name)
-	 *
 	 */
-	public void parseDocument(String res)
-	{
+	public void parseDocument(String res) {
+		try {
 
-    try {
-
-		SAXParserFactory factory = SAXParserFactory.newInstance();
-		SAXParser saxParser = factory.newSAXParser();
-		DefaultHandler handler = new DefaultHandler() {
+			SAXParserFactory factory = SAXParserFactory.newInstance();
+			SAXParser saxParser = factory.newSAXParser();
+			DefaultHandler handler = new DefaultHandler() {
 
 				public void startElement(String uri, String localName,String qName,
 			                Attributes attributes) throws SAXException {
@@ -77,12 +72,8 @@ public class ParserXML {
 					if (qName.equalsIgnoreCase("PLAN")) {
 						tmp = new Operator();
 						tmpImplicit = new ArrayList<String>();
-						id++;
-						subPlans.put(id, false);
-					}
-
-					if (qName.equalsIgnoreCase("PLANS")) {
-
+						subPlans.put(++id, false);
+					} else if (qName.equalsIgnoreCase("PLANS")) {
 						//aggiorno lo stato delle subquery
 						tmp.setImplicit(tmpImplicit);
 
@@ -93,72 +84,41 @@ public class ParserXML {
 						tmp.setIdParent(id_parent);
 						operators.add(tmp);
 						id_parent = id;
-					}
-
-					//per leggere i dati
-					if (qName.equalsIgnoreCase("NODE-TYPE")) {
+					} else if (qName.equalsIgnoreCase("NODE-TYPE")) {
 						node_type = true;
-					}
-
-					if (qName.equalsIgnoreCase("PLAN-ROWS")) {
+					} else if (qName.equalsIgnoreCase("PLAN-ROWS")) {
 						plan_rows = true;
-					}
-
-					if (qName.equalsIgnoreCase("PLAN-WIDTH")) {
+					} else if (qName.equalsIgnoreCase("PLAN-WIDTH")) {
 						plan_width = true;
-					}
-
-					if (qName.equalsIgnoreCase("ACTUAL-LOOPS")) {
+					} else if (qName.equalsIgnoreCase("ACTUAL-LOOPS")) {
 						actual_loops = true;
-					}
-
-					if (qName.equalsIgnoreCase("RELATION-NAME")) {
+					} else if (qName.equalsIgnoreCase("RELATION-NAME")) {
 						relation_name = true;
-					}
-
-					if (qName.equalsIgnoreCase("PARENT-RELATIONSHIP")) {
+					} else if (qName.equalsIgnoreCase("PARENT-RELATIONSHIP")) {
 						parent_relationship = true;
-					}
-
-					if (qName.equalsIgnoreCase("OUTPUT")) {
+					} else if (qName.equalsIgnoreCase("OUTPUT")) {
 						output = true;
 						tmpOutput = new ArrayList<String>();
-					}
-
-					if (qName.equalsIgnoreCase("ITEM") && output == true) {
+					} else if (qName.equalsIgnoreCase("ITEM") && output == true) {
 						item = true;
-					}
-
-					if (qName.equalsIgnoreCase("ITEM") && filter == true) {
+					} else if (qName.equalsIgnoreCase("ITEM") && filter == true) {
 						filter_single = true;
 					}
 
 					//operatori impliciti
-					if (qName.equalsIgnoreCase("FILTER")) {
+					else if (qName.equalsIgnoreCase("FILTER")) {
 						filter_single = true;
-					}
-
-					if (qName.equalsIgnoreCase("GRUOP-KEY")) {
+					} else if (qName.equalsIgnoreCase("GRUOP-KEY")) {
 						filter = true;
-					}
-
-					if (qName.equalsIgnoreCase("SORT-KEY")) {
+					} else if (qName.equalsIgnoreCase("SORT-KEY")) {
 						filter = true;
-					}
-
-					if (qName.equalsIgnoreCase("HASH-COND")) {
+					} else if (qName.equalsIgnoreCase("HASH-COND")) {
 						filter_single = true;
-					}
-
-					if (qName.equalsIgnoreCase("JOIN-FILTER")) {
+					} else if (qName.equalsIgnoreCase("JOIN-FILTER")) {
 						filter_single = true;
-					}
-
-					if (qName.equalsIgnoreCase("INDEX-COND")) {
+					} else if (qName.equalsIgnoreCase("INDEX-COND")) {
 						filter_single = true;
-					}
-
-					if (qName.equalsIgnoreCase("MERGE-COND")) {
+					} else if (qName.equalsIgnoreCase("MERGE-COND")) {
 						filter_single = true;
 					}
 
@@ -168,7 +128,8 @@ public class ParserXML {
 					String qName) throws SAXException {
 
 					if (qName.equalsIgnoreCase("PLAN")) {
-						if(subPlans.get(id) == false) //l'elemento è una foglia non ha sottopiani, lo devo aggiungere
+						 //l'elemento è una foglia non ha sottopiani, lo devo aggiungere
+						if (subPlans.get(id) == false)
 						{
 							tmp.setImplicit(tmpImplicit);
 
@@ -179,25 +140,18 @@ public class ParserXML {
 							tmp.setIdParent(id_parent);
 							operators.add(tmp);
 						}
-					}
-
-					if (qName.equalsIgnoreCase("OUTPUT")) {
+					} else if (qName.equalsIgnoreCase("OUTPUT")) {
 						output = false;
 						tmp.setOutput(tmpOutput);
-					}
-
-					if (qName.equalsIgnoreCase("GROUP-KEY")) {
+					} else if (qName.equalsIgnoreCase("GROUP-KEY")) {
 						filter = false;
-					}
-
-					if (qName.equalsIgnoreCase("SORT-KEY")) {
+					} else if (qName.equalsIgnoreCase("SORT-KEY")) {
 						filter = false;
 					}
 
 				}
 
 				public void characters(char ch[], int start, int length) throws SAXException {
-
 
 					if (node_type) {
 						String value = new String(ch, start, length);
@@ -248,15 +202,13 @@ public class ParserXML {
 					}
 
 				}
-	     };
+			};
 
-	     saxParser.parse(res, handler);
+			saxParser.parse(res, handler);
 
-
-     } catch (Exception e) {
-       e.printStackTrace();
-     }
-
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
    }
 
