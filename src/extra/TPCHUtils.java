@@ -10,8 +10,18 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 
 import model.Operator;
+import parser.ParserSimpleXML;
 
 public class TPCHUtils {
+	
+	public static TPCHUtils create() {
+		TPCHUtils tpch = new TPCHUtils();
+		ParserSimpleXML parserSimple = new ParserSimpleXML();
+		
+		for (int t = 1; t <= TPCHUtils.tpch_num; t++)
+			tpch.inflateOperators(parserSimple.parseDocument("res/" + t + ".xml"));
+		return tpch;
+	}
 
 	//classe di supporto che rappresenta una colonna all'interno di una tabella del tpch
 	private class Column {

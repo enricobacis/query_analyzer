@@ -37,6 +37,10 @@ public class Analyzer {
 		this.defOperations = "";
 		this.minCostDefOperations = "";
 	}
+	
+	public Analyzer() {
+		this(TPCHUtils.create());
+	}
 
 	public double getMinTime() {
 		return minTime;
@@ -132,7 +136,7 @@ public class Analyzer {
 		return localNode.getCostPerSecond() * nodeTime;
 	}
 
-	public List<Attempt> Analyze(List<Operator> operators, Network network) {
+	public List<Attempt> analyze(List<Operator> operators, Network network) {
 		List<Attempt> output = new ArrayList<Attempt>();
 
 		//1 creare la lista dei possibili metodi di encryption
@@ -409,13 +413,13 @@ public class Analyzer {
 				if (localCost < minTime || minTime == -1) {
 					minTime = localCost;
 					defOperations = localOperations;
-					System.out.println("MIN TIME: " + minTime);
+					System.out.println("FOUND NEW MIN TIME: " + minTime);
 				}
 				
 				if(localMoney < minCost || minCost == -1) {
 					minCost = localMoney;
 					minCostDefOperations = localOperations;
-					System.out.println("MIN EURO: " + minCost);
+					System.out.println("FOUND NEW MIN EURO: " + minCost);
 				}
 
 				//voglio esplorare tutte le possibilità
