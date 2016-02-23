@@ -1,35 +1,28 @@
 package main;
 
-import java.io.PrintWriter;
-
-import com.google.common.io.ByteStreams;
-
 import enviroment.Environment;
 
 public class Main {
 
 	public static void main(String[] args) {
+
+		String query = "res/4.xml";
+
+		// client
+		Environment.quietAnalyzeQuery("config/new/bench5.xml", query);
 		
-		String bench1 = "config/netconfig_bench1.xml";
-		String bench2 = "config/netconfig_bench2.xml";
-		String bench3 = "config/netconfig_bench3.xml";
-		String bench4 = "config/netconfig_only_client.xml";
+		// client + 1 storage
+		Environment.quietAnalyzeQuery("config/new/bench6.xml", query);
 		
-		String query4 = "res/4.xml";
+		// client + 1 storage + 1 computational
+		Environment.quietAnalyzeQuery("config/new/bench7.xml", query);
 		
-		PrintWriter nullwriter = new PrintWriter(ByteStreams.nullOutputStream());
+		// client + 2 storage + 1 computational
+		Environment.quietAnalyzeQuery("config/new/bench8.xml", query);
 		
-		System.out.println("\nQuery #4 - Bench 1");
-		Environment.analyzeQuery(bench1, query4, nullwriter);
-		
-		System.out.println("\nQuery #4 - Bench 2");
-		Environment.analyzeQuery(bench2, query4, nullwriter);
-		
-		System.out.println("\nQuery #4 - Bench 3");
-		Environment.analyzeQuery(bench3, query4, nullwriter);
-		
-		System.out.println("\nQuery #4 - Bench 4");
-		Environment.analyzeQuery(bench4, query4, nullwriter);
+		// client + 8 storage + 1 computational
+		Environment.quietAnalyzeQuery("config/new/bench9.xml", query);
+
 	}
 
 }

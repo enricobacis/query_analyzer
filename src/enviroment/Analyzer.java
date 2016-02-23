@@ -158,7 +158,7 @@ public class Analyzer {
 		for (Operator op: operators)
 			if (op.getIdParent() > parentStartLevel)
 				parentStartLevel = op.getIdParent();
-
+		
 		//2.2 calcolo il totale delle possibili alternative
 		int possibility = 1;
 		for (int i = 0; i < operators.size(); i++) {

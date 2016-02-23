@@ -4,6 +4,8 @@ import java.io.PrintWriter;
 import java.util.Date;
 import java.util.List;
 
+import com.google.common.io.ByteStreams;
+
 import extra.TPCHUtils;
 import network.Network;
 import parser.ParserNetwork;
@@ -57,10 +59,16 @@ public class Environment {
 	}
 	
 	public static void analyzeQuery(String configfile, String queryfile, PrintWriter writer) {
+		System.out.println("Query: " + queryfile + ", Configuration: " + configfile);
 		Network network = ParserNetwork.parse(configfile);
 		ParserXML query = new ParserXML();
 		query.parseDocument(queryfile);
 		analyzeQuery(network, query, writer);
+	}
+	
+	public static void quietAnalyzeQuery(String configfile, String queryfile) {
+		PrintWriter nullwriter = new PrintWriter(ByteStreams.nullOutputStream());
+		analyzeQuery(configfile, queryfile, nullwriter);
 	}
 	
 	public static void analyzeQuery(String configfile, String queryfile) {
