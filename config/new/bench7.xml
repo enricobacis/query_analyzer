@@ -9,6 +9,8 @@
     <node name="CL1">
         <node-type>Client</node-type>
         <node-datas>
+            <node-data attribute="supplier_no"    >Plain</node-data>
+            <node-data attribute="total_revenue"  >Plain</node-data>
             <!-- table CUSTOMER -->
             <node-data attribute="c_custkey"      >Plain</node-data>
             <node-data attribute="c_name"         >Plain</node-data>
@@ -80,27 +82,29 @@
             <node-data attribute="s_comment"      >Plain</node-data>
         </node-datas>
         <performance>
-            <aes-throughput>200</aes-throughput>
-            <pailler-throughput>1</pailler-throughput>
-            <bclo-value-time>0.01</bclo-value-time>
+            <aes-throughput>50</aes-throughput>
+            <pailler-throughput>0.4</pailler-throughput>
+            <bclo-value-time>0.0216</bclo-value-time>
         </performance>
-        <cost-per-second>0.004</cost-per-second>
+        <cost-per-second>0.001</cost-per-second>
         <links>
             <link>
                 <node-linked>SS1</node-linked>
-                <latency>0.0025</latency>
-                <throughput>2000</throughput>
+                <latency>0.008</latency>
+                <throughput>100</throughput>
             </link>
             <link>
                 <node-linked>CS1</node-linked>
-                <latency>0.0025</latency>
-                <throughput>1000</throughput>
+                <latency>0.004</latency>
+                <throughput>100</throughput>
             </link>
         </links>
     </node>
     <node name="SS1">
         <node-type>Storage Server</node-type>
         <node-datas>
+            <node-data attribute="supplier_no"    >Encrypted</node-data>
+            <node-data attribute="total_revenue"  >Encrypted</node-data>
             <!-- table CUSTOMER -->
             <node-data attribute="c_custkey"      >Plain</node-data>
             <node-data attribute="c_name"         >Plain</node-data>
@@ -173,26 +177,28 @@
         </node-datas>
         <performance>
             <aes-throughput>200</aes-throughput>
-            <pailler-throughput>1</pailler-throughput>
-            <bclo-value-time>0.01</bclo-value-time>
+            <pailler-throughput>0.8</pailler-throughput>
+            <bclo-value-time>0.0108</bclo-value-time>
         </performance>
-        <cost-per-second>0.001</cost-per-second>
+        <cost-per-second>0.0002</cost-per-second>
         <links>
             <link>
                 <node-linked>CL1</node-linked>
-                <latency>0.0025</latency>
-                <throughput>2000</throughput>
+                <latency>0.008</latency>
+                <throughput>100</throughput>
             </link>
             <link>
                 <node-linked>CS1</node-linked>
-                <latency>0.0025</latency>
-                <throughput>1000</throughput>
+                <latency>0.0001</latency>
+                <throughput>10000</throughput>
             </link>
         </links>
     </node>
     <node name="CS1">
         <node-type>Computational Server</node-type>
         <node-datas>
+            <node-data attribute="supplier_no"    >Encrypted</node-data>
+            <node-data attribute="total_revenue"  >Encrypted</node-data>
             <!-- table CUSTOMER -->
             <node-data attribute="c_custkey"      >Encrypted</node-data>
             <node-data attribute="c_name"         >Encrypted</node-data>
@@ -265,20 +271,20 @@
         </node-datas>
         <performance>
             <aes-throughput>200</aes-throughput>
-            <pailler-throughput>1</pailler-throughput>
-            <bclo-value-time>0.01</bclo-value-time>
+            <pailler-throughput>1.6</pailler-throughput>
+            <bclo-value-time>0.0054</bclo-value-time>
         </performance>
         <cost-per-second>0.0001</cost-per-second>
         <links>
             <link>
                 <node-linked>CL1</node-linked>
-                <latency>0.0025</latency>
-                <throughput>2000</throughput>
+                <latency>0.004</latency>
+                <throughput>100</throughput>
             </link>
             <link>
                 <node-linked>SS1</node-linked>
-                <latency>0.0025</latency>
-                <throughput>1000</throughput>
+                <latency>0.0001</latency>
+                <throughput>10000</throughput>
             </link>
         </links>
     </node>

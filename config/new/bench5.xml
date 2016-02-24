@@ -9,6 +9,8 @@
     <node name="CL1">
         <node-type>Client</node-type>
         <node-datas>
+            <node-data attribute="supplier_no"    >Plain</node-data>
+            <node-data attribute="total_revenue"  >Plain</node-data>
             <!-- table CUSTOMER -->
             <node-data attribute="c_custkey"      >Plain</node-data>
             <node-data attribute="c_name"         >Plain</node-data>
@@ -80,10 +82,10 @@
             <node-data attribute="s_comment"      >Plain</node-data>
         </node-datas>
         <performance>
-            <aes-throughput>200</aes-throughput>
-            <pailler-throughput>1</pailler-throughput>
-            <bclo-value-time>0.01</bclo-value-time>
+            <aes-throughput>50</aes-throughput>
+            <pailler-throughput>0.4</pailler-throughput>
+            <bclo-value-time>0.0216</bclo-value-time>
         </performance>
-        <cost-per-second>0.004</cost-per-second>
+        <cost-per-second>0.001</cost-per-second>
     </node>
 </network>

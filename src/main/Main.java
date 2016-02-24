@@ -18,10 +18,10 @@ public class Main {
 		Environment.quietAnalyzeQuery("config/new/bench7.xml", query);
 		
 		// client + 2 storage + 1 computational
-		Environment.quietAnalyzeQuery("config/new/bench8.xml", query);
+		//Environment.quietAnalyzeQuery("config/new/bench8.xml", query);
 		
 		// client + 8 storage + 1 computational
-		Environment.quietAnalyzeQuery("config/new/bench9.xml", query);
+		//Environment.quietAnalyzeQuery("config/new/bench9.xml", query);
 
 	}
 
